@@ -62,7 +62,7 @@
                                         </Items>
                                     </EditFormLayoutProperties>
                                     <Columns>
-                                        <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="7" Name="iconaction">
+                                        <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="7" Name="chucnang">
                                         </dx:GridViewCommandColumn>
                                         <dx:GridViewDataTextColumn Caption="Tên Bảng Giá" FieldName="TenBangGia" VisibleIndex="1">
                                             <PropertiesTextEdit>

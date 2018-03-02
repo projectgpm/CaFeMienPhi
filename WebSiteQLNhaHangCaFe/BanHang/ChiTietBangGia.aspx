@@ -14,7 +14,7 @@
                  </SettingsPager>
         <SettingsEditing Mode="Batch">
         </SettingsEditing>
-<Settings ShowTitlePanel="True"></Settings>
+<Settings ShowTitlePanel="True" ShowFilterRow="True"></Settings>
 
         <SettingsBehavior ConfirmDelete="True" />
 
@@ -48,7 +48,9 @@
             <EditForm HorizontalAlign="WindowCenter" Modal="True" VerticalAlign="WindowCenter" />
         </SettingsPopup>
 
-<SettingsText Title="THÔNG TIN CHI TIẾT BẢNG GIÁ" CommandDelete="Xóa" ConfirmDelete="Bạn chắc chắn muốn xóa?" CommandEdit="Sửa"></SettingsText>
+                 <SettingsSearchPanel Visible="True" />
+
+<SettingsText Title="THÔNG TIN CHI TIẾT BẢNG GIÁ" CommandDelete="Xóa" ConfirmDelete="Bạn chắc chắn muốn xóa?" CommandEdit="Sửa" SearchPanelEditorNullText="Nhập thông tin cần tìm..."></SettingsText>
         <EditFormLayoutProperties ColCount="2">
             <Items>
                 <dx:GridViewColumnLayoutItem ColumnName="Mã Hàng">
@@ -66,20 +68,22 @@
             </Items>
         </EditFormLayoutProperties>
 <Columns>
-    <dx:GridViewDataTextColumn Caption="Tên Hàng Hóa" VisibleIndex="1" ReadOnly="true" Name="TenHangHoa" FieldName="TenHangHoa">
+    <dx:GridViewCommandColumn ShowClearFilterButton="True" VisibleIndex="0">
+    </dx:GridViewCommandColumn>
+    <dx:GridViewDataTextColumn Caption="Tên Hàng Hóa" VisibleIndex="2" ReadOnly="true" Name="TenHangHoa" FieldName="TenHangHoa">
     </dx:GridViewDataTextColumn>
-    <dx:GridViewDataTextColumn Caption="Mã Hàng" VisibleIndex="0" Name="MaHangHoa" ReadOnly="True" FieldName="MaHangHoa">
+    <dx:GridViewDataTextColumn Caption="Mã Hàng" VisibleIndex="1" Name="MaHangHoa" ReadOnly="True" FieldName="MaHangHoa">
     </dx:GridViewDataTextColumn>
     
-    <dx:GridViewDataTextColumn Caption="Đơn Vị Tính" VisibleIndex="2" ReadOnly="true" Name="TenDonViTinh" FieldName="TenDonViTinh">
+    <dx:GridViewDataTextColumn Caption="Đơn Vị Tính" VisibleIndex="3" ReadOnly="true" Name="TenDonViTinh" FieldName="TenDonViTinh">
     </dx:GridViewDataTextColumn>
     
-    <dx:GridViewDataSpinEditColumn Caption="Giáp Áp Dụng" VisibleIndex="4" Name="GiaMoi" FieldName="GiaMoi">
+    <dx:GridViewDataSpinEditColumn Caption="Giáp Áp Dụng" VisibleIndex="5" Name="GiaMoi" FieldName="GiaMoi">
         <PropertiesSpinEdit DisplayFormatString="N0" NumberFormat="Custom">
         </PropertiesSpinEdit>
     </dx:GridViewDataSpinEditColumn>
     
-    <dx:GridViewDataSpinEditColumn Caption="Giá Hệ Thống" Name="GiaCu" ReadOnly="True" VisibleIndex="3" FieldName="GiaCu">
+    <dx:GridViewDataSpinEditColumn Caption="Giá Hệ Thống" Name="GiaCu" ReadOnly="True" VisibleIndex="4" FieldName="GiaCu">
         <PropertiesSpinEdit DisplayFormatString="N0" NumberFormat="Custom">
         </PropertiesSpinEdit>
     </dx:GridViewDataSpinEditColumn>
