@@ -40,6 +40,15 @@ namespace BanHang {
         protected global::DevExpress.Web.ASPxGridView gridBangGia;
         
         /// <summary>
+        /// ASPxLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
+        
+        /// <summary>
         /// popup control.
         /// </summary>
         /// <remarks>

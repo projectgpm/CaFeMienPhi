@@ -28,7 +28,7 @@ namespace BanHang
         protected void gridDanhSach_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
         {
             e.NewValues["MaNguyenLieu"] = dtNguyenLieu.Dem_Max();
-            e.NewValues["GiaMua"] = "0";
+         //   e.NewValues["GiaMua"] = "0";
             e.NewValues["GiaBan"] = "0";
         }
 
@@ -47,11 +47,11 @@ namespace BanHang
         {
             string MaNguyenLieu = e.NewValues["MaNguyenLieu"].ToString();
             string TenNguyenLieu = e.NewValues["TenNguyenLieu"].ToString();
-            string GiaMua = e.NewValues["GiaMua"].ToString();
-            string NhaCungCap = e.NewValues["NhaCungCap"] == null ? "" : e.NewValues["NhaCungCap"].ToString();
+            string GiaMua = "0";
+            string NhaCungCap = "";
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
             string IDDonViTinh = e.NewValues["IDDonViTinh"].ToString();
-            string TrangThai = e.NewValues["TrangThai"].ToString();
+            string TrangThai = "1";
             string GiaBan = e.NewValues["GiaBan"].ToString();
             data = new dtNguyenLieu();
 
@@ -80,11 +80,11 @@ namespace BanHang
             string MaNguyenLieu = e.NewValues["MaNguyenLieu"].ToString();
             string IDDonViTinh = e.NewValues["IDDonViTinh"].ToString();
             string TenNguyenLieu = e.NewValues["TenNguyenLieu"].ToString();
-            string NhaCungCap = e.NewValues["NhaCungCap"] == null ? "" : e.NewValues["NhaCungCap"].ToString();
+            string NhaCungCap = "" ;
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
-            string GiaMua = e.NewValues["GiaMua"].ToString();
+            string GiaMua = "0";
             string GiaBan = e.NewValues["GiaBan"].ToString();
-            string TrangThai = e.NewValues["TrangThai"].ToString();
+            string TrangThai = "1";
             data = new dtNguyenLieu();
 
 

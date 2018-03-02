@@ -93,6 +93,7 @@
                                         </TitlePanel>
                                     </Styles>
                                 </dx:ASPxGridView>
+                                <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản dùng thử chỉ cho phép sử dụng 1 bảng giá. Vui lòng nâng cấp lên bản PRO để tạo được nhiều bảng giá." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

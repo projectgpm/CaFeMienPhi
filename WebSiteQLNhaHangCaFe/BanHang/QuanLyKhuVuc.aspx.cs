@@ -13,7 +13,16 @@ namespace BanHang
         dtKhuVuc data = new dtKhuVuc();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                if (Session["IDNhanVien"].ToString() != "1")
+                    gridDanhSach.Columns["chucnang"].Visible = false;
+                LoadGrid();
+            }
         }
 
         private void LoadGrid()
