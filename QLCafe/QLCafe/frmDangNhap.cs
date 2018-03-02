@@ -62,6 +62,7 @@ namespace QLCafe
                 // kiểm tra key
                 if (DAO_Setting.getKeyCode() != -1)
                 {
+                    //linkCauHinh.Visible = false;
                     string TenDangNhap = txtTenDangNhap.Text.ToUpper();
                     string MatKhau = DAO_Setting.GetSHA1HashData(txtMatKhau.Text.ToString());
                     bool KT = BUS_DangNhap.KiemTraDangNhap(TenDangNhap, MatKhau);
@@ -96,6 +97,7 @@ namespace QLCafe
                 }
                 else
                 {
+                    linkCauHinh.Visible = true;
                     if (MessageBox.Show("Phần mềm chưa được kích hoạt bản quyền.", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.OK)
                     {
                         frmKichHoat fr = new frmKichHoat();
@@ -128,6 +130,13 @@ namespace QLCafe
         private void frmDangNhap_Load(object sender, EventArgs e)
         {
             txtTenDangNhap.Select();
+            if (DAO_Setting.getKeyCode() != -1)
+            {
+                linkCauHinh.Visible = false;
+            }
+
+            //if (DAO_Setting.KiemTraCauHinhServer() == 1)
+            //    linkCauHinh.Visible = false;
         }
 
         private void ckeHienMatKhau_CheckedChanged(object sender, EventArgs e)

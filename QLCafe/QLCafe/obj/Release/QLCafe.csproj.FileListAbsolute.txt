@@ -148,3 +148,6 @@ D:\GPMSoffware\CaFeChauThanh_In2Bang\QLCafe\QLCafe\obj\Release\QLCafe.Report.rpH
 D:\GPMSoffware\CaFeChauThanh_In2Bang\QLCafe\QLCafe\obj\Release\QLCafe.Report.rpHoaDonBanHang_581_Temp.resources
 D:\GPMSoffware\CaFeChauThanh_In2Bang\QLCafe\QLCafe\obj\Release\QLCafe.csproj.GenerateResource.Cache
 D:\GPMSoffware\CaFeChauThanh_In2Bang\QLCafe\QLCafe\obj\Release\QLCafe.exe.licenses
+D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\bin\Release\QLCafe.exe.config
+D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.exe
+D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.pdb

@@ -13,22 +13,89 @@ namespace QLCafe.DAO
 {
     class DAO_Setting
     {
+        /// <summary>
+        /// 1: cấu hình xong, 0 chưa cấu hình
+        /// </summary>
+        /// <returns></returns>
+        public static int KiemTraCauHinhServer()
+        {
+            string sTruyVan = string.Format(@"SELECT CauHinhServer FROM [Setting] Where ID = 1");
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                return Int32.Parse(dr["CauHinhServer"].ToString());
+            }
+            else
+                return 0;
+        }
+        /// <summary>
+        ///  hàm kiểm tra key
+        /// </summary>
+        /// <param name="Key"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static int setKeyCode(string Key, string user)
         {
             string sx = GetHardDiskSerialNo();
 
             string strAddress = sx + "GPM";
 
-            if (Key.CompareTo("gpm686970") == 0)
+            if (KiemTraTenKey(Key) != "")
             {
                 string sha1Address = GetSHA1HashData(strAddress);
                 string sTruyVan = string.Format(@"INSERT INTO  [CF_KeyCode] (GetKey,NgayKichHoat) VALUES('{0}',getdate())", sha1Address);
                 DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
+                string sTruyVan1 = string.Format(@"Update CF_KeyKichHoat set [SoLanKichHoat] = [SoLanKichHoat] - 1 where TenKey = N'{0}'", Key);
+                DataProvider.TruyVanKhongLayDuLieu(sTruyVan1);
+
                 return 1;
             }
             return -1;
 
         }
+
+        /// <summary>
+        /// hàm lấy key
+        /// </summary>
+        /// <param name="CD"></param>
+        /// <returns></returns>
+        public static string KiemTraTenKey(string TenKey)
+        {
+            string sTruyVan = string.Format(@"SELECT TenKey FROM [CF_KeyKichHoat] Where TenKey = N'{0}' AND [SoLanKichHoat] > 0", TenKey);
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                return dr["TenKey"].ToString();
+            }
+            else
+                return "";
+        }
+
+        /// <summary>
+        /// lấy số lần còn lại để kích hoạt
+        /// </summary>
+        /// <param name="CD"></param>
+        /// <returns></returns>
+        /// 
+        public static int KiemTraSoLanKichHoat(string TenKey)
+        {
+            string sTruyVan = string.Format(@"SELECT SoLanKichHoat FROM [CF_KeyKichHoat] Where TenKey = N'{0}'", TenKey);
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                return Int32.Parse(dr["SoLanKichHoat"].ToString());
+            }
+            else
+                return 0;
+        }
+
+
         public static int getData_Setting(string CD)
         {
             string sTruyVan = string.Format(@"SELECT GetKey FROM [CF_KeyCode] WHERE GetKey  = '" + CD + "'");

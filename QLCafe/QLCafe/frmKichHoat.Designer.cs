@@ -68,7 +68,6 @@
             this.txtKey.Name = "txtKey";
             this.txtKey.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtKey.Properties.Appearance.Options.UseFont = true;
-            this.txtKey.Properties.UseSystemPasswordChar = true;
             this.txtKey.Size = new System.Drawing.Size(559, 26);
             this.txtKey.TabIndex = 16;
             // 

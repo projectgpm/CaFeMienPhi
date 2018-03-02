@@ -47,12 +47,12 @@ namespace QLCafe
                 {
                     txtKey.Text = "";
                     txtKey.Select();
-                    MessageBox.Show("Key nhập không chính đúng. Bạn còn " + (5 - Dem) + " lần kích hoạt", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    MessageBox.Show("Key nhập không chính xác hoặc đã quá số lần kích hoạt. Bạn còn " + (5 - Dem) + " lần kích hoạt", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Kích hoạt key thành công !!! Cảm ơn Quí khách đã sử dụng phần mềm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Kích hoạt key thành công !!! Quý khách còn " + DAO_Setting.KiemTraSoLanKichHoat(Key) + " lần kích hoạt.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 this.Close();
             }
         }
