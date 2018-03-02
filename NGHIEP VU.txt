@@ -1,0 +1,5 @@
+﻿1 - Quản lý doanh thu. VD nhập hàng tháng 1, xem cuối tháng 1 lợi nhuận lời là bao nhiêu.
+ +  Nhập hàng  2tr;(tự nhập)
+ + Thuê nhân viên 10tr;(tự nhập)
+ + Chi phi khác 5 tr;(tự nhập)
+ + Lợi nhuận bán hàng trong 1 tháng 20tr;(hệ thống)
