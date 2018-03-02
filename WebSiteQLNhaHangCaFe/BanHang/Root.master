@@ -71,7 +71,7 @@
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="Hàng Hóa" NavigateUrl="QuanLyHangHoa.aspx" Text="Hàng Hóa">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="Nguyên Liệu" NavigateUrl="QuanLyNguyenLieu.aspx" Text="Hàng Hóa Tự Chọn">
+                                                            <dx:RibbonDropDownButtonItem Name="Nguyên Liệu" NavigateUrl="QuanLyNguyenLieu.aspx" Text="Hàng Hóa Tự Chọn" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="Hàng Hóa Bán Lẻ" NavigateUrl="DanhSachHangHoa.aspx" Text="Hàng Hóa Bán Lẻ" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>

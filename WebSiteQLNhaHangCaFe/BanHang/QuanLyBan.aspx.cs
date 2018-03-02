@@ -126,8 +126,15 @@ namespace BanHang
                         if (dtBan.KiemTra(KyHieu + " - " + i, IDKhuVuc) == true)
                         {
                             data = new dtBan();
-                            data.Them(MaBan, KyHieu + " - " + i, IDKhuVuc, "1");
-                            dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý bàn", "Thêm bàn: " + KyHieu + " - " + i);
+                            if (dtBan.KiemTraSoBan() == false)
+                            {
+                                data.Them(MaBan, KyHieu + " - " + i, IDKhuVuc, "1");
+                                dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý bàn", "Thêm bàn: " + KyHieu + " - " + i);
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                     }
                 }

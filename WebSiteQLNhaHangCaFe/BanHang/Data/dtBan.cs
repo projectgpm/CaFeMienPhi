@@ -28,6 +28,25 @@ namespace BanHang.Data
                 }
             }
         }
+        public static bool KiemTraSoBan()
+        {
+            using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
+            {
+                con.Open();
+                string cmdText = "SELECT TenBan FROM [CF_Ban] WHERE [DaXoa] = 0";
+                using (SqlCommand command = new SqlCommand(cmdText, con))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    DataTable tb = new DataTable();
+                    tb.Load(reader);
+                    if (tb.Rows.Count > 100)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+        }
         public static string LayKyHieu(string IDKhuVuc)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
