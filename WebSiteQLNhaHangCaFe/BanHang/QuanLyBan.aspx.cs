@@ -133,6 +133,7 @@ namespace BanHang
                             }
                             else
                             {
+                                Response.Write("<script language='JavaScript'> alert('Phiên bản dùng thử cho phép tạo tối đa 100 bàn. Vui lòng liên hệ để được năng cấp lên bản PRO'); </script>");
                                 break;
                             }
                         }

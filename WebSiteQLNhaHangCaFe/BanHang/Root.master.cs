@@ -20,7 +20,7 @@ namespace BanHang {
             else
             {
                 lblChao.Text = "Xin Chào: " + Session["TenDangNhap"].ToString();
-                ASPxLabel2.Text = Server.HtmlDecode("Copyrights &copy;") + DateTime.Now.Year + Server.HtmlDecode(". All Rights Reserved. Designed by GPM.VN");
+                ASPxLabel2.Text = Server.HtmlDecode("Copyrights &copy;") + DateTime.Now.Year + Server.HtmlDecode(". All Rights Reserved. Designed by GPM.VN (Phone: 02966.275.595)");
             }
         }        
     }

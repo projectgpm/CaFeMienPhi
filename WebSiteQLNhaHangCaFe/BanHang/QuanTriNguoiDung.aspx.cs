@@ -40,9 +40,9 @@ namespace BanHang
             data = new dtQuanTriNguoiDung();
             string MaNhanVien = dtQuanTriNguoiDung.Dem_Max();
             string TenNguoiDung = e.NewValues["TenNguoiDung"].ToString();
-            string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
+            string IDChiNhanh = "1";
             int IDNhomNguoiDung = Int32.Parse(e.NewValues["IDNhomNguoiDung"].ToString());
-            string Email = e.NewValues["Email"].ToString();
+            string Email = "";
             string SDT = e.NewValues["SDT"].ToString();
             string MatKhau = e.NewValues["MatKhau"].ToString();
             MatKhau = dtSetting.GetSHA1HashData(MatKhau);
@@ -69,10 +69,10 @@ namespace BanHang
             string ID = e.Keys["ID"].ToString();
             string TenNguoiDung = e.NewValues["TenNguoiDung"].ToString();
             int IDNhomNguoiDung = Int32.Parse(e.NewValues["IDNhomNguoiDung"].ToString());
-            string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
+            string IDChiNhanh = "1";
             string SDT = e.NewValues["SDT"].ToString();
             string MatKhau = e.NewValues["MatKhau"].ToString();
-            string Email = e.NewValues["Email"].ToString();
+            string Email = "";
             MatKhau = dtSetting.GetSHA1HashData(MatKhau);
             string TenDangNhap = e.NewValues["TenDangNhap"].ToString().ToUpper();
             if (dtQuanTriNguoiDung.KT_Tendangnhap_CapNhat(TenDangNhap.Trim(), ID) == -1)

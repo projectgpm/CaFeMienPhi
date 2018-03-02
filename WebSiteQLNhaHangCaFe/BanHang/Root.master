@@ -36,7 +36,7 @@
             </Styles>
             <PanelCollection>
                 <dx:PanelContent ID="PanelContent1" runat="server" SupportsDisabledAttribute="True">
-                        <div class="headerMenu" style="text-align:center; margin: 0 auto;  width: 1000px;">                                           
+                        <div class="headerMenu" style="text-align:center; margin: 0 auto;  width: 700px;">                                           
                             <dx:ASPxRibbon ID="ASPxRibbon1" runat="server" ClientInstanceName="ribbon" 
                                     ShowGroupLabels="False" ShowFileTab="False" ShowTabs="False" CssClass="menu1">
                                 <Styles>
