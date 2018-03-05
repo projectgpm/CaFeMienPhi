@@ -81,12 +81,26 @@ namespace QLCafe
                             NguoiDung.Sdt = dr["SDT"].ToString();
                             NguoiDung.IDNhomNguoiDung = Int32.Parse(dr["IDNhomNguoiDung"].ToString());
                             DAO_Setting.ThemLichSuTruyCap(frmDangNhap.NguoiDung.Id, frmDangNhap.NguoiDung.IDNhomNguoiDung, frmDangNhap.NguoiDung.Idchinhanh, "Đăng Nhập", "Đăng Nhập Bán Hàng");
-                            frmBanHang fr = new frmBanHang();
-                            txtMatKhau.Text = "";
-                            txtMatKhau.Select();
-                            this.Hide();
-                            fr.ShowDialog();
-                            this.Show();
+
+
+                            if (DAO_Setting.KiemtraGiaDien() == 0)
+                            {
+                                frmBanHang fr = new frmBanHang();
+                                txtMatKhau.Text = "";
+                                txtMatKhau.Select();
+                                this.Hide();
+                                fr.ShowDialog();
+                                this.Show();
+                            }
+                            else
+                            {
+                                frmBanHang2 fr = new frmBanHang2();
+                                txtMatKhau.Text = "";
+                                txtMatKhau.Select();
+                                this.Hide();
+                                fr.ShowDialog();
+                                this.Show();
+                            }
 
                         }
                     }
@@ -132,11 +146,14 @@ namespace QLCafe
             txtTenDangNhap.Select();
             if (DAO_Setting.getKeyCode() != -1)
             {
+                linkThongTin.Visible = true;
                 linkCauHinh.Visible = false;
             }
-
-            //if (DAO_Setting.KiemTraCauHinhServer() == 1)
-            //    linkCauHinh.Visible = false;
+            else
+            {
+                linkThongTin.Visible = false;
+                linkCauHinh.Visible = true;
+            }
         }
 
         private void ckeHienMatKhau_CheckedChanged(object sender, EventArgs e)
@@ -172,6 +189,14 @@ namespace QLCafe
                 DangNhap();
 
             }
+        }
+
+        private void linkThongTin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmCaiDatThongTin fr = new frmCaiDatThongTin();
+            this.Hide();
+            fr.ShowDialog();
+            this.Show();
         }
 
 

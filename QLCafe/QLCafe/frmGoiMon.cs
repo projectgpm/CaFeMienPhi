@@ -41,9 +41,7 @@ namespace QLCafe
             listChiTietHoaDon.Clear();
             lblTenBan.Text = DAO_GoiMon.TenBan(IDBan);
             DataTable danhsachtuchon = DAO_HangHoa.DanhSachTuChon();
-            cmbHangHoaTuChon.Properties.DataSource = danhsachtuchon;
-            cmbHangHoaTuChon.Properties.ValueMember = "ID";
-            cmbHangHoaTuChon.Properties.DisplayMember = "TenNguyenLieu";
+           
         }
         public void DanhSachMonAnBanChay()
         {
@@ -124,7 +122,7 @@ namespace QLCafe
            
             int IDDonViTinh = Int32.Parse(tbThongTin.Rows[0]["IDDonViTinh"].ToString());
             int idban = IDBan;
-            int SL = Int32.Parse(txtSoLuongTuChon.Text);
+            int SL = 1;
             //-------------------------------------------
             int KT = 0;
             foreach (ChiTietHoaDon item in listChiTietHoaDon)
@@ -156,9 +154,6 @@ namespace QLCafe
         }
         public void BindGridChiTietHoaDon()
         {
-            txtSoLuongTuChon.Text = "1";
-            txtTrongLuongTuChon.Text = "0";
-            //txtDonGiaBan.Text = "0";
             gridViewHangHoa.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
             gridControllHangHoa.DataSource = null;
             gridControllHangHoa.Refresh();
@@ -306,77 +301,9 @@ namespace QLCafe
             }
         }
 
-        private void btnLuuTrongLuong_Click(object sender, EventArgs e)
-        {
 
-            if (cmbHangHoaTuChon.Text != "Chọn Hàng Hóa")
-            {
-                if (txtTrongLuongTuChon.Text == "0")
-                {
-                    txtTrongLuongTuChon.Focus();
-                    MessageBox.Show("Vui lòng nhập trọng lượng?", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    int id = 0;
-                    object displayValue = cmbHangHoaTuChon.EditValue;
-                    id = Int32.Parse(displayValue.ToString());
-                    DataTable dt = DAO_HangHoa.DanhSachTuChon_ID(id);
-                    int IDHangHoa = Int32.Parse(dt.Rows[0]["ID"].ToString());
-                    string MaHangHoa = dt.Rows[0]["MaNguyenLieu"].ToString();
-                    string TenHangHoa = dt.Rows[0]["TenNguyenLieu"].ToString();
-                    string TenDonViTinh = dt.Rows[0]["TenDonViTinh"].ToString();
-                    float GiaBan = float.Parse(txtDonGiaBan.Text.ToString());
-                    int IDDonViTinh = Int32.Parse(dt.Rows[0]["IDDonViTinh"].ToString());
-                    int idban = IDBan;
-                    int SL = Int32.Parse(txtSoLuongTuChon.Text);
-                    float TrongLuong = float.Parse(txtTrongLuongTuChon.Text.ToString());
-                    //-------------------------------------------
-                    int KT = 0;
-                    foreach (ChiTietHoaDon item in listChiTietHoaDon)
-                    {
-                        if (item.IDHangHoa == IDHangHoa && item.TrongLuong == TrongLuong)
-                        {
-                            KT = 1;
-                            item.SoLuong = item.SoLuong + SL;
-                            item.ThanhTien = item.SoLuong * (item.TrongLuong * item.DonGia);
-                            break;
-                        }
-                    }
-                    if (KT == 0)
-                    {
-                        listChiTietHoaDon.Add(new ChiTietHoaDon()
-                        {
-                            IDHangHoa = IDHangHoa,
-                            MaHangHoa = MaHangHoa,
-                            IDDonViTinh = IDDonViTinh,
-                            SoLuong = SL,
-                            DonGia = GiaBan,
-                            ThanhTien =  (TrongLuong * GiaBan) * SL,
-                            IdBan = idban,
-                            TenDonViTinh = TenDonViTinh,
-                            TenHangHoa = TenHangHoa,
-                            TrongLuong = TrongLuong
-                        });
-                    }
-                    BindGridChiTietHoaDon();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn món ăn tự chọn?", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
-        private void cmbHangHoaTuChon_EditValueChanged(object sender, EventArgs e)
-        {
-            if (cmbHangHoaTuChon.Text != "Chọn Hàng Hóa")
-            {
-                string IDHangHoa = cmbHangHoaTuChon.EditValue.ToString();
-                float GiaBan = DAO_GoiMon.LayGiaBanTuChon(IDHangHoa);
-                txtDonGiaBan.Text = GiaBan.ToString();
-            }
-        }
+     
 
         private void txtTimKiem_EditValueChanged(object sender, EventArgs e)
         {

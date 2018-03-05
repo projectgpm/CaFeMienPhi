@@ -14,6 +14,16 @@ namespace QLCafe.DAO
     class DAO_Setting
     {
         /// <summary>
+        /// Thông tin của hàng
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable ThongTinCuaHang()
+        {
+            string sTruyVan = string.Format(@"SELECT * FROM [Setting] WHERE ID = 1");
+            DataTable data = new DataTable();
+            return data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+        }
+        /// <summary>
         /// 1: cấu hình xong, 0 chưa cấu hình
         /// </summary>
         /// <returns></returns>
@@ -26,6 +36,23 @@ namespace QLCafe.DAO
             {
                 DataRow dr = data.Rows[0];
                 return Int32.Parse(dr["CauHinhServer"].ToString());
+            }
+            else
+                return 0;
+        }
+        /// <summary>
+        /// lấy giao diện nào để hiển thị
+        /// </summary>
+        /// <returns></returns>
+        public static int KiemtraGiaDien()
+        {
+            string sTruyVan = string.Format(@"SELECT GiaoDienApDung FROM [Setting] Where ID = 1");
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                return Int32.Parse(dr["GiaoDienApDung"].ToString());
             }
             else
                 return 0;
@@ -289,9 +316,9 @@ namespace QLCafe.DAO
                 return "";
         }
 
-        public static bool CapNhatMayInBill(string TenMayIn,string KhoGiay)
+        public static bool CapNhatMayInBill(string TenMayIn, string KhoGiay, string CongTy, string DiaChi, string SDT, string GiaoDienApDung)
         {
-            string sTruyVan = string.Format(@"UPDATE [Setting] SET [MayIn] = '{0}',[ReportBill] = '{1}' WHERE ID = 1", TenMayIn, KhoGiay);
+            string sTruyVan = string.Format(@"UPDATE [Setting] SET [MayIn] = '{0}',[ReportBill] = '{1}',[CongTy] = N'{2}',[DiaChi] = N'{3}',[SDT] = '{4}',[GiaoDienApDung] = '{5}' WHERE ID = 1", TenMayIn, KhoGiay, CongTy, DiaChi, SDT, GiaoDienApDung);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
 

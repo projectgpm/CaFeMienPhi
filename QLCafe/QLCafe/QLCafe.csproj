@@ -147,6 +147,12 @@
     <Compile Include="frmBanHang2.Designer.cs">
       <DependentUpon>frmBanHang2.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCaiDatThongTin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCaiDatThongTin.Designer.cs">
+      <DependentUpon>frmCaiDatThongTin.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCauHinhHeThong.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBanHang2.resx">
       <DependentUpon>frmBanHang2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCaiDatThongTin.resx">
+      <DependentUpon>frmCaiDatThongTin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCauHinhHeThong.resx">
       <DependentUpon>frmCauHinhHeThong.cs</DependentUpon>

@@ -263,3 +263,4 @@ D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.Report.rpHoaDonBanHang_581
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.csproj.GenerateResource.Cache
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.exe.licenses
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.frmBanHang2.resources
+D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.frmCaiDatThongTin.resources

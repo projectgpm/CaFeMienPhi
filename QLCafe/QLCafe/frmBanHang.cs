@@ -135,7 +135,7 @@ namespace QLCafe
                 btn.DoubleClick +=btn_DoubleClick;
                 btn.MouseDown += btn_MouseDown;
                 btn.KeyDown +=btn_KeyDown;
-                btn.Appearance.Font = new Font("Tahoma", 13, FontStyle.Bold);
+                btn.Appearance.Font = new Font("Tahoma", 13, FontStyle.Regular);
                 btn.Tag = item;
                 switch (TrangThai)
                 {
@@ -680,8 +680,8 @@ namespace QLCafe
                                 string NamePrinter = DAO_Setting.LayTenMayInBill();
                                 // Lấy máy in bill..
                                 int IDBill = DAO_Setting.ReportBill();
-                                for (int i = 1; i <= 2; i++)
-                                {
+                                //for (int i = 1; i <= 2; i++)
+                                //{
                                     if (IDBill == 58)
                                     {
                                         rpHoaDonBanHang_581 rp = new rpHoaDonBanHang_581();
@@ -705,7 +705,7 @@ namespace QLCafe
                                         rp.Print(NamePrinter);
                                     }
                                 }
-                            }
+                            //}
                         }
                     }
                     }

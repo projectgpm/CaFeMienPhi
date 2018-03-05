@@ -45,6 +45,7 @@
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.btnDangNhap = new DevExpress.XtraEditors.SimpleButton();
             this.btnThoat = new DevExpress.XtraEditors.SimpleButton();
+            this.linkThongTin = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ckeHienMatKhau.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenDangNhap.Properties)).BeginInit();
@@ -212,6 +213,18 @@
             this.btnThoat.Text = "Thoát";
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
+            // linkThongTin
+            // 
+            this.linkThongTin.AutoSize = true;
+            this.linkThongTin.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkThongTin.Location = new System.Drawing.Point(12, 182);
+            this.linkThongTin.Name = "linkThongTin";
+            this.linkThongTin.Size = new System.Drawing.Size(126, 18);
+            this.linkThongTin.TabIndex = 2;
+            this.linkThongTin.TabStop = true;
+            this.linkThongTin.Text = "Cấu hình thông tin";
+            this.linkThongTin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkThongTin_LinkClicked);
+            // 
             // frmDangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +234,7 @@
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.linkLienHe);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.linkThongTin);
             this.Controls.Add(this.linkCauHinh);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -260,6 +274,7 @@
         private DevExpress.XtraEditors.TextEdit txtMatKhau;
         private DevExpress.XtraEditors.TextEdit txtTenDangNhap;
         private DevExpress.XtraEditors.CheckEdit ckeHienMatKhau;
+        private System.Windows.Forms.LinkLabel linkThongTin;
 
 
     }

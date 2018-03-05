@@ -31,13 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCauHinhHeThong));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbMayIn = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtDataSource = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtDatabase = new DevExpress.XtraEditors.TextEdit();
             this.txtUserName = new DevExpress.XtraEditors.TextEdit();
             this.txtPassword = new DevExpress.XtraEditors.TextEdit();
             this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -46,15 +44,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnLuuLai = new DevExpress.XtraEditors.SimpleButton();
             this.btnKiemTra = new DevExpress.XtraEditors.SimpleButton();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cmbKhoGiay = new DevExpress.XtraEditors.ComboBoxEdit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbMayIn.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDataSource.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDatabase.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbKhoGiay.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -69,15 +63,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cmbKhoGiay);
-            this.groupBox1.Controls.Add(this.cmbMayIn);
             this.groupBox1.Controls.Add(this.txtDataSource);
             this.groupBox1.Controls.Add(this.txtDatabase);
             this.groupBox1.Controls.Add(this.txtUserName);
             this.groupBox1.Controls.Add(this.txtPassword);
-            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label3);
@@ -85,21 +75,10 @@
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 55);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(368, 193);
+            this.groupBox1.Size = new System.Drawing.Size(368, 138);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cấu Hình";
-            // 
-            // cmbMayIn
-            // 
-            this.cmbMayIn.Location = new System.Drawing.Point(98, 129);
-            this.cmbMayIn.Name = "cmbMayIn";
-            this.cmbMayIn.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbMayIn.Properties.Appearance.Options.UseFont = true;
-            this.cmbMayIn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbMayIn.Size = new System.Drawing.Size(238, 24);
-            this.cmbMayIn.TabIndex = 4;
             // 
             // txtDataSource
             // 
@@ -150,15 +129,6 @@
             this.label4.Size = new System.Drawing.Size(0, 18);
             this.label4.TabIndex = 2;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 133);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 18);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Máy In Bill: ";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -199,7 +169,7 @@
             // 
             this.linkLienHe.AutoSize = true;
             this.linkLienHe.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLienHe.Location = new System.Drawing.Point(178, 296);
+            this.linkLienHe.Location = new System.Drawing.Point(178, 247);
             this.linkLienHe.Name = "linkLienHe";
             this.linkLienHe.Size = new System.Drawing.Size(182, 18);
             this.linkLienHe.TabIndex = 17;
@@ -211,7 +181,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 296);
+            this.label5.Location = new System.Drawing.Point(27, 247);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(156, 18);
             this.label5.TabIndex = 16;
@@ -222,7 +192,7 @@
             this.btnLuuLai.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLuuLai.Appearance.Options.UseFont = true;
             this.btnLuuLai.Image = ((System.Drawing.Image)(resources.GetObject("btnLuuLai.Image")));
-            this.btnLuuLai.Location = new System.Drawing.Point(44, 263);
+            this.btnLuuLai.Location = new System.Drawing.Point(44, 211);
             this.btnLuuLai.Name = "btnLuuLai";
             this.btnLuuLai.Size = new System.Drawing.Size(134, 30);
             this.btnLuuLai.TabIndex = 18;
@@ -234,42 +204,18 @@
             this.btnKiemTra.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKiemTra.Appearance.Options.UseFont = true;
             this.btnKiemTra.Image = ((System.Drawing.Image)(resources.GetObject("btnKiemTra.Image")));
-            this.btnKiemTra.Location = new System.Drawing.Point(195, 263);
+            this.btnKiemTra.Location = new System.Drawing.Point(195, 211);
             this.btnKiemTra.Name = "btnKiemTra";
             this.btnKiemTra.Size = new System.Drawing.Size(136, 30);
             this.btnKiemTra.TabIndex = 19;
             this.btnKiemTra.Text = "Kiểm tra kết nối";
             this.btnKiemTra.Click += new System.EventHandler(this.btnKiemTra_Click);
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 163);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 18);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Khổ Giấy: ";
-            // 
-            // cmbKhoGiay
-            // 
-            this.cmbKhoGiay.EditValue = "58";
-            this.cmbKhoGiay.Location = new System.Drawing.Point(98, 159);
-            this.cmbKhoGiay.Name = "cmbKhoGiay";
-            this.cmbKhoGiay.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbKhoGiay.Properties.Appearance.Options.UseFont = true;
-            this.cmbKhoGiay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbKhoGiay.Properties.Items.AddRange(new object[] {
-            "58",
-            "80"});
-            this.cmbKhoGiay.Size = new System.Drawing.Size(238, 24);
-            this.cmbKhoGiay.TabIndex = 4;
-            // 
             // frmCauHinhHeThong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 321);
+            this.ClientSize = new System.Drawing.Size(393, 276);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.linkLienHe);
@@ -285,12 +231,10 @@
             this.Load += new System.EventHandler(this.frmCauHinhHeThong_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbMayIn.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDataSource.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDatabase.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbKhoGiay.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,22 +244,18 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.TextEdit txtDatabase;
-        private DevExpress.XtraEditors.TextEdit txtUserName;
-        private DevExpress.XtraEditors.TextEdit txtPassword;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLienHe;
         private System.Windows.Forms.Label label5;
         private DevExpress.XtraEditors.SimpleButton btnLuuLai;
         private DevExpress.XtraEditors.SimpleButton btnKiemTra;
         private DevExpress.XtraEditors.ComboBoxEdit txtDataSource;
-        private System.Windows.Forms.Label label8;
-        private DevExpress.XtraEditors.ComboBoxEdit cmbMayIn;
-        private DevExpress.XtraEditors.ComboBoxEdit cmbKhoGiay;
-        private System.Windows.Forms.Label label9;
+        private DevExpress.XtraEditors.TextEdit txtDatabase;
+        private DevExpress.XtraEditors.TextEdit txtUserName;
+        private DevExpress.XtraEditors.TextEdit txtPassword;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
