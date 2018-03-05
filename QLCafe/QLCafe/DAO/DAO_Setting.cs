@@ -13,6 +13,19 @@ namespace QLCafe.DAO
 {
     class DAO_Setting
     {
+        public static string LayMaHangHoa_IDHH(string IDHangHoa)
+        {
+            string sTruyVan = string.Format(@"SELECT MaHangHoa FROM [CF_HangHoa] WHERE [ID] = {0} ", IDHangHoa);
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                return dr["MaHangHoa"].ToString();
+            }
+            else
+                return "";
+        }
         /// <summary>
         /// Thông tin của hàng
         /// </summary>

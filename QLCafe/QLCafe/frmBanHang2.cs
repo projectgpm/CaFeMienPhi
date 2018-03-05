@@ -21,6 +21,7 @@ using System.Globalization;
 using QLCafe.Report;
 using DevExpress.XtraReports.UI;
 using DevExpress.DataAccess.Sql;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace QLCafe
 {
@@ -34,31 +35,91 @@ namespace QLCafe
         public static int TabActive = 0;
         public static string NameTabActive = null;
         public static string TenKhuVuc = null;
+        //public static DateTime GioVao;
         private void frmBanHang2_Load(object sender, EventArgs e)
         {
             timer1.Start();
             DanhSachBan();
-            
+            listNhomHang();
+            // WindowState = FormWindowState.Maximized;
             lblNgay.Text = "Ngày hôm nay: " + DateTime.Now.ToString("dd/MM/yyyy");
-            lblTenCongTy.Text = DAO_Setting.TenCongTy();
-            lblDiaChi.Text = DAO_Setting.DiaChiCongTy();
-            lblDienThoai.Text = DAO_Setting.DienThoaiCongTy();
             txtTongTien.ReadOnly = true;
             txtKhachCanTra.ReadOnly = true;
             txtTienThoi.ReadOnly = true;
             txtKhachThanhToan.ReadOnly = true;
             txtTenDangNhap.Text = "Nhân viên: " + frmDangNhap.NguoiDung.Tennguoidung;
+
         }
         /// <summary>
-        /// xóa tab củ
+        /// Danh Sách nhóm hàng
         /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ID"></param>
+        /// <param name="layout"></param>
+        public void listNhomHang()
+        {
+            List<DTO_NhomHangHoa> tablelist = DAO_NhomHang.Instance.DanhSanhNhomHangFull();
+            DataTable db = new DataTable();
+            db.Columns.Add("ID", typeof(int));
+            db.Columns.Add("TenNhom", typeof(string));
+            db.Rows.Add(0, "Tất cả");
+            foreach (DTO_NhomHangHoa item in tablelist)
+            {
+                db.Rows.Add(item.ID, item.TenNhom);
+            }
+
+            //treeListNhomHang.DataSource = db;
+            listBoxNhomHang.DataSource = db;
+            listBoxNhomHang.DisplayMember = "TenNhom";
+            listBoxNhomHang.ValueMember = "ID";
+            listMonAnALL("0");
+        }
+        public void listMonAnALL(string id)
+        {
+            if (id == "0")
+            {
+                DataTable db = DAO_HangHoa.DanhSachHangHoa_Full2();
+                if (db.Rows.Count > 0)
+                {
+                    gridListHangHoa.DataSource = null;
+                    gridListHangHoa.DataSource = db;
+                }
+            }
+            else
+            {
+                DataTable db = DAO_HangHoa.DanhSachHangHoa_IDNhomHang(id);
+                if (db.Rows.Count > 0)
+                {
+                    gridListHangHoa.DataSource = null;
+                    gridListHangHoa.DataSource = db;
+                }
+            }
+
+        }
+        public void AddTabControl(string name, string ID, FlowLayoutPanel layout)
+        {
+            //kiểm tra tabtrung
+            bool KT = false;
+            foreach (XtraTabPage tabitem in xtraTabControlDanhSach.TabPages)
+            {
+                if (tabitem.Name == ID)
+                {
+                    KT = true;
+                    xtraTabControlDanhSach.SelectedTabPage = tabitem;
+                }
+            }
+            if (KT == false)
+            {
+                xtraTabControlDanhSach.AppearancePage.HeaderActive.Font = new System.Drawing.Font("Colibri", 11, System.Drawing.FontStyle.Bold);
+                xtraTabControlDanhSach.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 10, System.Drawing.FontStyle.Regular);
+                DAO_BanHang.AddTabControll(xtraTabControlDanhSach, name, ID, layout);
+
+            }
+        }
         public void ClearTabControl()
         {
             xtraTabControlDanhSach.TabPages.Clear();
         }
-        /// <summary>
-        /// danh sách bàn
-        /// </summary>
         public void DanhSachBan()
         {
             ClearTabControl();
@@ -84,11 +145,25 @@ namespace QLCafe
             }
             xtraTabControlDanhSach.SelectedTabPageIndex = TabActive;
         }
-        /// <summary>
-        /// danh sách bàn theo khu vực
-        /// </summary>
-        /// <param name="IDKhuVuc"></param>
-        /// <param name="layout"></param>
+        public void ThongKe(DataTable tblThongTin)
+        {
+            DataRow dr11 = tblThongTin.Rows[0];
+            btnTrong.Text = "Trống (" + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 0) + ")";
+            btnDatTruoc.Text = "Đã Đặt (" + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 1) + ")";
+            btnDatTruoc.ForeColor = Color.OrangeRed;
+            btnDatTruoc.StyleController = null;
+            btnDatTruoc.LookAndFeel.UseDefaultLookAndFeel = false;
+            btnDatTruoc.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Skin;
+            btnCoNguoi.Text = "Có Người (" + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 2) + ")";
+            btnCoNguoi.ForeColor = Color.Red;
+            btnCoNguoi.StyleController = null;
+            btnCoNguoi.LookAndFeel.UseDefaultLookAndFeel = false;
+            btnCoNguoi.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003;
+            float SLPhucVu = BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 2);
+            float TongSLBan = BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 2) + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 0) + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 1);
+            float TyLePhucVu = SLPhucVu / (float)TongSLBan;
+            txtTyLyPhucVu.Text = "Tỷ lệ phục vụ: " + Math.Round(TyLePhucVu, 2) * 100 + "%";
+        }
         public void BanKhuVuc(string IDKhuVuc, FlowLayoutPanel layout)
         {
             List<DTO_BAN> tablelist = DAO_BAN.Instance.LoadTableList(IDKhuVuc);
@@ -97,11 +172,11 @@ namespace QLCafe
                 int TrangThai = item.Trangthai;
                 string TenBan = item.Tenban;
                 SimpleButton btn = new SimpleButton();
-                btn.Width = 80;
-                btn.Height = 80;
+                btn.Width = 74;
+                btn.Height = 74;
                 btn.Text = TenBan;
                 btn.Click += btn_Click;
-               
+                btn.DoubleClick += btn_DoubleClick;
                 btn.MouseDown += btn_MouseDown;
                 btn.KeyDown += btn_KeyDown;
                 btn.Appearance.Font = new Font("Tahoma", 13, FontStyle.Regular);
@@ -137,11 +212,7 @@ namespace QLCafe
                 }
             }
         }
-        /// <summary>
-        /// phím tắt
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void btn_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -164,20 +235,14 @@ namespace QLCafe
                     break;
             }
         }
-        public void GetValueGoiMon(int KT, int IDHoaDon)
+
+        private void btn_DoubleClick(object sender, EventArgs e)
         {
-            if (KT == 1)
-            {
-                TinhTongTien(IDHoaDon);
-                HienThiHoaDon(IDBan);
-                DanhSachBan();
-            }
-            else
-            {
-                MessageBox.Show("Gọi Món Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DanhSachBan();
-            }
+            frmGoiMon fr = new frmGoiMon();
+            fr.MyGetData = new frmGoiMon.GetKT(GetValueGoiMon);
+            fr.ShowDialog();
         }
+
         private void btn_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -187,12 +252,7 @@ namespace QLCafe
                 menuBan.ShowPopup(Control.MousePosition);
             }
         }
-        private void btn_Click(object sender, EventArgs e)
-        {
-            IDBan = ((sender as SimpleButton).Tag as DTO_BAN).Id;
-            HienThiHoaDon(IDBan);
-            txtKhachThanhToan.ReadOnly = false;
-        }
+
         public void HienThiHoaDon(int IDBan)
         {
             gridView1.ViewCaption = "DANH SÁCH MÓN ĂN BÀN " + DAO_BAN.LenTenBan(IDBan);
@@ -245,9 +305,6 @@ namespace QLCafe
             lblTenBan.Text = "Tên bàn: " + DAO_BAN.LenTenBan(IDBan);
             LoadTongTien();
         }
-        /// <summary>
-        /// Tính lại tổng tìền
-        /// </summary>
         public void LoadTongTien()
         {
             cmbHinhThucGiamGia.Text = DAO_HoaDon.HinhThucGiamGia(DAO_BanHang.IDHoaDon(IDBan)).ToString();
@@ -257,159 +314,237 @@ namespace QLCafe
             txtKhachCanTra.Text = (DAO_HoaDon.KhachCanTra(DAO_BanHang.IDHoaDon(IDBan))).ToString();
             txtKhachThanhToan.Text = (DAO_HoaDon.KhachCanTra(DAO_BanHang.IDHoaDon(IDBan))).ToString();
         }
-        /// <summary>
-        /// thêm tab khu vực
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="ID"></param>
-        /// <param name="layout"></param>
-        public void AddTabControl(string name, string ID, FlowLayoutPanel layout)
+        private void btn_Click(object sender, EventArgs e)
         {
-            //kiểm tra tabtrung
-            bool KT = false;
-            foreach (XtraTabPage tabitem in xtraTabControlDanhSach.TabPages)
-            {
-                if (tabitem.Name == ID)
-                {
-                    KT = true;
-                    xtraTabControlDanhSach.SelectedTabPage = tabitem;
-                }
-            }
-            if (KT == false)
-            {
-                xtraTabControlDanhSach.AppearancePage.HeaderActive.Font = new System.Drawing.Font("Colibri", 11, System.Drawing.FontStyle.Bold);
-                xtraTabControlDanhSach.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 10, System.Drawing.FontStyle.Regular);
-                DAO_BanHang.AddTabControll(xtraTabControlDanhSach, name, ID, layout);
+            IDBan = ((sender as SimpleButton).Tag as DTO_BAN).Id;
+            HienThiHoaDon(IDBan);
+            txtKhachThanhToan.ReadOnly = false;
+        }
 
+
+        private void frmBanHang_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Bạn thật sự muốn thoát chương trình?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.OK)
+            {
+                e.Cancel = true;
             }
         }
-        /// <summary>
-        /// Thống kê số bàn đang sử dụng
-        /// </summary>
-        /// <param name="tblThongTin"></param>
-        public void ThongKe(DataTable tblThongTin)
+        private void barButtonDatBan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            DataRow dr11 = tblThongTin.Rows[0];
-            btnTrong.Text = "Trống (" + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 0) + ")";
-            btnDatTruoc.Text = "Đã Đặt (" + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 1) + ")";
-            btnDatTruoc.ForeColor = Color.OrangeRed;
-            btnDatTruoc.StyleController = null;
-            btnDatTruoc.LookAndFeel.UseDefaultLookAndFeel = false;
-            btnDatTruoc.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Skin;
-            btnCoNguoi.Text = "Có Người (" + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 2) + ")";
-            btnCoNguoi.ForeColor = Color.Red;
-            btnCoNguoi.StyleController = null;
-            btnCoNguoi.LookAndFeel.UseDefaultLookAndFeel = false;
-            btnCoNguoi.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003;
-            float SLPhucVu = BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 2);
-            float TongSLBan = BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 2) + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 0) + BUS_BAN.DanhSachThongKe(dr11["IDChiNhanh"].ToString(), 1);
-            float TyLePhucVu = SLPhucVu / (float)TongSLBan;
-            txtTyLyPhucVu.Text = "Tỷ lệ phục vụ: " + Math.Round(TyLePhucVu, 2) * 100 + "%";
-        }
-        /// <summary>
-        /// In tam hóa đơn
-        /// </summary>
-        public void InTamHoaDon()
-        {
-            int IDBanHT = IDBan;
-            int IDHoaDonHT = DAO_BanHang.IDHoaDon(IDBanHT);
-            if (IDBanHT == 0)
+            if (DAO_BAN.TrangThaiBan(IDBan) == 0)
             {
-                MessageBox.Show("Vui lòng chọn bàn để in phiếu tạm tín.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                frmDatBan fr = new frmDatBan();
+                fr.MyGetData = new frmDatBan.GetString(GetValue);
+                fr.ShowDialog();
             }
-            else if (DAO_BanHang.IDHoaDon(IDBanHT) == 0)
+            else if (DAO_BAN.TrangThaiBan(IDBan) == 1)
             {
-                MessageBox.Show("Bàn chưa có hóa đơn để in phiếu tạm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Bàn đã có người đặt.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                //if (MessageBox.Show("In tạm tính", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
-                //{
-                int KT = DAO_BanHang.KiemTraLayIDGioBatDau(IDHoaDonHT, IDBanHT);// kiểm tra xem có giờ kết thúc hay không
-                if (KT == 0)
+                MessageBox.Show("Bàn đã có người ngồi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void GetValue(String str1, String str2, DateTime a)
+        {
+            string TenKhachHang = str1;
+            string DienThoai = str2;
+            DateTime GioDat = a;
+            bool KT = DAO_BAN.ThemKhachDatBan(TenKhachHang, DienThoai, GioDat, IDBan);
+            if (KT == true)
+            {
+                DAO_BAN.DoiTrangThaiDatBan(IDBan);
+                DanhSachBan();
+                //MessageBox.Show("Đặt bàn thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                DanhSachBan();
+                MessageBox.Show("Đặt bàn Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void barButtonXoaBan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (MessageBox.Show("Chuyển trạng thái bàn về mặc định? Dữ liệu trước sẽ không được lưu lại.", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                bool KT = DAO_BAN.XoaBanVeMatDinh(IDBan);
+                if (KT == true)
                 {
-                    int IDNhanVien = frmDangNhap.NguoiDung.Id;
-                    double KhachThanhToan = double.Parse(txtKhachThanhToan.Text.ToString());
-                    double TienThua = double.Parse(txtTienThoi.Text.ToString());
-                    double GiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
-                    double KhachCanTra = double.Parse(txtKhachCanTra.Text.ToString());
-                    double TienGiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
-                    double TyLeGiamGia = double.Parse(txtGiamGia.Text.ToString());
-                    string HinhThucThanhToan = cmbHinhThucGiamGia.Text.ToString();
-                    DAO_ChiTietHoaDonChinh.CapNhatHoaDonChinh2(IDHoaDonHT, IDBanHT, IDNhanVien, KhachThanhToan, TienThua, KhachCanTra, HinhThucThanhToan, GiamGia, TienGiamGia, TyLeGiamGia);
-                    //List<DTO_ChiTietHoaDon> DanhSachHoaDon = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDonHT);
-                    // in hóa đớn, cập nhật hóa đơn
-                    DAO_ConnectSQL connect = new DAO_ConnectSQL();
-                    // Tên máy in
-                    string NamePrinter = DAO_Setting.LayTenMayInBill();
-                    DAO_Setting.CapNhatBillInTemp(IDHoaDonHT + "");
-
-                    // Lấy máy in bill..
-                    int IDBill = DAO_Setting.ReportBill();
-                    if (IDBill == 58)
-                    {
-                        rpHoaDonBanHang_581_Temp rp = new rpHoaDonBanHang_581_Temp();
-                        SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
-                        sqlDataSource.Connection.ConnectionString += connect.ConnectString();
-
-                        rp.Parameters["ID"].Value = IDHoaDonHT;
-                        rp.Parameters["ID"].Visible = false;
-                        //rp.ShowPreviewDialog();
-                        rp.Print(NamePrinter);
-                    }
-                    else
-                    {
-                        rpHoaDonBanHang1_Temp rp = new rpHoaDonBanHang1_Temp();
-                        SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
-                        sqlDataSource.Connection.ConnectionString += connect.ConnectString();
-
-                        rp.Parameters["ID"].Value = IDHoaDonHT;
-                        rp.Parameters["ID"].Visible = false;
-                        //rp.ShowPreviewDialog();
-                        rp.Print(NamePrinter);
-                    }
+                    DAO_HoaDon.XoaDatBan(IDBan);
+                    DAO_DatBan.XoaKhachDat(IDBan);
+                    DanhSachBan();
+                    HienThiHoaDon(IDBan);
                 }
                 else
                 {
-                    MessageBox.Show("Bàn chưa có giờ kết thúc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DanhSachBan();
+                    MessageBox.Show("Cập Nhật Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                //}
             }
         }
-        /// <summary>
-        /// Tách hóa đơn
-        /// </summary>
-        public void TachBill()
+
+        private void barButtonChonMon_ItemClick(object sender, ItemClickEventArgs e)
         {
-            int IDBanHT = IDBan;
-            if (IDBanHT == 0)
+            frmGoiMon fr = new frmGoiMon();
+            fr.MyGetData = new frmGoiMon.GetKT(GetValueGoiMon);
+            fr.ShowDialog();
+        }
+
+        private void barButtonChuyenBan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            // chuyển bàn
+            if (DAO_BAN.TrangThaiBan(IDBan) == 2)
             {
-                MessageBox.Show("Vui lòng chọn bàn để thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (DAO_BanHang.IDHoaDon(IDBanHT) == 0)
-            {
-                MessageBox.Show("Bàn chưa có hóa đơn để thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                frmChuyenBan fr = new frmChuyenBan();
+                fr.MyGetData = new frmChuyenBan.GetKT(GetChuyenBan);
+                fr.ShowDialog();
             }
             else
             {
-                frmTachBill fr = new frmTachBill();
-                fr.MyGetData = new frmTachBill.GetString(GetTachBill);
-                fr.ShowDialog();
+                MessageBox.Show("Bàn chưa có món ăn. Không thể chuyển bàn?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void GetTachBill(int KT, int IDHoaDon, int IDBan)
+        public void GetChuyenBan(int KT, int IDBanChuyen, int IDBanNhan, int IDHoaDon)
         {
             if (KT == 1)
             {
-                HienThiHoaDon(IDBan);
                 TinhTongTien(IDHoaDon);
-                LoadTongTien();
+                HienThiHoaDon(IDBanNhan);
+                DanhSachBan();
+                //gridControlCTHD.DataSource = null;
+                //gridControlCTHD.Refresh();
+                //MessageBox.Show("Chuyển bàn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show("Chuyển bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DanhSachBan();
             }
         }
-        /// <summary>
-        /// Tính tổng tiền
-        /// </summary>
-        /// <param name="IDHoaDon"></param>
+        public void GetValueGoiMon(int KT, int IDHoaDon)
+        {
+            if (KT == 1)
+            {
+                TinhTongTien(IDHoaDon);
+                HienThiHoaDon(IDBan);
+                DanhSachBan();
+                //LoadTongTien();
+                //gridControlCTHD.DataSource = null;
+                //gridControlCTHD.Refresh();
+                // MessageBox.Show("Gọi Món Thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show("Gọi Món Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DanhSachBan();
+            }
+        }
+        private void barButtonTachBan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (DAO_BAN.TrangThaiBan(IDBan) == 2)
+            {
+                frmTachBan fr = new frmTachBan();
+                fr.MyGetDataTachBan = new frmTachBan.GetKT(GetTachBan);
+                fr.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Bàn chưa có món ăn. Không thể tách bàn?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public void GetTachBan(int KT, int IDHoaDonA, int IDHoaDonB)
+        {
+            if (KT == 1)
+            {
+                DanhSachBan();
+                TinhTongTien(IDHoaDonA);
+                TinhTongTien(IDHoaDonB);
+                gridControlCTHD.DataSource = null;
+                gridControlCTHD.Refresh();
+                // MessageBox.Show("Tách bàn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show("Tách bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DanhSachBan();
+            }
+        }
+        private void barButtonGopBan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (DAO_BAN.TrangThaiBan(IDBan) == 2)
+            {
+                frmGopBan fr = new frmGopBan();
+                fr.MyGetDataGopBan = new frmGopBan.GetKT(GetGopBan);
+                fr.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Bàn chưa có món ăn. Không thể gộp bàn?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public void GetGopBan(int KT, int IDBanA, int IDBanB, int IDHoaDon)
+        {
+            if (KT == 1)
+            {
+                DanhSachBan();
+                TinhTongTien(IDHoaDon);
+                gridControlCTHD.DataSource = null;
+                gridControlCTHD.Refresh();
+                //MessageBox.Show("Gộp bàn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show("Gộp bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DanhSachBan();
+            }
+        }
+        private void txtKhachThanhToan_EditValueChanged(object sender, EventArgs e)
+        {
+            float KhachThanhToan = float.Parse(txtKhachThanhToan.EditValue.ToString());
+            float KhachCanThanhToan = float.Parse(txtKhachCanTra.EditValue.ToString());
+            //if (KhachThanhToan >= KhachCanThanhToan)
+            //{
+            txtTienThoi.Text = (KhachThanhToan - KhachCanThanhToan).ToString();
+            // }
+            //else
+            //{
+            //    MessageBox.Show("Khách thanh toán không đủ số tiền?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
+        //private void timer1_Tick(object sender, EventArgs e)
+        //{
+        //    lblTime.Text = "Giờ hiện tại: " + DateTime.Now.ToLongTimeString();
+        //}
+
+        private void gridControlCTHD_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && gridView1.State != DevExpress.XtraGrid.Views.Grid.GridState.Editing)
+            {
+                if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    int IDban = IDBan;
+                    string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
+                    if (IDban != 0)
+                    {
+                        int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
+                        if (DAO_BanHang.XoaMonAn(ID) == true)
+                        {
+                            TinhTongTien(IDHoaDon);
+                            HienThiHoaDon(IDban);
+                            //MessageBox.Show("Xóa món ăn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Xóa món ăn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
         public static void TinhTongTien(int IDHoaDon)
         {
             List<DTO_ChiTietHoaDon> danhsach = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDon);
@@ -426,9 +561,74 @@ namespace QLCafe
             DAO_HoaDon.CapNhatTongTien(IDHoaDon, TongTien.ToString(), TongTien.ToString(), TienGio.ToString());
 
         }
-        /// <summary>
-        /// Thanh toán
-        /// </summary>
+        private void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            // Sự kiện này để người ta không chuyển qua dòng khác được khi có lỗi xảy ra nè
+            // Nó nhận giá trị e.Valid của gridView1_ValidateRow để ứng xử
+            // neu e,Valid =True thì nó cho chuyển qua dòng khác hoặc làm tác vụ khác
+            // và ngược lại
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
+        }
+
+        private void gridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)
+        {
+            string TenHangHoa = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[1]).ToString();
+            //MessageBox.Show(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
+            if (MessageBox.Show("Bạn muốn cập nhật số lượng cho món: " + TenHangHoa + "?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
+                int IDban = IDBan;
+                int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
+                int SLMoi = Int32.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[3]).ToString());
+                float DonGia = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
+                float TrongLuong = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[4]).ToString());
+                if (TrongLuong != 0)
+                {
+                    //tự chọn
+                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * (TrongLuong * DonGia)).ToString(), SLMoi.ToString(), ID) == true)
+                    {
+                        TinhTongTien(IDHoaDon);
+                        HienThiHoaDon(IDban);
+                    }
+                    else
+                    {
+                        HienThiHoaDon(IDban);
+                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else
+                {
+                    //bình thường
+                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * DonGia).ToString(), SLMoi.ToString(), ID) == true)
+                    {
+                        TinhTongTien(IDHoaDon);
+                        HienThiHoaDon(IDban);
+                        //MessageBox.Show("Cập nhật số lượng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        HienThiHoaDon(IDban);
+                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+            else
+            {
+                HienThiHoaDon(IDBan);
+            }
+        }
+
+        private void barButtonTinhGio_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            frmTinhGio fr = new frmTinhGio();
+            fr.ShowDialog();
+        }
+        private void btnThanhToan_Click(object sender, EventArgs e)
+        {
+            ThanhToanTien();
+        }
         public void ThanhToanTien()
         {
             int IDBanHT = IDBan;
@@ -556,6 +756,45 @@ namespace QLCafe
                 }
             }
         }
+        private void btnTachHoaDon_Click(object sender, EventArgs e)
+        {
+            TachBill();
+        }
+        public void TachBill()
+        {
+            int IDBanHT = IDBan;
+            if (IDBanHT == 0)
+            {
+                MessageBox.Show("Vui lòng chọn bàn để thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (DAO_BanHang.IDHoaDon(IDBanHT) == 0)
+            {
+                MessageBox.Show("Bàn chưa có hóa đơn để thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                frmTachBill fr = new frmTachBill();
+                fr.MyGetData = new frmTachBill.GetString(GetTachBill);
+                fr.ShowDialog();
+            }
+        }
+        private void GetTachBill(int KT, int IDHoaDon, int IDBan)
+        {
+            if (KT == 1)
+            {
+                HienThiHoaDon(IDBan);
+                TinhTongTien(IDHoaDon);
+                LoadTongTien();
+            }
+        }
+
+        private void xtraTabControlDanhSach_Click(object sender, EventArgs e)
+        {
+            TabActive = xtraTabControlDanhSach.SelectedTabPageIndex;
+            NameTabActive = xtraTabControlDanhSach.SelectedTabPage.Name;
+            TenKhuVuc = xtraTabControlDanhSach.SelectedTabPage.Text;
+            //DanhSachBan();
+        }
 
         private void btnKetCa_Click(object sender, EventArgs e)
         {
@@ -563,21 +802,100 @@ namespace QLCafe
             fr.ShowDialog();
         }
 
+        private void btnXoaMonAn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                int IDban = IDBan;
+                string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
+                if (IDban != 0)
+                {
+                    int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
+                    if (DAO_BanHang.XoaMonAn(ID) == true)
+                    {
+                        TinhTongTien(IDHoaDon);
+                        HienThiHoaDon(IDban);
+                        //MessageBox.Show("Xóa món ăn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa món ăn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
         private void btnInTam_Click(object sender, EventArgs e)
         {
             InTamHoaDon();
         }
-
-        private void btnTachHoaDon_Click(object sender, EventArgs e)
+        public void InTamHoaDon()
         {
-            TachBill();
-        }
+            int IDBanHT = IDBan;
+            int IDHoaDonHT = DAO_BanHang.IDHoaDon(IDBanHT);
+            if (IDBanHT == 0)
+            {
+                MessageBox.Show("Vui lòng chọn bàn để in phiếu tạm tín.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (DAO_BanHang.IDHoaDon(IDBanHT) == 0)
+            {
+                MessageBox.Show("Bàn chưa có hóa đơn để in phiếu tạm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //if (MessageBox.Show("In tạm tính", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+                //{
+                int KT = DAO_BanHang.KiemTraLayIDGioBatDau(IDHoaDonHT, IDBanHT);// kiểm tra xem có giờ kết thúc hay không
+                if (KT == 0)
+                {
+                    int IDNhanVien = frmDangNhap.NguoiDung.Id;
+                    double KhachThanhToan = double.Parse(txtKhachThanhToan.Text.ToString());
+                    double TienThua = double.Parse(txtTienThoi.Text.ToString());
+                    double GiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
+                    double KhachCanTra = double.Parse(txtKhachCanTra.Text.ToString());
+                    double TienGiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
+                    double TyLeGiamGia = double.Parse(txtGiamGia.Text.ToString());
+                    string HinhThucThanhToan = cmbHinhThucGiamGia.Text.ToString();
+                    DAO_ChiTietHoaDonChinh.CapNhatHoaDonChinh2(IDHoaDonHT, IDBanHT, IDNhanVien, KhachThanhToan, TienThua, KhachCanTra, HinhThucThanhToan, GiamGia, TienGiamGia, TyLeGiamGia);
+                    //List<DTO_ChiTietHoaDon> DanhSachHoaDon = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDonHT);
+                    // in hóa đớn, cập nhật hóa đơn
+                    DAO_ConnectSQL connect = new DAO_ConnectSQL();
+                    // Tên máy in
+                    string NamePrinter = DAO_Setting.LayTenMayInBill();
+                    DAO_Setting.CapNhatBillInTemp(IDHoaDonHT + "");
 
-        private void btnThanhToan_Click(object sender, EventArgs e)
-        {
-            ThanhToanTien();
-        }
+                    // Lấy máy in bill..
+                    int IDBill = DAO_Setting.ReportBill();
+                    if (IDBill == 58)
+                    {
+                        rpHoaDonBanHang_581_Temp rp = new rpHoaDonBanHang_581_Temp();
+                        SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
+                        sqlDataSource.Connection.ConnectionString += connect.ConnectString();
 
+                        rp.Parameters["ID"].Value = IDHoaDonHT;
+                        rp.Parameters["ID"].Visible = false;
+                        //rp.ShowPreviewDialog();
+                        rp.Print(NamePrinter);
+                    }
+                    else
+                    {
+                        rpHoaDonBanHang1_Temp rp = new rpHoaDonBanHang1_Temp();
+                        SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
+                        sqlDataSource.Connection.ConnectionString += connect.ConnectString();
+
+                        rp.Parameters["ID"].Value = IDHoaDonHT;
+                        rp.Parameters["ID"].Visible = false;
+                        //rp.ShowPreviewDialog();
+                        rp.Print(NamePrinter);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Bàn chưa có giờ kết thúc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                //}
+            }
+        }
         private void txtGiamGia_EditValueChanged(object sender, EventArgs e)
         {
             if (cmbHinhThucGiamGia.Text == "$")
@@ -615,260 +933,71 @@ namespace QLCafe
             }
         }
 
-        private void barButtonChonMon_ItemClick(object sender, ItemClickEventArgs e)
+        private void cmbHinhThucGiamGia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frmGoiMon fr = new frmGoiMon();
-            fr.MyGetData = new frmGoiMon.GetKT(GetValueGoiMon);
-            fr.ShowDialog();
+            txtGiamGia.Text = "0";
         }
 
-        private void barButtonDatBan_ItemClick(object sender, ItemClickEventArgs e)
+        private void listBoxNhomHang_Click(object sender, EventArgs e)
         {
-            if (DAO_BAN.TrangThaiBan(IDBan) == 0)
+            string IDNhomHang = listBoxNhomHang.SelectedValue.ToString();
+            listMonAnALL(IDNhomHang);
+        }
+
+        private void gridViewListHangHoa_Click(object sender, EventArgs e)
+        {
+            int IDBanHT = IDBan;
+            int IDHoaDonHT = DAO_BanHang.IDHoaDon(IDBanHT);
+            int kt = 0;
+            if (IDBanHT == 0)
             {
-                frmDatBan fr = new frmDatBan();
-                fr.MyGetData = new frmDatBan.GetString(GetValue);
-                fr.ShowDialog();
-            }
-            else if (DAO_BAN.TrangThaiBan(IDBan) == 1)
-            {
-                MessageBox.Show("Bàn đã có người đặt.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng chọn bàn để gọi món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("Bàn đã có người ngồi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void GetValue(String str1, String str2, DateTime a)
-        {
-            string TenKhachHang = str1;
-            string DienThoai = str2;
-            DateTime GioDat = a;
-            bool KT = DAO_BAN.ThemKhachDatBan(TenKhachHang, DienThoai, GioDat, IDBan);
-            if (KT == true)
-            {
-                DAO_BAN.DoiTrangThaiDatBan(IDBan);
-                DanhSachBan();
-                //MessageBox.Show("Đặt bàn thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            }
-            else
-            {
-                DanhSachBan();
-                MessageBox.Show("Đặt bàn Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void barButtonXoaBan_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (MessageBox.Show("Chuyển trạng thái bàn về mặc định? Dữ liệu trước sẽ không được lưu lại.", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
-            {
-                bool KT = DAO_BAN.XoaBanVeMatDinh(IDBan);
-                if (KT == true)
+                GridView view = (GridView)sender;
+                string IDHangHoa = gridViewListHangHoa.GetRowCellValue(gridViewListHangHoa.FocusedRowHandle, gridViewListHangHoa.Columns[0]).ToString();
+                int IDBangGia = DAO_GoiMon.LayIDBanGia(IDBanHT);
+                float GiaBan = 0;
+                if (IDBangGia != 0)
                 {
-                    DAO_HoaDon.XoaDatBan(IDBan);
-                    DAO_DatBan.XoaKhachDat(IDBan);
-                    DanhSachBan();
-                    HienThiHoaDon(IDBan);
+                    GiaBan = DAO_GoiMon.LayGiaBan(Int32.Parse(IDHangHoa), IDBangGia);
+                }
+
+                //MessageBox.Show(TenHangHoa);
+                if (IDHoaDonHT == 0)
+                {
+                    int IDNhanVien = frmDangNhap.NguoiDung.Id;
+                    object ID = DAO_GoiMon.ThemHoaDon(IDBan, IDNhanVien);
+                    IDHoaDonHT = Int32.Parse(ID.ToString());
+                    if (ID != null)
+                    {
+                        kt = 1;
+                        DAO_GoiMon.ThemChiTietHoaDon(ID, Int32.Parse(IDHangHoa), 1, GiaBan, GiaBan, IDBanHT, DAO_Setting.LayMaHangHoa_IDHH(IDHangHoa), DAO_Setting.LayIDDonViTinh(DAO_Setting.LayMaHangHoa_IDHH(IDHangHoa)), 0);
+                        DAO_BAN.DoiTrangThaiBanCoNguoi(IDBanHT);
+                    }
                 }
                 else
                 {
-                    DanhSachBan();
-                    MessageBox.Show("Cập Nhật Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void barButtonChuyenBan_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (DAO_BAN.TrangThaiBan(IDBan) == 2)
-            {
-                frmChuyenBan fr = new frmChuyenBan();
-                fr.MyGetData = new frmChuyenBan.GetKT(GetChuyenBan);
-                fr.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Bàn chưa có món ăn. Không thể chuyển bàn?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void GetChuyenBan(int KT, int IDBanChuyen, int IDBanNhan, int IDHoaDon)
-        {
-            if (KT == 1)
-            {
-                TinhTongTien(IDHoaDon);
-                HienThiHoaDon(IDBanNhan);
-                DanhSachBan();
-            }
-            else
-            {
-                MessageBox.Show("Chuyển bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DanhSachBan();
-            }
-        }
-        private void barButtonTachBan_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (DAO_BAN.TrangThaiBan(IDBan) == 2)
-            {
-                frmTachBan fr = new frmTachBan();
-                fr.MyGetDataTachBan = new frmTachBan.GetKT(GetTachBan);
-                fr.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Bàn chưa có món ăn. Không thể tách bàn?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void GetTachBan(int KT, int IDHoaDonA, int IDHoaDonB)
-        {
-            if (KT == 1)
-            {
-                DanhSachBan();
-                TinhTongTien(IDHoaDonA);
-                TinhTongTien(IDHoaDonB);
-                gridControlCTHD.DataSource = null;
-                gridControlCTHD.Refresh();
-                // MessageBox.Show("Tách bàn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            }
-            else
-            {
-                MessageBox.Show("Tách bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DanhSachBan();
-            }
-        }
-        private void barButtonGopBan_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (DAO_BAN.TrangThaiBan(IDBan) == 2)
-            {
-                frmGopBan fr = new frmGopBan();
-                fr.MyGetDataGopBan = new frmGopBan.GetKT(GetGopBan);
-                fr.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Bàn chưa có món ăn. Không thể gộp bàn?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void GetGopBan(int KT, int IDBanA, int IDBanB, int IDHoaDon)
-        {
-            if (KT == 1)
-            {
-                DanhSachBan();
-                TinhTongTien(IDHoaDon);
-                gridControlCTHD.DataSource = null;
-                gridControlCTHD.Refresh();
-            }
-            else
-            {
-                MessageBox.Show("Gộp bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DanhSachBan();
-            }
-        }
-
-        private void btnXoaMonAn_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                int IDban = IDBan;
-                string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
-                if (IDban != 0)
-                {
-                    int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
-                    if (DAO_BanHang.XoaMonAn(ID) == true)
+                    if (DAO_ChiTietHoaDon.KiemTraHangHoa(IDHoaDonHT, Int32.Parse(IDHangHoa), IDBanHT, 0) == false)
                     {
-                        TinhTongTien(IDHoaDon);
-                        HienThiHoaDon(IDban);
-                        //MessageBox.Show("Xóa món ăn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        DAO_GoiMon.ThemChiTietHoaDon(IDHoaDonHT, Int32.Parse(IDHangHoa), 1, GiaBan, GiaBan, IDBanHT, DAO_Setting.LayMaHangHoa_IDHH(IDHangHoa), DAO_Setting.LayIDDonViTinh(DAO_Setting.LayMaHangHoa_IDHH(IDHangHoa)), 0);
                     }
                     else
                     {
-                        MessageBox.Show("Xóa món ăn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        DAO_GoiMon.CapNhatChiTietHoaDon(IDHoaDonHT, 1, GiaBan, Int32.Parse(IDHangHoa), IDBanHT);
                     }
                 }
-            }
-        }
 
-        private void gridControlCTHD_ProcessGridKey(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete && gridView1.State != DevExpress.XtraGrid.Views.Grid.GridState.Editing)
+            }
+            TinhTongTien(IDHoaDonHT);
+            HienThiHoaDon(IDBanHT);
+            if (kt == 1)
             {
-                if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    int IDban = IDBan;
-                    string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
-                    if (IDban != 0)
-                    {
-                        int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
-                        if (DAO_BanHang.XoaMonAn(ID) == true)
-                        {
-                            TinhTongTien(IDHoaDon);
-                            HienThiHoaDon(IDban);
-                            //MessageBox.Show("Xóa món ăn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Xóa món ăn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
+                DanhSachBan();
             }
         }
 
-        private void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
-        {
-            // Sự kiện này để người ta không chuyển qua dòng khác được khi có lỗi xảy ra nè
-            // Nó nhận giá trị e.Valid của gridView1_ValidateRow để ứng xử
-            // neu e,Valid =True thì nó cho chuyển qua dòng khác hoặc làm tác vụ khác
-            // và ngược lại
-            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
-        }
-
-        private void gridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)
-        {
-            string TenHangHoa = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[1]).ToString();
-            //MessageBox.Show(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
-            if (MessageBox.Show("Bạn muốn cập nhật số lượng cho món: " + TenHangHoa + "?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
-            {
-                string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
-                int IDban = IDBan;
-                int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
-                int SLMoi = Int32.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[3]).ToString());
-                float DonGia = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
-                float TrongLuong = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[4]).ToString());
-                if (TrongLuong != 0)
-                {
-                    //tự chọn
-                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * (TrongLuong * DonGia)).ToString(), SLMoi.ToString(), ID) == true)
-                    {
-                        TinhTongTien(IDHoaDon);
-                        HienThiHoaDon(IDban);
-                    }
-                    else
-                    {
-                        HienThiHoaDon(IDban);
-                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                }
-                else
-                {
-                    //bình thường
-                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * DonGia).ToString(), SLMoi.ToString(), ID) == true)
-                    {
-                        TinhTongTien(IDHoaDon);
-                        HienThiHoaDon(IDban);
-                        //MessageBox.Show("Cập nhật số lượng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    }
-                    else
-                    {
-                        HienThiHoaDon(IDban);
-                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-
-            }
-            else
-            {
-                HienThiHoaDon(IDBan);
-            }
-        }
+       
     }
 }

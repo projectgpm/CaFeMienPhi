@@ -18,8 +18,8 @@ namespace QLCafe
 {
     public partial class frmTachBill : DevExpress.XtraEditors.XtraForm
     {
-        int IDBan = frmBanHang.IDBan;
-        int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
+       // int IDBan = frmBanHang.IDBan;
+        //int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
         List<ChiTietHoaDonA1> listChiTietMonAn = new List<ChiTietHoaDonA1>();
         List<ChiTietHoaDonB1> listChiTietMonAnThanhToan = new List<ChiTietHoaDonB1>();
         
@@ -36,8 +36,8 @@ namespace QLCafe
             //gridViewA.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
             gridViewB.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
             //gridViewC.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
-           
-            lblTenBan.Text = DAO_GoiMon.TenBan(IDBan);
+
+            lblTenBan.Text = DAO_GoiMon.TenBan(DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan);
             DanhSachHangHoaA();
            
         }
@@ -55,6 +55,7 @@ namespace QLCafe
         {
             listChiTietMonAn.Clear();
             // lấy món ăn theo IDBan
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             List<DTO_DanhSachMenu> MonAnThuong = DAO_DanhSachMonAn.Instance.GetMonAnThuong(DAO_BanHang.IDHoaDon(IDBan));
             List<DTO_DanhSachMenu> MonAnTuChon = DAO_DanhSachMonAn.Instance.GetMonAnTuChon(DAO_BanHang.IDHoaDon(IDBan));
             foreach (DTO_DanhSachMenu item in MonAnThuong)
@@ -308,6 +309,8 @@ namespace QLCafe
                 if (listChiTietMonAnThanhToan.Count > 0)
                 {
                     bool KT = true;
+                    int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+                    int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
                     int IDNhanVien = frmDangNhap.NguoiDung.Id;
                     DateTime GioVao = DAO_ChiTietHoaDonChinh.LayGioVao(IDHoaDon);
                     object ID = DAO_ChiTietHoaDonChinh.ThemMoiHoaDon(IDBan, IDNhanVien, GioVao);

@@ -17,8 +17,8 @@ namespace QLCafe
 {
     public partial class frmGoiMon : DevExpress.XtraEditors.XtraForm
     {
-        int IDBan = frmBanHang.IDBan;
-        int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
+        //int IDBan = frmBanHang.IDBan;
+       // int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
         List<ChiTietHoaDon> listChiTietHoaDon = new List<ChiTietHoaDon>();
 
         public delegate void GetKT(int KT, int IDHoaDon);
@@ -37,6 +37,8 @@ namespace QLCafe
         }
         private void frmGoiMon_Load(object sender, EventArgs e)
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             DanhSachMonAnBanChay();
             listChiTietHoaDon.Clear();
             lblTenBan.Text = DAO_GoiMon.TenBan(IDBan);
@@ -109,6 +111,8 @@ namespace QLCafe
         }
         public void ThemMonAn(DataTable tbThongTin, float TrongLuong)
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             int IDBangGia = DAO_GoiMon.LayIDBanGia(IDBan);
             int IDHangHoa = Int32.Parse(tbThongTin.Rows[0]["ID"].ToString());
             string MaHangHoa = tbThongTin.Rows[0]["MaHangHoa"].ToString();
@@ -177,6 +181,8 @@ namespace QLCafe
         }
         public void GoiMon()
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             if (listChiTietHoaDon.Count > 0)
             {
                 if (IDHoaDon == 0)

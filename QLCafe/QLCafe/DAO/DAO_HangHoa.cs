@@ -10,6 +10,31 @@ namespace QLCafe.DAO
 {
     class DAO_HangHoa
     {
+        /// <summary>
+        /// Hàng hóa theo ID nhóm hàng
+        /// </summary>
+        /// <param name="IDNhom"></param>
+        /// <returns></returns>
+        public static DataTable DanhSachHangHoa_IDNhomHang(string IDNhom)
+        {
+            string sTruyVan = string.Format(@"SELECT [CF_HangHoa].*,[CF_DonViTinh].[TenDonViTinh] as DVT FROM [CF_HangHoa],[CF_DonViTinh] WHERE [CF_HangHoa].IDDonViTinh = [CF_DonViTinh].ID  AND [CF_HangHoa].DaXoa = 0 AND [CF_HangHoa].IDNhomHang = '" + IDNhom + "'  ORDER BY [CF_HangHoa].TenHangHoa ASC");
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            return data;
+        }
+        /// <summary>
+        /// Danh sach hàng hóa cho lis
+        /// </summary>
+        /// <param name="IDNhomHang"></param>
+        /// <returns></returns>
+        /// 
+        public static DataTable DanhSachHangHoa_Full2()
+        {
+            string sTruyVan = string.Format(@"SELECT [CF_HangHoa].*,[CF_DonViTinh].[TenDonViTinh] as DVT FROM [CF_HangHoa],[CF_DonViTinh] WHERE [CF_HangHoa].IDDonViTinh = [CF_DonViTinh].ID  AND [CF_HangHoa].DaXoa = 0 ORDER BY [CF_HangHoa].TenHangHoa ASC");
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+            return data;
+        }
         public static DataTable DanhSachHangHoa(string IDNhomHang)
         {
             string sTruyVan = string.Format(@"SELECT * FROM [CF_HangHoa] WHERE [IDNhomHang] = {0}", IDNhomHang);

@@ -16,8 +16,8 @@ namespace QLCafe
 {
     public partial class frmTachBan : DevExpress.XtraEditors.XtraForm
     {
-        int IDBan = frmBanHang.IDBan;
-        int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
+       // int IDBan = frmBanHang.IDBan;
+       // int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
         string IDChiNhanh = frmDangNhap.NguoiDung.Idchinhanh;
         List<ChiTietHoaDonA1> listChiTietHoaDonA1 = new List<ChiTietHoaDonA1>();
         List<ChiTietHoaDonB1> listChiTietHoaDonB1 = new List<ChiTietHoaDonB1>();
@@ -39,6 +39,7 @@ namespace QLCafe
         {
             if (KT == 1 && listChiTietHoaDonA1.Count > 0)
             {
+                int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
                 int IDBanMoi = Int32.Parse(cmbBanB.EditValue.ToString());
                 int SoLuongA = Int32.Parse(gridViewA.GetRowCellValue(gridViewA.FocusedRowHandle, gridViewA.Columns[3]).ToString());
                 if (listChiTietHoaDonA1.Count == 1 && SoLuongA == 1)
@@ -194,6 +195,7 @@ namespace QLCafe
         public void DanhSachBanTheoKhuVuc(int IDKhuVuc)
         {
             //danh sách bàn tất cả
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             List<DTO_BAN> ban = DAO_ChuyenBan.DanhSachBanTheoKhuVuc(IDKhuVuc, -1, IDBan);
             cmbBanB.Properties.DataSource = ban;
             cmbBanB.Properties.ValueMember = "Id";
@@ -206,6 +208,7 @@ namespace QLCafe
         public void LamMoi()
         {
             DanhSachHangHoaA();
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             cmbBanA.Properties.NullText = DAO_ChuyenBan.LayTenBan(IDBan);
             int IDkhuVuc = DAO_ChuyenBan.LayIDKhuVuc(IDBan);
             cmbKhuVucA.Properties.NullText = DAO_ChuyenBan.LayTenKhuVuc(IDkhuVuc).ToString();
@@ -217,6 +220,7 @@ namespace QLCafe
         public void DanhSachHangHoaA()
         {
             listChiTietHoaDonA1.Clear();
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             List<DTO_DanhSachMenu> MonAnThuong = DAO_DanhSachMonAn.Instance.GetMonAnThuong(DAO_BanHang.IDHoaDon(IDBan));
             List<DTO_DanhSachMenu> MonAnTuChon = DAO_DanhSachMonAn.Instance.GetMonAnTuChon(DAO_BanHang.IDHoaDon(IDBan));
             foreach (DTO_DanhSachMenu item in MonAnThuong)
@@ -273,7 +277,8 @@ namespace QLCafe
             // lấy lại dữ liệu A và B, xóa chi tiết A, thêm lại A, Thêm B + Hóa Đơn Mới(if đã tồn tại thêm chèn vào)
             if (listChiTietHoaDonB1.Count > 0)
             {
-                int IDHoaDonA = IDHoaDon;
+                int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
+                int IDHoaDonA = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
                 int IDBanA = IDBan;
                 int IDBanB = Int32.Parse(cmbBanB.EditValue.ToString());
                 int IDHoaDonB = DAO_BanHang.IDHoaDon(IDBanB);// nếu idhoadonb = 0 thì tạo IDHoaDonMoi

@@ -42,9 +42,7 @@ namespace QLCafe
             DanhSachBan();
             // WindowState = FormWindowState.Maximized;
             lblNgay.Text = "Ngày hôm nay: " + DateTime.Now.ToString("dd/MM/yyyy");
-            lblTenCongTy.Text = DAO_Setting.TenCongTy();
-            lblDiaChi.Text = DAO_Setting.DiaChiCongTy();
-            lblDienThoai.Text = DAO_Setting.DienThoaiCongTy();
+           
             txtTongTien.ReadOnly = true;
             txtKhachCanTra.ReadOnly = true;
             txtTienThoi.ReadOnly = true;

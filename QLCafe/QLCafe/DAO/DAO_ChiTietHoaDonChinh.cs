@@ -27,7 +27,23 @@ namespace QLCafe.DAO
         }
         public static bool CapNhatHoaDonChinh(int IDHoaDon, int IDBan, int IDNhanVien, double KhachThanhToan, double TienThua, double KhachCanTra, string HinhThucGiamGia, double GiamGia, double TyLeGiamGia, double TienGiamGia)
         {
-            string sTruyVan = string.Format(@"UPDATE [CF_HoaDon] SET [TienGiamGia] = '{9}',[TyLeGiamGia] = '{8}',[GiamGia] = '{7}',[HinhThucGiamGia] = N'{6}',[KhachCanTra] = '{5}',[TrangThai] = 1, [GioRa] = getdate(), [IDNhanVien] = {0},[KhachThanhToan] = '{1}', [TienThua] = '{2}' WHERE [ID] = {3} AND [IDBan] = {4}", IDNhanVien, KhachThanhToan, TienThua, IDHoaDon, IDBan, KhachCanTra, HinhThucGiamGia, GiamGia, TyLeGiamGia, TienGiamGia);
+            //lấy mã hóa đơn
+            string CompuMaHoaDon = @"SELECT 
+                                          REPLICATE('0', 5 - LEN((count(ID) + 1))) + 
+                                          CAST((count(ID) + 1) AS varchar) + '-' + 
+                                          FORMAT(GETDATE() , 'ddMMyy')
+                                          as 'Mã Hóa Đơn'  
+                                          from CF_HoaDon 
+                                          where MaHoaDon is not null AND DATEDIFF(dd,NgayBan, GetDate()) = 0";
+            string MaHoaDon = "";
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(CompuMaHoaDon);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                MaHoaDon = dr["Mã Hóa Đơn"].ToString();
+            }
+            string sTruyVan = string.Format(@"UPDATE [CF_HoaDon] SET MaHoaDon = '{10}' ,[TienGiamGia] = '{9}',[TyLeGiamGia] = '{8}',[GiamGia] = '{7}',[HinhThucGiamGia] = N'{6}',[KhachCanTra] = '{5}',[TrangThai] = 1, [GioRa] = getdate(), [IDNhanVien] = {0},[KhachThanhToan] = '{1}', [TienThua] = '{2}' WHERE [ID] = {3} AND [IDBan] = {4}", IDNhanVien, KhachThanhToan, TienThua, IDHoaDon, IDBan, KhachCanTra, HinhThucGiamGia, GiamGia, TyLeGiamGia, TienGiamGia, MaHoaDon);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
         public static bool CapNhatHoaDonChinh2(int IDHoaDon, int IDBan, int IDNhanVien, double KhachThanhToan, double TienThua, double KhachCanTra, string HinhThucGiamGia, double GiamGia, double TienGiamGia, double TyLeGiamGia)
@@ -44,7 +60,7 @@ namespace QLCafe.DAO
         public static object ThemMoiHoaDon(int IDBan, int NhanVien, DateTime GioVao)
         {
             object ID = null;
-            string sTruyVan = string.Format(@"INSERT INTO CF_HoaDon(IDBan,GioVao,IDNhanVien,GioRa) OUTPUT INSERTED.ID VALUES ('{0}','{1}',{2},getdate())", IDBan, GioVao.ToString("yyyy-MM-dd hh:mm:ss tt"), NhanVien);
+            string sTruyVan = string.Format(@"INSERT INTO CF_HoaDon(IDBan,GioVao,IDNhanVien,GioRa,NgayBan) OUTPUT INSERTED.ID VALUES ('{0}','{1}',{2},getdate(),getdate())", IDBan, GioVao.ToString("yyyy-MM-dd hh:mm:ss tt"), NhanVien);
             SqlConnection conn = new SqlConnection();
             DAO_ConnectSQL connect = new DAO_ConnectSQL();
             conn = connect.Connect();
@@ -68,7 +84,23 @@ namespace QLCafe.DAO
         }
         public static bool CapNhatTongTienHoaDonChinh(int IDHoaDon, int IDBan, double TongTien)
         {
-            string sTruyVan = string.Format(@"UPDATE [CF_HoaDon] SET [TrangThai] = 1,  [TongTien] = {0},[KhachThanhToan] = '{1}',KhachCanTra = '{5}', [TienThua] = '{2}' WHERE [ID] = {3} AND [IDBan] = {4}", TongTien, TongTien, TongTien, IDHoaDon, IDBan, TongTien);
+            string CompuMaHoaDon = @"SELECT 
+                                          REPLICATE('0', 5 - LEN((count(ID) + 1))) + 
+                                          CAST((count(ID) + 1) AS varchar) + '-' + 
+                                          FORMAT(GETDATE() , 'ddMMyy')
+                                          as 'Mã Hóa Đơn'  
+                                          from CF_HoaDon 
+                                          where MaHoaDon is not null  AND DATEDIFF(dd,NgayBan, GetDate()) = 0";
+            string MaHoaDon = "";
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(CompuMaHoaDon);
+            if (data.Rows.Count > 0)
+            {
+                DataRow dr = data.Rows[0];
+                MaHoaDon = dr["Mã Hóa Đơn"].ToString();
+            }
+
+            string sTruyVan = string.Format(@"UPDATE [CF_HoaDon] SET [MaHoaDon] = '{6}',[TrangThai] = 1,  [TongTien] = {0},[KhachThanhToan] = '{1}',KhachCanTra = '{5}', [TienThua] = '{2}' WHERE [ID] = {3} AND [IDBan] = {4}", TongTien, TongTien, TongTien, IDHoaDon, IDBan, TongTien, MaHoaDon);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
         public static bool CapNhatTienGioHoaDonChinh(int IDHoaDon, int IDBan, double TienGio)

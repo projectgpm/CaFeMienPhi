@@ -16,8 +16,8 @@ namespace QLCafe
 {
     public partial class frmGopBan : DevExpress.XtraEditors.XtraForm
     {
-        int IDBan = frmBanHang.IDBan;
-        int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
+       // int IDBan = frmBanHang.IDBan;
+        //int IDHoaDon = DAO_BanHang.IDHoaDon(frmBanHang.IDBan);
         string IDChiNhanh = frmDangNhap.NguoiDung.Idchinhanh;
         List<ChiTietHoaDonA1> listChiTietHoaDonA1 = new List<ChiTietHoaDonA1>();
         List<ChiTietHoaDonB1> listChiTietHoaDonB1 = new List<ChiTietHoaDonB1>();
@@ -65,6 +65,8 @@ namespace QLCafe
         }
         public void ChuyenBSangA()
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             int IDBanMoi = IDBan;// lấy lại IDBan của A
             foreach (ChiTietHoaDonB1 item in listChiTietHoaDonB1)
             {
@@ -126,6 +128,8 @@ namespace QLCafe
         }
         public void LamMoi()
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             DanhSachHangHoaA();
             cmbBanA.Properties.NullText = DAO_ChuyenBan.LayTenBan(IDBan);
             int IDkhuVuc = DAO_ChuyenBan.LayIDKhuVuc(IDBan);
@@ -137,6 +141,8 @@ namespace QLCafe
         }
         public void DanhSachBanTheoKhuVuc(int IDKhuVuc)
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             //danh sách bàn phải có người : 2
             List<DTO_BAN> ban = DAO_ChuyenBan.DanhSachBanTheoKhuVuc(IDKhuVuc, 2, IDBan);
             cmbBanB.Properties.DataSource = ban;
@@ -181,6 +187,8 @@ namespace QLCafe
         }
         public void DanhSachHangHoaA()
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             listChiTietHoaDonA1.Clear();
             gridViewA.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
             // lấy món ăn theo IDBan
@@ -233,6 +241,8 @@ namespace QLCafe
         }
         public void GopBan()
         {
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             if (listChiTietHoaDonA1.Count > 0 && listChiTietHoaDonB1.Count > 0)
             {
                 MessageBox.Show("Bạn chưa gộp bàn. Vui lòng kiểm tra lại?", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
