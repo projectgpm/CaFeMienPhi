@@ -755,12 +755,119 @@ namespace QLCafe
                 TinhTongTien(IDHoaDon);
                 gridControlCTHD.DataSource = null;
                 gridControlCTHD.Refresh();
-                //MessageBox.Show("Gộp bàn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
             {
                 MessageBox.Show("Gộp bàn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DanhSachBan();
+            }
+        }
+
+        private void btnXoaMonAn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                int IDban = IDBan;
+                string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
+                if (IDban != 0)
+                {
+                    int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
+                    if (DAO_BanHang.XoaMonAn(ID) == true)
+                    {
+                        TinhTongTien(IDHoaDon);
+                        HienThiHoaDon(IDban);
+                        //MessageBox.Show("Xóa món ăn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa món ăn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void gridControlCTHD_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && gridView1.State != DevExpress.XtraGrid.Views.Grid.GridState.Editing)
+            {
+                if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    int IDban = IDBan;
+                    string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
+                    if (IDban != 0)
+                    {
+                        int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
+                        if (DAO_BanHang.XoaMonAn(ID) == true)
+                        {
+                            TinhTongTien(IDHoaDon);
+                            HienThiHoaDon(IDban);
+                            //MessageBox.Show("Xóa món ăn thành Công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Xóa món ăn không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            // Sự kiện này để người ta không chuyển qua dòng khác được khi có lỗi xảy ra nè
+            // Nó nhận giá trị e.Valid của gridView1_ValidateRow để ứng xử
+            // neu e,Valid =True thì nó cho chuyển qua dòng khác hoặc làm tác vụ khác
+            // và ngược lại
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
+        }
+
+        private void gridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)
+        {
+            string TenHangHoa = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[1]).ToString();
+            //MessageBox.Show(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
+            if (MessageBox.Show("Bạn muốn cập nhật số lượng cho món: " + TenHangHoa + "?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
+                int IDban = IDBan;
+                int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
+                int SLMoi = Int32.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[3]).ToString());
+                float DonGia = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
+                float TrongLuong = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[4]).ToString());
+                if (TrongLuong != 0)
+                {
+                    //tự chọn
+                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * (TrongLuong * DonGia)).ToString(), SLMoi.ToString(), ID) == true)
+                    {
+                        TinhTongTien(IDHoaDon);
+                        HienThiHoaDon(IDban);
+                    }
+                    else
+                    {
+                        HienThiHoaDon(IDban);
+                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else
+                {
+                    //bình thường
+                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * DonGia).ToString(), SLMoi.ToString(), ID) == true)
+                    {
+                        TinhTongTien(IDHoaDon);
+                        HienThiHoaDon(IDban);
+                        //MessageBox.Show("Cập nhật số lượng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        HienThiHoaDon(IDban);
+                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+            else
+            {
+                HienThiHoaDon(IDBan);
             }
         }
     }

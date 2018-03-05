@@ -156,6 +156,8 @@
             this.gridColumn1.FieldName = "TrongLuong";
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.OptionsColumn.AllowEdit = false;
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 3;
             this.gridColumn1.Width = 119;
             // 
             // repositoryItemSpinEdit4
@@ -188,7 +190,7 @@
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.OptionsColumn.AllowEdit = false;
             this.gridColumn12.Visible = true;
-            this.gridColumn12.VisibleIndex = 4;
+            this.gridColumn12.VisibleIndex = 5;
             this.gridColumn12.Width = 84;
             // 
             // repositoryItemSpinEdit2
@@ -210,7 +212,7 @@
             this.gridColumn16.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ThanhTien", "Tổng={0:N0}")});
             this.gridColumn16.Visible = true;
-            this.gridColumn16.VisibleIndex = 5;
+            this.gridColumn16.VisibleIndex = 6;
             this.gridColumn16.Width = 124;
             // 
             // repositoryItemSpinEdit3
