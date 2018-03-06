@@ -29,7 +29,7 @@
                                             <CellStyle HorizontalAlign="Center">
                                             </CellStyle>
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataSpinEditColumn Caption="Tổng tiền" FieldName="TienHienTai" ShowInCustomizationForm="True" VisibleIndex="3">
+                                        <dx:GridViewDataSpinEditColumn Caption="Tổng tiền" FieldName="TongTien" ShowInCustomizationForm="True" VisibleIndex="3">
                                             <PropertiesSpinEdit DisplayFormatInEditMode="True" DisplayFormatString="{0:N0} VNĐ" NumberFormat="Custom">
                                             </PropertiesSpinEdit>
                                             <CellStyle HorizontalAlign="Center">
@@ -46,16 +46,6 @@
                                             </PropertiesSpinEdit>
                                             <CellStyle HorizontalAlign="Center">
                                             </CellStyle>
-                                        </dx:GridViewDataSpinEditColumn>
-                                        <dx:GridViewDataSpinEditColumn Caption="Tiền hàng" FieldName="TongVon" ShowInCustomizationForm="True" VisibleIndex="1" Visible="False">
-                                            <PropertiesSpinEdit DisplayFormatInEditMode="True" DisplayFormatString="{0:N0} VNĐ" NumberFormat="Custom">
-                                            </PropertiesSpinEdit>
-                                            <CellStyle HorizontalAlign="Center">
-                                            </CellStyle>
-                                        </dx:GridViewDataSpinEditColumn>
-                                        <dx:GridViewDataSpinEditColumn Caption="Doanh thu" FieldName="DoanhThu" ShowInCustomizationForm="True" VisibleIndex="2" Visible="False">
-                                            <PropertiesSpinEdit DisplayFormatString="{0:N0} VNĐ" DisplayFormatInEditMode="True" NumberFormat="Custom">
-                                            </PropertiesSpinEdit>
                                         </dx:GridViewDataSpinEditColumn>
                                     </Columns>
                                     <Styles>

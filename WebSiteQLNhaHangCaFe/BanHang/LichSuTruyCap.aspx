@@ -37,10 +37,6 @@
                                             <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy hh:mm:ss tt">
                                             </PropertiesDateEdit>
                                         </dx:GridViewDataDateColumn>
-                                        <dx:GridViewDataComboBoxColumn Caption="Chi Nhánh" FieldName="IDChiNhanh" VisibleIndex="0">
-                                            <PropertiesComboBox DataSourceID="sqlChiNhanh" TextField="TenChiNhanh" ValueField="ID">
-                                            </PropertiesComboBox>
-                                        </dx:GridViewDataComboBoxColumn>
                                         <dx:GridViewDataTextColumn Caption="Thao Tác" FieldName="HanhDong" VisibleIndex="4">
                                         </dx:GridViewDataTextColumn>
                                     </Columns>

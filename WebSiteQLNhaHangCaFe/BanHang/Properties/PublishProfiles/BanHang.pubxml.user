@@ -131,7 +131,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2018 13:36:43</publishTime>
     </File>
     <File Include="bin/BanHang.dll">
-      <publishTime>03/05/2018 15:40:16</publishTime>
+      <publishTime>03/06/2018 14:04:01</publishTime>
     </File>
     <File Include="bin/BanHang.dll.r16">
       <publishTime>02/21/2018 13:36:43</publishTime>
@@ -542,7 +542,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2018 13:36:43</publishTime>
     </File>
     <File Include="LichSuTruyCap.aspx">
-      <publishTime>02/21/2018 13:36:43</publishTime>
+      <publishTime>03/06/2018 14:03:33</publishTime>
     </File>
     <File Include="Light.master">
       <publishTime>02/21/2018 13:36:43</publishTime>
@@ -605,7 +605,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2018 13:36:43</publishTime>
     </File>
     <File Include="QuanLyCuaHang.aspx">
-      <publishTime>03/02/2018 09:27:23</publishTime>
+      <publishTime>03/06/2018 13:50:01</publishTime>
     </File>
     <File Include="QuanLyGio.aspx">
       <publishTime>02/21/2018 13:36:43</publishTime>
@@ -677,7 +677,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2017 09:58:52</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/05/2018 15:40:18</publishTime>
+      <publishTime>03/06/2018 14:04:02</publishTime>
     </File>
   </ItemGroup>
 </Project>
