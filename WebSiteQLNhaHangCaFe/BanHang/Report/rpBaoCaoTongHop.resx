@@ -130,7 +130,7 @@
     <value>select CASE WHEN SUM("CF_HoaDon"."KhachCanTra") &gt; 0 THEN SUM("CF_HoaDon"."KhachCanTra") ELSE 0 END as TongTien
   from "dbo"."CF_HoaDon" "CF_HoaDon"
  where (("CF_HoaDon"."GioVao" &gt;= @NgayBD)
-       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT))</value>
+       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT) and ("CF_HoaDon"."TrangThai" = 1))</value>
   </data>
   <data name="customSqlQuery4.Sql" xml:space="preserve">
     <value>select SUM("CF_NguyenLieu"."GiaMua" * "CF_ChiTietHoaDon"."TrongLuong" * "CF_ChiTietHoaDon"."SoLuong") as TongGiaBan
@@ -157,7 +157,8 @@ where           "CF_TongChi"."NgayChi" &gt;= @NgayBD
 		and "CF_TongChi"."NgayChi" &lt;= @NgayKT  
 		and "CF_TongChi"."DaXoa" = 0 
 		and "CF_HoaDon"."GioVao" &gt;= @NgayBD
-       	and "CF_HoaDon"."GioVao" &lt;= @NgayKT</value>
+       	and "CF_HoaDon"."GioVao" &lt;= @NgayKT
+	      and ("CF_HoaDon"."TrangThai" = 1)</value>
   </data>
   <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
     <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IkNvbmdOb05DQyI+PEZpZWxkIE5hbWU9IkNvbmdOb05DQyIgVHlwZT0iRG91YmxlIiAvPjwvVmlldz48VmlldyBOYW1lPSJEb2FuaFRodUJhbkhhbmciPjxGaWVsZCBOYW1lPSJUb25nVGllbiIgVHlwZT0iRG91YmxlIiAvPjwvVmlldz48VmlldyBOYW1lPSJTZXR0aW5nIj48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJJblRpZXVEZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJbkNvbmdUeSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJbkRpYUNoaSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJbkRpZW5UaG9haSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJblJwRGlhQ2hpIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRhdGFiYXNlTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJLZXlLaWNoSG9hdCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJOZ3VvaUtpY2hIb2F0IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkNodXllbkRvaURhdSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkNodXllbkFtIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iU29OZ2F5VHJhSGFuZyIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlR1YW5TdWF0QmFuSGFuZyIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkNhcE5oYXREb25IYW5nWHVMeSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9Ikh1eURvbkhhbmdUaHVNdWEiIFR5cGU9IkludDMyIiAvPjwvVmlldz48VmlldyBOYW1lPSJUb25nQ2hpIj48RmllbGQgTmFtZT0iVG9uZ0NoaSIgVHlwZT0iRG91YmxlIiAvPjwvVmlldz48VmlldyBOYW1lPSJUb25nR2lhVm9uIj48RmllbGQgTmFtZT0iVG9uZ0dpYUJhbiIgVHlwZT0iRG91YmxlIiAvPjwvVmlldz48VmlldyBOYW1lPSJUb25nTG9pTmh1YW4iPjxGaWVsZCBOYW1lPSJUb25nTG9pTmh1YW4iIFR5cGU9IkRvdWJsZSIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iVG9uZ1RpZW5Ub25LaG8iPjxGaWVsZCBOYW1lPSJUb25nVG9uS2hvIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>

@@ -150,10 +150,11 @@ namespace QLCafe.DAO
         }
         public static string GetHardDiskSerialNo()
         {
-            string drive = "C";
-            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid=\"" + drive + ":\"");
-            disk.Get();
-            return disk["VolumeSerialNumber"].ToString();
+            return System.Environment.MachineName;
+            //string drive = "C";
+            //ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid=\"" + drive + ":\"");
+            //disk.Get();
+            //return disk["VolumeSerialNumber"].ToString();
         }
         public static int getKeyCode()
         {

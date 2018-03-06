@@ -32,7 +32,7 @@
                     <dx:LayoutItem Caption="" HorizontalAlign="Left">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton ID="btnThem" runat="server" PostBackUrl="ThemHangHoa.aspx" Text="Thêm Hàng Hóa - Nguyên Liệu">
+                                <dx:ASPxButton ID="btnThem" runat="server" PostBackUrl="ThemHangHoa.aspx" Text="Thêm Hàng Hóa - Nguyên Liệu" Visible="False">
                                     <Image IconID="actions_add_32x32">
                                     </Image>
                                 </dx:ASPxButton>
@@ -45,7 +45,6 @@
                                 <LayoutItemNestedControlCollection>
                                     <dx:LayoutItemNestedControlContainer runat="server">
                                         <dx:ASPxGridView ID="gridHangHoa" runat="server" AutoGenerateColumns="False" KeyFieldName="ID" Width="100%" OnRowDeleting="gridHangHoa_RowDeleting" OnRowInserting="gridHangHoa_RowInserting" OnRowUpdating="gridHangHoa_RowUpdating" OnInitNewRow="gridHangHoa_InitNewRow">
-                                            <SettingsDetail ShowDetailRow="True" />
                                             <Templates>
                                                 <EditForm>
                                                     <div style="padding: 4px 3px 4px">
@@ -275,6 +274,7 @@
                                                 </TitlePanel>
                                             </Styles>
                                         </dx:ASPxGridView>
+                                        <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản dùng thử sẽ không quản ký được tồn kho hàng hóa. Vui lòng nâng cấp lên bản PRO để quản lý tồn kho." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
                                     </dx:LayoutItemNestedControlContainer>
                                 </LayoutItemNestedControlCollection>
                             </dx:LayoutItem>

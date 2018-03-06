@@ -64,7 +64,7 @@
                                         </Items>
                                     </EditFormLayoutProperties>
                                     <Columns>
-                                        <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="6" Name="iconaction">
+                                        <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" VisibleIndex="6" Name="iconaction">
                                         </dx:GridViewCommandColumn>
                                         <dx:GridViewDataTextColumn Caption="Mã Bàn" FieldName="MaBan" VisibleIndex="0" ReadOnly="True">
                                             <PropertiesTextEdit>
@@ -103,6 +103,7 @@
                                         </TitlePanel>
                                     </Styles>
                                 </dx:ASPxGridView>
+                                <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản dùng thử cho phép tạo tối đa 100 bàn." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

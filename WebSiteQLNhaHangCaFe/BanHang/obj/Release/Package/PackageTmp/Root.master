@@ -36,7 +36,7 @@
             </Styles>
             <PanelCollection>
                 <dx:PanelContent ID="PanelContent1" runat="server" SupportsDisabledAttribute="True">
-                        <div class="headerMenu" style="text-align:center; margin: 0 auto;  width: 1000px;">                                           
+                        <div class="headerMenu" style="text-align:center; margin: 0 auto;  width: 700px;">                                           
                             <dx:ASPxRibbon ID="ASPxRibbon1" runat="server" ClientInstanceName="ribbon" 
                                     ShowGroupLabels="False" ShowFileTab="False" ShowTabs="False" CssClass="menu1">
                                 <Styles>
@@ -57,7 +57,7 @@
                                                     <dx:RibbonDropDownButtonItem Name="Danh mục" NavigateUrl="javascript:void(2)" 
                                                         Size="Large" Text="Danh mục">
                                                         <Items>
-                                                            <dx:RibbonDropDownButtonItem Name="Nhà Cung Cấp" NavigateUrl="NhaCungCap.aspx" Text="Nhà Cung Cấp">
+                                                            <dx:RibbonDropDownButtonItem Name="Nhà Cung Cấp" NavigateUrl="NhaCungCap.aspx" Text="Nhà Cung Cấp" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem NavigateUrl="DonViTinh.aspx" Text="Đơn Vị Tính" Name="don_vi_tinh">
                                                             </dx:RibbonDropDownButtonItem>
@@ -69,9 +69,9 @@
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="Nhóm Hàng Hóa" NavigateUrl="QuanLyNhomHangHoa.aspx" Text="Nhóm Hàng Hóa">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="Nguyên Liệu" NavigateUrl="QuanLyNguyenLieu.aspx" Text="Nguyên Liệu">
-                                                            </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="Hàng Hóa" NavigateUrl="QuanLyHangHoa.aspx" Text="Hàng Hóa">
+                                                            </dx:RibbonDropDownButtonItem>
+                                                            <dx:RibbonDropDownButtonItem Name="Nguyên Liệu" NavigateUrl="QuanLyNguyenLieu.aspx" Text="Hàng Hóa Tự Chọn" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="Hàng Hóa Bán Lẻ" NavigateUrl="DanhSachHangHoa.aspx" Text="Hàng Hóa Bán Lẻ" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
@@ -88,7 +88,7 @@
                                                 <Image IconID="businessobjects_boreport_32x32"></Image>
                                                 <Items>
                                                     <dx:RibbonDropDownButtonItem Name="Nhập xuất tồn" Size="Large" 
-                                                        Text="Nhập xuất tồn">
+                                                        Text="Nhập xuất tồn" Visible="False">
                                                         <Items>
                                                             <dx:RibbonDropDownButtonItem Name="ton_kho_ban_dau" Text="Tồn Kho" NavigateUrl="TonKhoBanDau.aspx">
                                                             </dx:RibbonDropDownButtonItem>
@@ -110,11 +110,11 @@
                                                         <Items>
                                                             <dx:RibbonDropDownButtonItem Name="bk_banhang_w" NavigateUrl="BKBanHang_W.aspx" Text="Bảng kê bán hàng Web" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="bk_nhaphang" NavigateUrl="BKNhapHang.aspx" Text="Bảng kê nhập hàng">
+                                                            <dx:RibbonDropDownButtonItem Name="bk_nhaphang" NavigateUrl="BKNhapHang.aspx" Text="Bảng kê nhập hàng" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="bk_xuatkhac" NavigateUrl="BKXuatKhac.aspx" Text="Bảng kê xuất khác">
+                                                            <dx:RibbonDropDownButtonItem Name="bk_xuatkhac" NavigateUrl="BKXuatKhac.aspx" Text="Bảng kê xuất khác" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="bk_kiemkho" NavigateUrl="BKKiemKho.aspx" Text="Bảng kê kiểm kho">
+                                                            <dx:RibbonDropDownButtonItem Name="bk_kiemkho" NavigateUrl="BKKiemKho.aspx" Text="Bảng kê kiểm kho" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="bk_banhang" NavigateUrl="BKBanHang.aspx" Text="Bảng kê bán hàng">
                                                             </dx:RibbonDropDownButtonItem>
@@ -132,9 +132,9 @@
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="Báo Cáo Lợi Nhuận" NavigateUrl="BCLoiNhuan.aspx" Text="Báo Cáo Lợi Nhuận">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="bc_nhaphang" NavigateUrl="BCNhapHang.aspx" Text="Báo cáo nhập hàng">
+                                                            <dx:RibbonDropDownButtonItem Name="bc_nhaphang" NavigateUrl="BCNhapHang.aspx" Text="Báo cáo nhập hàng" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="bc_xuatkhac" NavigateUrl="BCXuatKhac.aspx" Text="Báo cáo xuất khác">
+                                                            <dx:RibbonDropDownButtonItem Name="bc_xuatkhac" NavigateUrl="BCXuatKhac.aspx" Text="Báo cáo xuất khác" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="bc_banhang" NavigateUrl="BCBanHang.aspx" Text="Báo cáo bán hàng">
                                                             </dx:RibbonDropDownButtonItem>
@@ -153,7 +153,7 @@
                                                         <Items>
                                                             <dx:RibbonDropDownButtonItem Name="Quản Lý Chi Nhánh" NavigateUrl="ChiNhanh.aspx" Text="Quản Lý Chi Nhánh" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
-                                                            <dx:RibbonDropDownButtonItem Name="nhom_nguoi_dung" Text="Nhóm người dùng" NavigateUrl="NhomNguoiDung.aspx">
+                                                            <dx:RibbonDropDownButtonItem Name="nhom_nguoi_dung" Text="Nhóm người dùng" NavigateUrl="NhomNguoiDung.aspx" Visible="False">
                                                             </dx:RibbonDropDownButtonItem>
                                                             <dx:RibbonDropDownButtonItem Name="quan_tri_nguoi_dung" 
                                                                 Text="Quản trị người dùng" NavigateUrl="QuanTriNguoiDung.aspx">

@@ -144,16 +144,24 @@ namespace QLCafe
         private void frmDangNhap_Load(object sender, EventArgs e)
         {
             txtTenDangNhap.Select();
-            if (DAO_Setting.getKeyCode() != -1)
-            {
-                linkThongTin.Visible = true;
-                linkCauHinh.Visible = false;
-            }
-            else
-            {
-                linkThongTin.Visible = false;
-                linkCauHinh.Visible = true;
-            }
+            linkThongTin.Visible = false;
+            btnDangNhap.Enabled = false;
+             bool KT = BUS_TestKetNoiServer.DanhSachKetNoi();
+             if (KT == true)
+             {
+                 if (DAO_Setting.getKeyCode() != -1)
+                 {
+                     btnDangNhap.Enabled = true;
+                     linkThongTin.Visible = true;
+                     linkCauHinh.Visible = false;
+                 }
+                 else
+                 {
+                     btnDangNhap.Enabled = false;
+                     linkThongTin.Visible = false;
+                     linkCauHinh.Visible = true;
+                 }
+             }
         }
 
         private void ckeHienMatKhau_CheckedChanged(object sender, EventArgs e)
@@ -197,6 +205,29 @@ namespace QLCafe
             this.Hide();
             fr.ShowDialog();
             this.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            txtTenDangNhap.Select();
+            linkThongTin.Visible = false;
+            btnDangNhap.Enabled = false;
+            bool KT = BUS_TestKetNoiServer.DanhSachKetNoi();
+            if (KT == true)
+            {
+                if (DAO_Setting.getKeyCode() != -1)
+                {
+                    btnDangNhap.Enabled = true;
+                    linkThongTin.Visible = true;
+                    linkCauHinh.Visible = false;
+                }
+                else
+                {
+                    btnDangNhap.Enabled = false;
+                    linkThongTin.Visible = false;
+                    linkCauHinh.Visible = true;
+                }
+            }
         }
 
 
