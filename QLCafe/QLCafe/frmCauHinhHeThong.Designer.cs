@@ -90,6 +90,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.txtDataSource.Properties.Items.AddRange(new object[] {
             "local"});
+            this.txtDataSource.Properties.UseSystemPasswordChar = true;
             this.txtDataSource.Size = new System.Drawing.Size(238, 24);
             this.txtDataSource.TabIndex = 4;
             // 
@@ -99,6 +100,7 @@
             this.txtDatabase.Name = "txtDatabase";
             this.txtDatabase.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDatabase.Properties.Appearance.Options.UseFont = true;
+            this.txtDatabase.Properties.UseSystemPasswordChar = true;
             this.txtDatabase.Size = new System.Drawing.Size(238, 22);
             this.txtDatabase.TabIndex = 3;
             // 
@@ -108,6 +110,7 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserName.Properties.Appearance.Options.UseFont = true;
+            this.txtUserName.Properties.UseSystemPasswordChar = true;
             this.txtUserName.Size = new System.Drawing.Size(238, 22);
             this.txtUserName.TabIndex = 3;
             // 

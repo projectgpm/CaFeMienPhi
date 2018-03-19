@@ -156,12 +156,12 @@
             // labelControl12
             // 
             this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl12.Location = new System.Drawing.Point(372, 98);
+            this.labelControl12.Location = new System.Drawing.Point(361, 98);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.labelControl12.Size = new System.Drawing.Size(90, 18);
+            this.labelControl12.Size = new System.Drawing.Size(111, 18);
             this.labelControl12.TabIndex = 4;
-            this.labelControl12.Text = "TIỀN THỒI";
+            this.labelControl12.Text = "TIỀN TRẢ LẠI";
             // 
             // btnTachHoaDon
             // 
@@ -385,6 +385,7 @@
             this.xtraTabControlDanhSach.Name = "xtraTabControlDanhSach";
             this.xtraTabControlDanhSach.Size = new System.Drawing.Size(424, 559);
             this.xtraTabControlDanhSach.TabIndex = 9;
+            this.xtraTabControlDanhSach.Click += new System.EventHandler(this.xtraTabControlDanhSach_Click);
             // 
             // txtGiamGia
             // 
@@ -851,7 +852,7 @@
             this.gridViewListHangHoa.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewListHangHoa.OptionsView.ShowViewCaption = true;
             this.gridViewListHangHoa.ViewCaption = "DANH SÁCH MẶT HÀNG";
-            this.gridViewListHangHoa.Click += new System.EventHandler(this.gridViewListHangHoa_Click);
+            this.gridViewListHangHoa.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.gridViewListHangHoa_RowCellClick);
             // 
             // gridColumn11
             // 

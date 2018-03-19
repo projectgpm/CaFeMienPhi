@@ -944,7 +944,7 @@ namespace QLCafe
             listMonAnALL(IDNhomHang);
         }
 
-        private void gridViewListHangHoa_Click(object sender, EventArgs e)
+        private void gridViewListHangHoa_RowCellClick(object sender, RowCellClickEventArgs e)
         {
             int IDBanHT = IDBan;
             int IDHoaDonHT = DAO_BanHang.IDHoaDon(IDBanHT);

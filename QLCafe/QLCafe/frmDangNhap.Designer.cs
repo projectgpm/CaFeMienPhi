@@ -46,6 +46,7 @@
             this.btnDangNhap = new DevExpress.XtraEditors.SimpleButton();
             this.btnThoat = new DevExpress.XtraEditors.SimpleButton();
             this.linkThongTin = new System.Windows.Forms.LinkLabel();
+            this.labelCauHinhMayChu = new DevExpress.XtraEditors.LabelControl();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ckeHienMatKhau.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenDangNhap.Properties)).BeginInit();
@@ -226,11 +227,21 @@
             this.linkThongTin.Text = "Cấu hình thông tin";
             this.linkThongTin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkThongTin_LinkClicked);
             // 
+            // labelCauHinhMayChu
+            // 
+            this.labelCauHinhMayChu.Location = new System.Drawing.Point(2, 243);
+            this.labelCauHinhMayChu.Name = "labelCauHinhMayChu";
+            this.labelCauHinhMayChu.Size = new System.Drawing.Size(12, 13);
+            this.labelCauHinhMayChu.TabIndex = 7;
+            this.labelCauHinhMayChu.Text = "...";
+            this.labelCauHinhMayChu.Click += new System.EventHandler(this.labelCauHinhMayChu_Click);
+            // 
             // frmDangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 255);
+            this.Controls.Add(this.labelCauHinhMayChu);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.linkLienHe);
@@ -276,6 +287,7 @@
         private DevExpress.XtraEditors.TextEdit txtTenDangNhap;
         private DevExpress.XtraEditors.CheckEdit ckeHienMatKhau;
         private System.Windows.Forms.LinkLabel linkThongTin;
+        private DevExpress.XtraEditors.LabelControl labelCauHinhMayChu;
 
 
     }

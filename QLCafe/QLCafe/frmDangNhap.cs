@@ -230,9 +230,13 @@ namespace QLCafe
             }
         }
 
+        private void labelCauHinhMayChu_Click(object sender, EventArgs e)
+        {
+            frmCauHinhHeThong fr = new frmCauHinhHeThong();
+            this.Hide();
+            fr.ShowDialog();
+            this.Show();
+        }
 
-
-
-  
     }
 }
