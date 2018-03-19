@@ -57,8 +57,6 @@
                                         <Items>
                                             <dx:GridViewColumnLayoutItem ColumnName="Tên Bàn" Name="TenDonViTinh">
                                             </dx:GridViewColumnLayoutItem>
-                                            <dx:GridViewColumnLayoutItem ColumnName="Khu Vực">
-                                            </dx:GridViewColumnLayoutItem>
                                             <dx:EditModeCommandLayoutItem HorizontalAlign="Right">
                                             </dx:EditModeCommandLayoutItem>
                                         </Items>
@@ -66,14 +64,6 @@
                                     <Columns>
                                         <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" VisibleIndex="6" Name="iconaction">
                                         </dx:GridViewCommandColumn>
-                                        <dx:GridViewDataTextColumn Caption="Mã Bàn" FieldName="MaBan" VisibleIndex="0" ReadOnly="True">
-                                            <PropertiesTextEdit>
-                                                <ValidationSettings>
-                                                    <RequiredField IsRequired="True" />
-                                                </ValidationSettings>
-                                            </PropertiesTextEdit>
-                                            <Settings AutoFilterCondition="Contains" />
-                                        </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn Caption="Tên Bàn" FieldName="TenBan" VisibleIndex="1">
                                             <PropertiesTextEdit>
                                                 <ValidationSettings SetFocusOnError="True">
@@ -93,6 +83,10 @@
                                                 </ValidationSettings>
                                             </PropertiesComboBox>
                                         </dx:GridViewDataComboBoxColumn>
+                                        <dx:GridViewDataComboBoxColumn Caption="Chi Nhánh" FieldName="IDChiNhanh" Name="ChiNhanh" ShowInCustomizationForm="True" VisibleIndex="0">
+                                            <PropertiesComboBox DataSourceID="SqlChiNhanh" TextField="TenChiNhanh" ValueField="ID">
+                                            </PropertiesComboBox>
+                                        </dx:GridViewDataComboBoxColumn>
                                     </Columns>
                                     <Styles>
                                         <Header Font-Bold="True" HorizontalAlign="Center">
@@ -103,6 +97,7 @@
                                         </TitlePanel>
                                     </Styles>
                                 </dx:ASPxGridView>
+                                <asp:SqlDataSource ID="SqlChiNhanh" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenChiNhanh] FROM [CF_ChiNhanh]"></asp:SqlDataSource>
                                 <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản dùng thử cho phép tạo tối đa 100 bàn." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

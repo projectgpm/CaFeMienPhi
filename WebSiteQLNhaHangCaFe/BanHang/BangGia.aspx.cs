@@ -21,7 +21,10 @@ namespace BanHang
             else
             {
                 if (Session["IDNhanVien"].ToString() != "1")
+                {
                     gridBangGia.Columns["chucnang"].Visible = false;
+                    gridBangGia.Columns["ChiNhanh"].Visible = false;
+                }
                 LoadGrid();
             }
         }
@@ -29,7 +32,7 @@ namespace BanHang
         private void LoadGrid()
         {
             data = new dtBangGia();
-            gridBangGia.DataSource = data.DanhSach();
+            gridBangGia.DataSource = data.DanhSach(Session["IDChiNhanh"].ToString());
             gridBangGia.DataBind();
         }
 
@@ -45,13 +48,14 @@ namespace BanHang
 
         protected void gridBangGia_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
         {
+            string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
             string TenBangGia = e.NewValues["TenBangGia"].ToString();
             data = new dtBangGia();
-            object ID = data.ThemMoi(TenBangGia);
+            object ID = data.ThemMoi(TenBangGia, IDChiNhanh);
             if (ID != null)
             {
                 dtHangHoa hh = new dtHangHoa();
-                DataTable db = hh.LayDanhSachHangHoa();
+                DataTable db = hh.LayDanhSachHangHoa(IDChiNhanh);
                 foreach (DataRow dr in db.Rows)
                 {
                     string IDHangHoa = dr["ID"].ToString();
@@ -68,6 +72,7 @@ namespace BanHang
         protected void gridBangGia_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
             string ID = e.Keys[0].ToString();
+            //chỉ sửa tên
             string TenBangGia = e.NewValues["TenBangGia"].ToString();
             data = new dtBangGia();
             data.SuaBangGia(ID, TenBangGia);

@@ -9,12 +9,12 @@ namespace BanHang.Data
 {
     public class dtLichSuTruyCap
     {
-        public DataTable LayDanhSach()
+        public DataTable LayDanhSach(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT TOP 1000 * FROM [CF_LichSuTruyCap] ORDER BY [ID] DESC ";
+                string cmdText = "SELECT TOP 1000 * FROM [CF_LichSuTruyCap] WHERE [IDChiNhanh] = '" + IDChiNhanh + "' ORDER BY [ID] DESC ";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

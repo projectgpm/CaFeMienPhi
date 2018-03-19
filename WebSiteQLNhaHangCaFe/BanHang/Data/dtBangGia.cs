@@ -94,12 +94,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable DanhSach()
+        public DataTable DanhSach(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = " SELECT * FROM [CF_BangGia] WHERE DaXoa = 0";
+                string cmdText = " SELECT * FROM [CF_BangGia] WHERE DaXoa = 0 AND (" + IDChiNhanh + " = 1 OR [IDChiNhanh] = '" + IDChiNhanh + "')";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -109,7 +109,7 @@ namespace BanHang.Data
                 }
             }
         }
-        public object ThemMoi(string TenBangGia)
+        public object ThemMoi(string TenBangGia, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
@@ -117,10 +117,11 @@ namespace BanHang.Data
                 {
                     myConnection.Open();
                     object ID = null;
-                    string cmdText = "INSERT INTO [CF_BangGia] ([TenBangGia], [NgayCapNhat]) OUTPUT INSERTED.ID VALUES (@TenBangGia, getdate())";
+                    string cmdText = "INSERT INTO [CF_BangGia] ([TenBangGia], [NgayCapNhat],[IDChiNhanh]) OUTPUT INSERTED.ID VALUES (@TenBangGia, getdate(),@IDChiNhanh)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
                         myCommand.Parameters.AddWithValue("@TenBangGia", TenBangGia);
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         ID = myCommand.ExecuteScalar();
                     }
                     myConnection.Close();

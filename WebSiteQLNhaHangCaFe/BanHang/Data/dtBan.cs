@@ -28,12 +28,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public static bool KiemTraSoBan()
+        public static bool KiemTraSoBan(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT TenBan FROM [CF_Ban] WHERE [DaXoa] = 0";
+                string cmdText = "SELECT TenBan FROM [CF_Ban] WHERE [DaXoa] = 0 AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -175,12 +175,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable DanhSach()
+        public DataTable DanhSach(string IDChiNhanh) 
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = " SELECT * FROM [CF_Ban]";
+                string cmdText = " SELECT * FROM [CF_Ban] WHERE [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

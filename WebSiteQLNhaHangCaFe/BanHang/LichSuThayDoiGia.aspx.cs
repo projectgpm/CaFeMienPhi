@@ -13,12 +13,19 @@ namespace BanHang
         dtThayDoiGia data = new dtThayDoiGia();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                LoadGrid();
+            }
         }
         private void LoadGrid()
         {
             data = new dtThayDoiGia();
-            gridLichSuThayDoiGia.DataSource = data.LayDanhSach();
+            gridLichSuThayDoiGia.DataSource = data.LayDanhSach(Session["IDChiNhanh"].ToString());
             gridLichSuThayDoiGia.DataBind();
         }
     }

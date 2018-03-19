@@ -15,33 +15,32 @@ namespace BanHang
         dtDonViTinh data = new dtDonViTinh();
         protected void Page_Load(object sender, EventArgs e)
         {
-             LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                LoadGrid();
+            }
         }
         public void LoadGrid()
         {
             data = new dtDonViTinh();
-            gridDonViTinh.DataSource = data.LayDanhSachDonViTinh();
+            gridDonViTinh.DataSource = data.LayDanhSachDonViTinh(Session["IDChiNhanh"].ToString());
             gridDonViTinh.DataBind();
         }
 
         protected void gridDonViTinh_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
         {
-           
+
             data = new dtDonViTinh();
             string TenDonViTinh = e.NewValues["TenDonViTinh"].ToString();
-            string MaDonViTinh = e.NewValues["MaDVT"].ToString();
-            if (dtDonViTinh.KiemTra(dtSetting.convertDauSangKhongDau(TenDonViTinh)) == 1)
-            {
-                data.ThemDonViTinh(dtSetting.convertDauSangKhongDau(TenDonViTinh), MaDonViTinh);
-                e.Cancel = true;
-                gridDonViTinh.CancelEdit();
-                LoadGrid();
-            }
-            else
-            {
-                throw new Exception("Lỗi: Tên đơn vị tính đã tồn tại: " + dtSetting.convertDauSangKhongDau(TenDonViTinh));
-            }
-
+            string IDChiNhanh = Session["IDChiNhanh"].ToString();
+            data.ThemDonViTinh(TenDonViTinh, IDChiNhanh);
+            e.Cancel = true;
+            gridDonViTinh.CancelEdit();
+            LoadGrid();
             dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Đơn vị tính", "Thêm đơn vị tính: " + TenDonViTinh);
         }
 
@@ -61,8 +60,8 @@ namespace BanHang
         {
             int ID = Int32.Parse(e.Keys["ID"].ToString());
             string TenDonViTinh = e.NewValues["TenDonViTinh"].ToString();
-            string MaDonViTinh = e.NewValues["MaDVT"].ToString();
-            data.SuaThongTinDonViTinh(ID, dtSetting.convertDauSangKhongDau(TenDonViTinh), MaDonViTinh);
+            string IDChiNhanh = Session["IDChiNhanh"].ToString();
+            data.SuaThongTinDonViTinh(ID, TenDonViTinh, IDChiNhanh);
             e.Cancel = true;
             gridDonViTinh.CancelEdit();
             LoadGrid();
@@ -72,7 +71,7 @@ namespace BanHang
 
         protected void gridDonViTinh_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
         {
-            e.NewValues["MaDVT"] = dtDonViTinh.Dem_Max();
+            //e.NewValues["MaDVT"] = dtDonViTinh.Dem_Max();
         }
     }
 }

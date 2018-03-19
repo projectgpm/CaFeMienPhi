@@ -31,12 +31,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable LayDanhSachDonViTinh()
+        public DataTable LayDanhSachDonViTinh(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = " SELECT * FROM [CF_DonViTinh] WHERE DaXoa = 0";
+                string cmdText = " SELECT * FROM [CF_DonViTinh] WHERE DaXoa = 0 AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -69,18 +69,18 @@ namespace BanHang.Data
         }
 
 
-        public void ThemDonViTinh(string TenDonViTinh, string MaDVT)
+        public void ThemDonViTinh(string TenDonViTinh, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_DonViTinh] ([TenDonViTinh],[MaDVT], [NgayCapNhat]) VALUES (@TenDonViTinh,@MaDVT, getdate())";
+                    string cmdText = "INSERT INTO [CF_DonViTinh] ([TenDonViTinh],[IDChiNhanh], [NgayCapNhat]) VALUES (@TenDonViTinh,@IDChiNhanh, getdate())";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
                         myCommand.Parameters.AddWithValue("@TenDonViTinh", TenDonViTinh);
-                        myCommand.Parameters.AddWithValue("@MaDVT", MaDVT);
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.ExecuteNonQuery();
                     }
                     myConnection.Close();
@@ -113,19 +113,19 @@ namespace BanHang.Data
             }
         }
 
-        public void SuaThongTinDonViTinh(int ID, string TenDonViTinh, string MaDVT)
+        public void SuaThongTinDonViTinh(int ID, string TenDonViTinh, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string strSQL = "UPDATE [CF_DonViTinh] SET [TenDonViTinh] = @TenDonViTinh,[MaDVT] = @MaDVT, [NgayCapNhat] = getdate() WHERE [ID] = @ID";
+                    string strSQL = "UPDATE [CF_DonViTinh] SET [TenDonViTinh] = @TenDonViTinh,[IDChiNhanh] = @IDChiNhanh, [NgayCapNhat] = getdate() WHERE [ID] = @ID";
                     using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
                     {
                         myCommand.Parameters.AddWithValue("@ID", ID);
                         myCommand.Parameters.AddWithValue("@TenDonViTinh", TenDonViTinh);
-                        myCommand.Parameters.AddWithValue("@MaDVT", MaDVT);
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
 
                         myCommand.ExecuteNonQuery();
                     }

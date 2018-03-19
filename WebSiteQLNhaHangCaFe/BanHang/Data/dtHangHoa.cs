@@ -274,12 +274,12 @@ namespace BanHang.Data
             }
             return dt;
         }
-        public DataTable LayDanhSachHangHoa()
+        public DataTable LayDanhSachHangHoa(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT [CF_HangHoa].* FROM [CF_HangHoa] WHERE CF_HangHoa.[DAXOA] = 0 AND [MaHangHoa] is not null AND [TenHangHoa] is not null";
+                string cmdText = "SELECT [CF_HangHoa].* FROM [CF_HangHoa] WHERE CF_HangHoa.[DAXOA] = 0 AND [MaHangHoa] is not null AND [TenHangHoa] is not null AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

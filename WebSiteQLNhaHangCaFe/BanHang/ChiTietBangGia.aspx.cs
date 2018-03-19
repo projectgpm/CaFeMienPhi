@@ -40,7 +40,7 @@ namespace BanHang
                 DataRow dr = da.Rows[0];
                 float GiaCu = dt.LaySoTienCu_ChiTietGia(ID);
                 if (float.Parse(GiaMoi) != GiaCu)
-                    dtThayDoiGia.ThemLichSu(Session["IDNhanVien"].ToString(), dr["MaHangHoa"].ToString(), dr["TenHangHoa"].ToString(), dr["IDDonViTinh"].ToString(), GiaCu + "", GiaMoi);
+                    dtThayDoiGia.ThemLichSu(Session["IDNhanVien"].ToString(), dr["MaHangHoa"].ToString(), dr["TenHangHoa"].ToString(), dr["IDDonViTinh"].ToString(), GiaCu + "", GiaMoi, Session["IDChiNhanh"].ToString());
             }
             
             data.CapNhatGiaChiTiet(ID, GiaMoi);

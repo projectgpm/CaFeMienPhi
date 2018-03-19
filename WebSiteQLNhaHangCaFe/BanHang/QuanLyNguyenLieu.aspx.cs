@@ -90,7 +90,7 @@ namespace BanHang
 
             float GiaCu = data.LaySoTienCu(ID);
             if (GiaCu != float.Parse(GiaBan))
-                dtThayDoiGia.ThemLichSu(Session["IDNhanVien"].ToString(), MaNguyenLieu, TenNguyenLieu, IDDonViTinh, GiaCu + "", GiaBan);
+                dtThayDoiGia.ThemLichSu(Session["IDNhanVien"].ToString(), MaNguyenLieu, TenNguyenLieu, IDDonViTinh, GiaCu + "", GiaBan, Session["IDChiNhanh"].ToString());
 
             data.Sua(ID, MaNguyenLieu, TenNguyenLieu, NhaCungCap, GhiChu, IDDonViTinh, GiaMua, TrangThai, GiaBan);
             e.Cancel = true;

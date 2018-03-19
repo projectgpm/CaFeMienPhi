@@ -50,12 +50,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable LayDanhSachNguoiDung()
+        public DataTable LayDanhSachNguoiDung(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT *  FROM [CF_NguoiDung] WHERE DAXOA = 0 AND ID != 1";
+                string cmdText = "SELECT *  FROM [CF_NguoiDung] WHERE DAXOA = 0 AND ID != 1 AND ( [IDChiNhanh] = '" + IDChiNhanh + "')";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -65,7 +65,21 @@ namespace BanHang.Data
                 }
             }
         }
-
+        public DataTable LayDanhSachNguoiDung_Full()
+        {
+            using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
+            {
+                con.Open();
+                string cmdText = "SELECT *  FROM [CF_NguoiDung] WHERE DAXOA = 0 AND ID != 1 ";
+                using (SqlCommand command = new SqlCommand(cmdText, con))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    DataTable tb = new DataTable();
+                    tb.Load(reader);
+                    return tb;
+                }
+            }
+        }
         public DataTable LayDanhSachNguoiDung_BK()
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))

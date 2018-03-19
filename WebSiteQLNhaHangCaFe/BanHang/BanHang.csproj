@@ -204,6 +204,7 @@
     <Content Include="QuanTriNguoiDung.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TaiKhoan.aspx" />
     <Content Include="ThayDoiMatKhau.aspx" />
     <Content Include="TheKho.aspx" />
     <Content Include="ThemDonHang.aspx" />
@@ -868,6 +869,13 @@
     </Compile>
     <Compile Include="Root.master.designer.cs">
       <DependentUpon>Root.master</DependentUpon>
+    </Compile>
+    <Compile Include="TaiKhoan.aspx.cs">
+      <DependentUpon>TaiKhoan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TaiKhoan.aspx.designer.cs">
+      <DependentUpon>TaiKhoan.aspx</DependentUpon>
     </Compile>
     <Compile Include="ThayDoiMatKhau.aspx.cs">
       <DependentUpon>ThayDoiMatKhau.aspx</DependentUpon>

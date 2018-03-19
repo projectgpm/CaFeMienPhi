@@ -14,17 +14,16 @@ namespace BanHang
         dtChiNhanh data = new dtChiNhanh();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+           
             if (!IsPostBack)
             {
-                if (Session["KTDangNhap"] != "GPM@2017")
+                if (Session["KTDangNhap"] != "GPM@2017" || Session["IDNhanVien"].ToString() != "1")
                 {
                     Response.Redirect("DangNhap.aspx");
                 }
                 else
                 {
-                    if (Int32.Parse(Session["IDNhanVien"].ToString()) != 1)
-                        gridChiNhanh.Columns["chucnang"].Visible = false;
+                    LoadGrid();
                 }
             }
         }

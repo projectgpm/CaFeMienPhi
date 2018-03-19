@@ -13,13 +13,24 @@ namespace BanHang
         dtBan data = new dtBan();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                if (Session["IDNhanVien"].ToString() != "1")
+                {
+                    gridDanhSach.Columns["ChiNhanh"].Visible = false;
+                }
+                LoadGrid();
+            }
         }
 
         private void LoadGrid()
         {
             data = new dtBan();
-            gridDanhSach.DataSource = data.DanhSach();
+            gridDanhSach.DataSource = data.DanhSach(Session["IDChiNhanh"].ToString());
             gridDanhSach.DataBind();
         }
 
@@ -45,28 +56,21 @@ namespace BanHang
         {
             string TenBan = e.NewValues["TenBan"].ToString();
             string IDKhuVuc = e.NewValues["IDKhuVuc"].ToString();
-            string MaBan = dtBan.Dem_Max(IDKhuVuc);
+            string MaBan = "";
             string KyHieu = dtBan.LayKyHieu(IDKhuVuc);
-            //string IDChiNhanh = dtBan.LayIDChiNhanh(IDKhuVuc);
-            //if (dtSetting.IsNumber(TenBan) == true)
-            //{
-                if (KyHieu != "")
+            string IDChiNhanh = Session["IDChiNhanh"].ToString();
+            if (KyHieu != "")
+            {
+                if (dtBan.KiemTra(TenBan, IDKhuVuc) == true)
                 {
-                    if (dtBan.KiemTra(TenBan, IDKhuVuc) == true)
-                    {
-                        data = new dtBan();
-                        data.Them(MaBan,TenBan, IDKhuVuc, "1");
-                    }
-                    else
-                    {
-                        throw new Exception("Lỗi:Tên bàn đã tồn tại?");
-                    }
+                    data = new dtBan();
+                    data.Them(MaBan, TenBan, IDKhuVuc, IDChiNhanh);
                 }
-            //}
-            //else
-            //{
-            //    throw new Exception("Lỗi:Tên bàn phải là số?");
-            //}
+                else
+                {
+                    throw new Exception("Lỗi:Tên bàn đã tồn tại?");
+                }
+            }
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();
@@ -117,18 +121,18 @@ namespace BanHang
                 int SoA = Int32.Parse(txtSoA.Text.ToString());
                 int SoB = Int32.Parse(txtSoB.Text.ToString());
                 string KyHieu = dtBan.LayKyHieu(IDKhuVuc);
-                //string IDChiNhanh = dtBan.LayIDChiNhanh(IDKhuVuc);
+                string IDChiNhanh = Session["IDChiNhanh"].ToString();
                 for (int i = SoA; i <= SoB; i++)
                 {
-                    string MaBan = dtBan.Dem_Max(IDKhuVuc);
+                    string MaBan = "";
                     if (KyHieu != "")
                     {
                         if (dtBan.KiemTra(KyHieu + " - " + i, IDKhuVuc) == true)
                         {
                             data = new dtBan();
-                            if (dtBan.KiemTraSoBan() == false)
+                            if (dtBan.KiemTraSoBan(IDChiNhanh) == false)
                             {
-                                data.Them(MaBan, KyHieu + " - " + i, IDKhuVuc, "1");
+                                data.Them(MaBan, KyHieu + " - " + i, IDKhuVuc, IDChiNhanh);
                                 dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý bàn", "Thêm bàn: " + KyHieu + " - " + i);
                             }
                             else

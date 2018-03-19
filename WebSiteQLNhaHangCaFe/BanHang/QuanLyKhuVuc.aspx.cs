@@ -20,7 +20,10 @@ namespace BanHang
             else
             {
                 if (Session["IDNhanVien"].ToString() != "1")
+                {
                     gridDanhSach.Columns["chucnang"].Visible = false;
+                    gridDanhSach.Columns["chucnangChiNhanh"].Visible = false;
+                }
                 LoadGrid();
             }
         }
@@ -28,7 +31,7 @@ namespace BanHang
         private void LoadGrid()
         {
             data = new dtKhuVuc();
-            gridDanhSach.DataSource = data.DanhSach();
+            gridDanhSach.DataSource = data.DanhSach(Session["IDChiNhanh"].ToString());
             gridDanhSach.DataBind();
         }
 
@@ -38,11 +41,11 @@ namespace BanHang
             string TenKhuVuc = e.NewValues["TenKhuVuc"].ToString();
             string KyHieu = e.NewValues["KyHieu"].ToString();
             //string TyLe = e.NewValues["GiaKhuVuc"].ToString();
-            //string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
+            string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
             string IDBangGia = e.NewValues["IDBangGia"].ToString();
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
             data = new dtKhuVuc();
-            data.Sua(ID, GhiChu, TenKhuVuc, "0", "1", KyHieu, IDBangGia);
+            data.Sua(ID, GhiChu, TenKhuVuc, "0", IDChiNhanh, KyHieu, IDBangGia);
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();
@@ -51,22 +54,14 @@ namespace BanHang
 
         protected void gridDanhSach_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
         {
-            //string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
+            string IDChiNhanh = e.NewValues["IDChiNhanh"].ToString();
             string KyHieu = e.NewValues["KyHieu"].ToString();
-            string MaKhuVuc = dtKhuVuc.Dem_Max("1");
+            string MaKhuVuc = "1";
             string TenKhuVuc = e.NewValues["TenKhuVuc"].ToString();
-            //string TyLe = e.NewValues["GiaKhuVuc"].ToString();
             string IDBangGia = e.NewValues["IDBangGia"].ToString();
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
-            //if (dtKhuVuc.KiemTra(KyHieu) == true)
-            //{
             data = new dtKhuVuc();
-            data.Them(MaKhuVuc, TenKhuVuc, "0", "1", GhiChu, KyHieu, IDBangGia);
-            //}
-            //else
-            //{
-            //    throw new Exception("Lỗi: Ký hiệu đã tồn tại: ");
-            //}
+            data.Them(MaKhuVuc, TenKhuVuc, "0", IDChiNhanh, GhiChu, KyHieu, IDBangGia);
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();

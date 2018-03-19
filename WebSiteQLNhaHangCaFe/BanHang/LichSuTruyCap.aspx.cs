@@ -13,13 +13,20 @@ namespace BanHang
         dtLichSuTruyCap data = new dtLichSuTruyCap();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                LoadGrid();
+            }
         }
 
         private void LoadGrid()
         {
             data = new dtLichSuTruyCap();
-            gridLichSuTruyCap.DataSource = data.LayDanhSach();
+            gridLichSuTruyCap.DataSource = data.LayDanhSach(Session["IDChiNhanh"].ToString());
             gridLichSuTruyCap.DataBind();
         }
     }

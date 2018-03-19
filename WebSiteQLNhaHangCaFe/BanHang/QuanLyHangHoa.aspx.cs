@@ -15,13 +15,20 @@ namespace BanHang
         dtHangHoa data = new dtHangHoa();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                LoadGrid();
+            }
         }
 
         private void LoadGrid()
         {
             data = new dtHangHoa();
-            gridHangHoa.DataSource = data.LayDanhSachHangHoa();
+            gridHangHoa.DataSource = data.LayDanhSachHangHoa(Session["IDChiNhanh"].ToString());
             gridHangHoa.DataBind();
         }
         protected TokenCollection LoadListBarCode(object ID)
@@ -150,7 +157,7 @@ namespace BanHang
             {
                 //thêm vào all bảng giá
                 dtBangGia bg = new dtBangGia();
-                DataTable dbt = bg.DanhSach();
+                DataTable dbt = bg.DanhSach(Session["IDChiNhanh"].ToString());
                 foreach (DataRow dr in dbt.Rows)
                 {
                     string IDBangGia = dr["ID"].ToString();
@@ -177,7 +184,7 @@ namespace BanHang
             float GiaCu = data.LaySoTienCu(ID);
             if (GiaCu != float.Parse(GiaBan))
             {
-                dtThayDoiGia.ThemLichSu(Session["IDNhanVien"].ToString(), MaHangHoa, TenHangHoa, IDDonViTinh, GiaCu + "", GiaBan);
+                dtThayDoiGia.ThemLichSu(Session["IDNhanVien"].ToString(), MaHangHoa, TenHangHoa, IDDonViTinh, GiaCu + "", GiaBan, Session["IDChiNhanh"].ToString());
                 dtBangGia bg = new dtBangGia();
                 bg.CapNhatGiaCuTrongChiTietBangGia(ID, GiaBan);
             }
