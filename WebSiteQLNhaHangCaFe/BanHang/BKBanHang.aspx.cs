@@ -79,7 +79,7 @@ namespace BanHang
 
             dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Bảng kê bán hàng", "Xem bảng kê bán hàng");
 
-            popup.ContentUrl = "~/BKBanHang_In.aspx?ngayBD=" + ngayBD + "&ngayKT=" + ngayKT;
+            popup.ContentUrl = "~/BKBanHang_In.aspx?ngayBD=" + ngayBD + "&ngayKT=" + ngayKT + "&IDChiNhanh=" + Session["IDChiNhanh"].ToString();
             popup.ShowOnPageLoad = true;
         }
     }

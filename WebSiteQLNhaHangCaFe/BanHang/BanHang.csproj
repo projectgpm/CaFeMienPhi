@@ -761,12 +761,6 @@
     <Compile Include="QuanTriNguoiDung.aspx.designer.cs">
       <DependentUpon>QuanTriNguoiDung.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Report\rpBaoCaoLoiNhuan.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Report\rpBaoCaoLoiNhuan.Designer.cs">
-      <DependentUpon>rpBaoCaoLoiNhuan.cs</DependentUpon>
-    </Compile>
     <Compile Include="Report\rpBaoCaoTongHop.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -922,9 +916,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="Report\rpBaoCaoLoiNhuan.resx">
-      <DependentUpon>rpBaoCaoLoiNhuan.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Report\rpBaoCaoTongHop.resx">
       <DependentUpon>rpBaoCaoTongHop.cs</DependentUpon>
     </EmbeddedResource>
@@ -1016,7 +1007,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>18707</DevelopmentServerPort>
+          <DevelopmentServerPort>42020</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

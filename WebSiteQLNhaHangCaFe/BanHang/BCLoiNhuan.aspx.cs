@@ -76,7 +76,7 @@ namespace BanHang
             ngayBD = ngayBD + "00:00:0.000";
             ngayKT = ngayKT + "23:59:59.999";
 
-            popup.ContentUrl = "~/BCLoiNhuan_ChiTiet.aspx?ngayBD=" + ngayBD + "&ngayKT=" + ngayKT;
+            popup.ContentUrl = "~/BCLoiNhuan_ChiTiet.aspx?ngayBD=" + ngayBD + "&ngayKT=" + ngayKT + "&IDChiNhanh=" + Session["IDChiNhanh"].ToString();
             popup.ShowOnPageLoad = true;
         }
     }

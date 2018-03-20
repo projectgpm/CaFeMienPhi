@@ -30,25 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
-            DevExpress.DataAccess.Sql.SelectQuery selectQuery1 = new DevExpress.DataAccess.Sql.SelectQuery();
-            DevExpress.DataAccess.Sql.AllColumns allColumns1 = new DevExpress.DataAccess.Sql.AllColumns();
-            DevExpress.DataAccess.Sql.Table table1 = new DevExpress.DataAccess.Sql.Table();
             DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery1 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(rpBaoCaoTongHop));
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery2 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery3 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter1 = new DevExpress.DataAccess.Sql.QueryParameter();
+            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery2 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter2 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery4 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter3 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter4 = new DevExpress.DataAccess.Sql.QueryParameter();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(rpBaoCaoTongHop));
+            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery3 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter5 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery5 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter6 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter7 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery6 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
-            DevExpress.DataAccess.Sql.QueryParameter queryParameter8 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.QueryParameter queryParameter9 = new DevExpress.DataAccess.Sql.QueryParameter();
+            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery4 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
@@ -56,6 +49,7 @@
             this.NgayBD = new DevExpress.XtraReports.Parameters.Parameter();
             this.NgayKT = new DevExpress.XtraReports.Parameters.Parameter();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
+            this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable7 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow7 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -83,6 +77,7 @@
             this.xrTableCell6 = new DevExpress.XtraReports.UI.XRTableCell();
             this.sqlDataSource1 = new DevExpress.DataAccess.Sql.SqlDataSource(this.components);
             this.LoiNhuan = new DevExpress.XtraReports.UI.CalculatedField();
+            this.IDChiNhanh = new DevExpress.XtraReports.Parameters.Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
@@ -128,6 +123,7 @@
             // PageHeader
             // 
             this.PageHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel3,
             this.xrTable7,
             this.xrTable3,
             this.xrTable2,
@@ -138,8 +134,22 @@
             this.xrLabel7,
             this.xrTable1});
             this.PageHeader.Dpi = 100F;
-            this.PageHeader.HeightF = 495.8333F;
+            this.PageHeader.HeightF = 287.5F;
             this.PageHeader.Name = "PageHeader";
+            // 
+            // xrLabel3
+            // 
+            this.xrLabel3.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "CF_ChiNhanh.DienThoai", "Điện thoại: {0}")});
+            this.xrLabel3.Dpi = 100F;
+            this.xrLabel3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
+            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(73.83334F, 78.65105F);
+            this.xrLabel3.Name = "xrLabel3";
+            this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel3.SizeF = new System.Drawing.SizeF(428.5139F, 23F);
+            this.xrLabel3.StylePriority.UseFont = false;
+            this.xrLabel3.StylePriority.UseTextAlignment = false;
+            this.xrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // xrTable7
             // 
@@ -148,7 +158,7 @@
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrTable7.Dpi = 100F;
             this.xrTable7.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.xrTable7.LocationFloat = new DevExpress.Utils.PointFloat(201.9534F, 248F);
+            this.xrTable7.LocationFloat = new DevExpress.Utils.PointFloat(188.4117F, 227.8594F);
             this.xrTable7.Name = "xrTable7";
             this.xrTable7.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow7});
@@ -214,7 +224,7 @@
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrTable3.Dpi = 100F;
             this.xrTable3.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.xrTable3.LocationFloat = new DevExpress.Utils.PointFloat(201.9534F, 223F);
+            this.xrTable3.LocationFloat = new DevExpress.Utils.PointFloat(188.4117F, 202.8594F);
             this.xrTable3.Name = "xrTable3";
             this.xrTable3.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow3});
@@ -281,7 +291,7 @@
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrTable2.Dpi = 100F;
             this.xrTable2.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.xrTable2.LocationFloat = new DevExpress.Utils.PointFloat(201.9534F, 198F);
+            this.xrTable2.LocationFloat = new DevExpress.Utils.PointFloat(188.4117F, 177.8594F);
             this.xrTable2.Name = "xrTable2";
             this.xrTable2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow2});
@@ -345,13 +355,13 @@
             // xrLabel1
             // 
             this.xrLabel1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Setting.InCongTy")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "CF_ChiNhanh.DiaChi", "Địa chỉ: {0}")});
             this.xrLabel1.Dpi = 100F;
             this.xrLabel1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
-            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(144.3473F, 55.65103F);
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(73.83334F, 55.65103F);
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel1.SizeF = new System.Drawing.SizeF(289.5833F, 23F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(428.5139F, 23F);
             this.xrLabel1.StylePriority.UseFont = false;
             this.xrLabel1.StylePriority.UseTextAlignment = false;
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
@@ -360,7 +370,7 @@
             // 
             this.xrLabel2.Dpi = 100F;
             this.xrLabel2.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold);
-            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(284.9721F, 100.7136F);
+            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(275.5971F, 101.6511F);
             this.xrLabel2.Name = "xrLabel2";
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel2.SizeF = new System.Drawing.SizeF(292.4078F, 28.20832F);
@@ -373,7 +383,7 @@
             // 
             this.xrLabel5.Dpi = 100F;
             this.xrLabel5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
-            this.xrLabel5.LocationFloat = new DevExpress.Utils.PointFloat(303.4305F, 128.9219F);
+            this.xrLabel5.LocationFloat = new DevExpress.Utils.PointFloat(289.8889F, 129.8594F);
             this.xrLabel5.Name = "xrLabel5";
             this.xrLabel5.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel5.SizeF = new System.Drawing.SizeF(82.29166F, 22.99998F);
@@ -386,16 +396,17 @@
             new DevExpress.XtraReports.UI.XRBinding(this.strNgay, "Text", "")});
             this.xrLabel6.Dpi = 100F;
             this.xrLabel6.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.xrLabel6.LocationFloat = new DevExpress.Utils.PointFloat(385.7221F, 128.9219F);
+            this.xrLabel6.LocationFloat = new DevExpress.Utils.PointFloat(372.1805F, 129.8594F);
             this.xrLabel6.Name = "xrLabel6";
             this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel6.SizeF = new System.Drawing.SizeF(215.6038F, 22.99998F);
             this.xrLabel6.StylePriority.UseFont = false;
+            this.xrLabel6.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.xrLabel6_BeforePrint);
             // 
             // xrLabel7
             // 
             this.xrLabel7.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Setting.InTieuDe")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "CF_ChiNhanh.TenChiNhanh")});
             this.xrLabel7.Dpi = 100F;
             this.xrLabel7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
             this.xrLabel7.LocationFloat = new DevExpress.Utils.PointFloat(73.83334F, 32.65104F);
@@ -413,7 +424,7 @@
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrTable1.Dpi = 100F;
             this.xrTable1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
-            this.xrTable1.LocationFloat = new DevExpress.Utils.PointFloat(201.9534F, 173F);
+            this.xrTable1.LocationFloat = new DevExpress.Utils.PointFloat(188.4117F, 152.8594F);
             this.xrTable1.Name = "xrTable1";
             this.xrTable1.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow1});
@@ -458,74 +469,57 @@
             // 
             this.sqlDataSource1.ConnectionName = "BanHangConnectionString";
             this.sqlDataSource1.Name = "sqlDataSource1";
-            table1.Name = "Setting";
-            allColumns1.Table = table1;
-            selectQuery1.Columns.Add(allColumns1);
-            selectQuery1.Name = "Setting";
-            selectQuery1.Tables.Add(table1);
-            customSqlQuery1.Name = "TongTienTonKho";
-            customSqlQuery1.Sql = resources.GetString("customSqlQuery1.Sql");
-            customSqlQuery2.Name = "CongNoNCC";
-            customSqlQuery2.Sql = "select SUM(\"CF_NhaCungCap\".\"CongNo\") as CongNoNCC\r\n  from \"dbo\".\"CF_NhaCungCap\" \"" +
-    "CF_NhaCungCap\"";
-            customSqlQuery3.Name = "DoanhThuBanHang";
-            queryParameter1.Name = "NgayBD";
+            customSqlQuery1.Name = "CF_ChiNhanh";
+            queryParameter1.Name = "IDChiNhanh";
             queryParameter1.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter1.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
-            queryParameter2.Name = "NgayKT";
+            queryParameter1.Value = new DevExpress.DataAccess.Expression("[Parameters.IDChiNhanh]", typeof(string));
+            customSqlQuery1.Parameters.Add(queryParameter1);
+            customSqlQuery1.Sql = "select *\r\nfrom CF_ChiNhanh\r\nwhere ID = @IDChiNhanh";
+            customSqlQuery2.Name = "DoanhThuBanHang";
+            queryParameter2.Name = "NgayBD";
             queryParameter2.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter2.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
-            customSqlQuery3.Parameters.Add(queryParameter1);
-            customSqlQuery3.Parameters.Add(queryParameter2);
-            customSqlQuery3.Sql = resources.GetString("customSqlQuery3.Sql");
-            customSqlQuery4.Name = "TongGiaVon";
-            queryParameter3.Name = "NgayBD";
+            queryParameter2.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
+            queryParameter3.Name = "NgayKT";
             queryParameter3.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter3.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
-            queryParameter4.Name = "NgayKT";
+            queryParameter3.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
+            queryParameter4.Name = "IDChiNhanh";
             queryParameter4.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter4.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
-            queryParameter5.Name = "p0";
-            queryParameter5.Type = typeof(string);
-            queryParameter5.ValueInfo = "0";
-            customSqlQuery4.Parameters.Add(queryParameter3);
-            customSqlQuery4.Parameters.Add(queryParameter4);
-            customSqlQuery4.Parameters.Add(queryParameter5);
-            customSqlQuery4.Sql = resources.GetString("customSqlQuery4.Sql");
-            customSqlQuery5.Name = "TongChi";
-            queryParameter6.Name = "NgayBD";
+            queryParameter4.Value = new DevExpress.DataAccess.Expression("[Parameters.IDChiNhanh]", typeof(string));
+            customSqlQuery2.Parameters.Add(queryParameter2);
+            customSqlQuery2.Parameters.Add(queryParameter3);
+            customSqlQuery2.Parameters.Add(queryParameter4);
+            customSqlQuery2.Sql = resources.GetString("customSqlQuery2.Sql");
+            customSqlQuery3.Name = "TongChi";
+            queryParameter5.Name = "NgayBD";
+            queryParameter5.Type = typeof(DevExpress.DataAccess.Expression);
+            queryParameter5.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
+            queryParameter6.Name = "NgayKT";
             queryParameter6.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter6.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
-            queryParameter7.Name = "NgayKT";
+            queryParameter6.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
+            queryParameter7.Name = "IDChiNhanh";
             queryParameter7.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter7.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
-            customSqlQuery5.Parameters.Add(queryParameter6);
-            customSqlQuery5.Parameters.Add(queryParameter7);
-            customSqlQuery5.Sql = resources.GetString("customSqlQuery5.Sql");
-            customSqlQuery6.Name = "TongLoiNhuan";
-            queryParameter8.Name = "NgayBD";
-            queryParameter8.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter8.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
-            queryParameter9.Name = "NgayKT";
-            queryParameter9.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter9.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
-            customSqlQuery6.Parameters.Add(queryParameter8);
-            customSqlQuery6.Parameters.Add(queryParameter9);
-            customSqlQuery6.Sql = resources.GetString("customSqlQuery6.Sql");
+            queryParameter7.Value = new DevExpress.DataAccess.Expression("[Parameters.IDChiNhanh]", typeof(string));
+            customSqlQuery3.Parameters.Add(queryParameter5);
+            customSqlQuery3.Parameters.Add(queryParameter6);
+            customSqlQuery3.Parameters.Add(queryParameter7);
+            customSqlQuery3.Sql = resources.GetString("customSqlQuery3.Sql");
+            customSqlQuery4.Name = "Setting";
+            customSqlQuery4.Sql = resources.GetString("customSqlQuery4.Sql");
             this.sqlDataSource1.Queries.AddRange(new DevExpress.DataAccess.Sql.SqlQuery[] {
-            selectQuery1,
             customSqlQuery1,
             customSqlQuery2,
             customSqlQuery3,
-            customSqlQuery4,
-            customSqlQuery5,
-            customSqlQuery6});
+            customSqlQuery4});
             this.sqlDataSource1.ResultSchemaSerializable = resources.GetString("sqlDataSource1.ResultSchemaSerializable");
             // 
             // LoiNhuan
             // 
             this.LoiNhuan.Expression = "[DoanhThuBanHang.TongTien] - [TongChi.TongChi]";
             this.LoiNhuan.Name = "LoiNhuan";
+            // 
+            // IDChiNhanh
+            // 
+            this.IDChiNhanh.Name = "IDChiNhanh";
             // 
             // rpBaoCaoTongHop
             // 
@@ -544,7 +538,8 @@
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
             this.strNgay,
             this.NgayBD,
-            this.NgayKT});
+            this.NgayKT,
+            this.IDChiNhanh});
             this.Version = "16.1";
             ((System.ComponentModel.ISupportInitialize)(this.xrTable7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).EndInit();
@@ -590,5 +585,7 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell4;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell1;
         private DevExpress.XtraReports.UI.CalculatedField LoiNhuan;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel3;
+        private DevExpress.XtraReports.Parameters.Parameter IDChiNhanh;
     }
 }

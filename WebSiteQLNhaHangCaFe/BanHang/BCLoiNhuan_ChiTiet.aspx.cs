@@ -14,6 +14,7 @@ namespace BanHang
         {
             string NgayBD = Request.QueryString["ngayBD"];
             string NgayKT = Request.QueryString["NgayKT"];
+            string IDChiNhanh = Request.QueryString["IDChiNhanh"];
 
             string strNgay = DateTime.Parse(NgayBD).ToString("dd-MM-yyyy") + " - " + DateTime.Parse(NgayKT).ToString("dd-MM-yyyy");
             rpBaoCaoTongHop rp = new rpBaoCaoTongHop();
@@ -23,6 +24,8 @@ namespace BanHang
             rp.Parameters["NgayBD"].Visible = false;
             rp.Parameters["NgayKT"].Value = NgayKT;
             rp.Parameters["NgayKT"].Visible = false;
+            rp.Parameters["IDChiNhanh"].Value = IDChiNhanh;
+            rp.Parameters["IDChiNhanh"].Visible = false;
             viewerReport.Report = rp;
         }
     }

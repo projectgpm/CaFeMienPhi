@@ -15,7 +15,7 @@ namespace BanHang
             string NgayBD = Request.QueryString["ngayBD"];
             string NgayKT = Request.QueryString["ngayKT"];
             string IDNhanVien = Request.QueryString["IDNhanVien"];
-
+            string IDChiNhanh = Request.QueryString["IDChiNhanh"];
             string strNgay = DateTime.Parse(NgayBD).ToString("dd-MM-yyyy") + " - " + DateTime.Parse(NgayKT).ToString("dd-MM-yyyy");
             rpBKKetCa rp = new rpBKKetCa();
             rp.Parameters["strNgay"].Value = strNgay;
@@ -26,6 +26,8 @@ namespace BanHang
             rp.Parameters["NgayKT"].Visible = false;
             rp.Parameters["IDNhanVien"].Value = IDNhanVien;
             rp.Parameters["IDNhanVien"].Visible = false;
+            rp.Parameters["IDChiNhanh"].Value = IDChiNhanh;
+            rp.Parameters["IDChiNhanh"].Visible = false;
             viewerReport.Report = rp;
         }
     }
