@@ -74,16 +74,17 @@ namespace BanHang.Data
                 }
             }
         }
-        public void Them(string MaNhom, string TenNhom, string GhiChu)
+        public void Them(string MaNhom, string TenNhom, string GhiChu, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_NhomHangHoa] ([MaNhom],[TenNhom],[GhiChu],[NgayCapNhat]) VALUES (@MaNhom,@TenNhom,@GhiChu,getdate())";
+                    string cmdText = "INSERT INTO [CF_NhomHangHoa] ([MaNhom],[TenNhom],[GhiChu],[NgayCapNhat],[IDChiNhanh]) VALUES (@MaNhom,@TenNhom,@GhiChu,getdate(),@IDChiNhanh)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.Parameters.AddWithValue("@MaNhom", MaNhom);
                         myCommand.Parameters.AddWithValue("@TenNhom", TenNhom);
                         myCommand.Parameters.AddWithValue("@GhiChu", GhiChu);;
@@ -97,12 +98,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable DanhSach()
+        public DataTable DanhSach(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = " SELECT * FROM [CF_NhomHangHoa] WHERE DaXoa = 0";
+                string cmdText = " SELECT * FROM [CF_NhomHangHoa] WHERE DaXoa = 0 AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

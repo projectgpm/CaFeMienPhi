@@ -13,19 +13,26 @@ namespace BanHang
         dtNhomHangHoa data = new dtNhomHangHoa();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                LoadGrid();
+            }
         }
 
         private void LoadGrid()
         {
             data = new dtNhomHangHoa();
-            gridDanhSach.DataSource = data.DanhSach();
+            gridDanhSach.DataSource = data.DanhSach(Session["IDChiNhanh"].ToString());
             gridDanhSach.DataBind();
         }
 
         protected void gridDanhSach_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
         {
-            e.NewValues["MaNhom"] = dtNhomHangHoa.Dem_Max();
+           // e.NewValues["MaNhom"] = dtNhomHangHoa.Dem_Max();
         }
 
         protected void gridDanhSach_RowDeleting(object sender, DevExpress.Web.Data.ASPxDataDeletingEventArgs e)
@@ -36,28 +43,27 @@ namespace BanHang
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();
-
             dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý nhóm hàng hóa", "Xóa nhóm hàng hóa: " + ID);
         }
 
         protected void gridDanhSach_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
         {
-            string MaNhom = e.NewValues["MaNhom"].ToString();
+            string MaNhom = "";
             string TenNhom = e.NewValues["TenNhom"].ToString();
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
+            string IDChiNhanh = Session["IDChiNhanh"].ToString();
             data = new dtNhomHangHoa();
-            data.Them(MaNhom, TenNhom, GhiChu);
+            data.Them(MaNhom, TenNhom, GhiChu, IDChiNhanh);
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();
-
             dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý nhóm hàng hóa", "Thêm nhóm hàng hóa: " + TenNhom);
         }
 
         protected void gridDanhSach_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
             string ID = e.Keys[0].ToString();
-            string MaNhom = e.NewValues["MaNhom"].ToString();
+            string MaNhom = "";
             string TenNhom = e.NewValues["TenNhom"].ToString();
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
             data = new dtNhomHangHoa();
@@ -65,7 +71,6 @@ namespace BanHang
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();
-
             dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý nhóm hàng hóa", "Cập nhật nhóm: " + ID);
         }
     }

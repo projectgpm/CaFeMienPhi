@@ -13,13 +13,20 @@ namespace BanHang
         dtQuanLyChi data = new dtQuanLyChi();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                LoadGrid();
+            }
         }
 
         private void LoadGrid()
         {
             data = new dtQuanLyChi();
-            gridDanhSach.DataSource = data.DanhSach();
+            gridDanhSach.DataSource = data.DanhSach(Session["IDChiNhanh"].ToString());
             gridDanhSach.DataBind();
         }
 
@@ -47,9 +54,10 @@ namespace BanHang
             
             string LoaiChi = e.NewValues["LoaiChi"].ToString();
             string TienChi = e.NewValues["TienChi"].ToString();
+            string IDChiNhanh = Session["IDChiNhanh"].ToString();
             DateTime NgayChi = DateTime.Parse(e.NewValues["NgayChi"].ToString());
             data = new dtQuanLyChi();
-            data.ThemMoi( LoaiChi, TienChi, NgayChi);
+            data.ThemMoi(LoaiChi, TienChi, NgayChi, IDChiNhanh);
             e.Cancel = true;
             gridDanhSach.CancelEdit();
             LoadGrid();

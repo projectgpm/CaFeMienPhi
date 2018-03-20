@@ -206,7 +206,7 @@ namespace BanHang.Data
                 }
             }
         }
-        public object ThemHangHoa(string MaHangHoa, string TenHangHoa, string GiaBan, string IDDonViTinh, string IDNhomHang, string GhiChu)
+        public object ThemHangHoa(string MaHangHoa, string TenHangHoa, string GiaBan, string IDDonViTinh, string IDNhomHang, string GhiChu, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
@@ -214,9 +214,10 @@ namespace BanHang.Data
                 {
                     myConnection.Open();
                     object ID = null;
-                    string cmdText = "INSERT INTO [CF_HangHoa] ([MaHangHoa],[TenHangHoa],[GiaBan],[IDDonViTinh], [IDNhomHang],[GhiChu],[NgayCapNhat]) OUTPUT INSERTED.ID  VALUES (@MaHangHoa,@TenHangHoa,@GiaBan,@IDDonViTinh, @IDNhomHang,@GhiChu,getdate())";
+                    string cmdText = "INSERT INTO [CF_HangHoa] ([MaHangHoa],[TenHangHoa],[GiaBan],[IDDonViTinh], [IDNhomHang],[GhiChu],[NgayCapNhat],[IDChiNhanh]) OUTPUT INSERTED.ID  VALUES (@MaHangHoa,@TenHangHoa,@GiaBan,@IDDonViTinh, @IDNhomHang,@GhiChu,getdate(),@IDChiNhanh)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.Parameters.AddWithValue("@MaHangHoa", MaHangHoa);
                         myCommand.Parameters.AddWithValue("@TenHangHoa", TenHangHoa);
                         myCommand.Parameters.AddWithValue("@GiaBan", GiaBan);

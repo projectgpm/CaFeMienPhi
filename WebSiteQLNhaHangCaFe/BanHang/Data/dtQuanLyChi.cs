@@ -9,16 +9,17 @@ namespace BanHang.Data
 {
     public class dtQuanLyChi
     {
-        public void ThemMoi(string LoaiChi, string TienChi, DateTime NgayChi)
+        public void ThemMoi(string LoaiChi, string TienChi, DateTime NgayChi, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_TongChi] ([LoaiChi],[TienChi],[NgayChi], [NgayCapNhat]) VALUES (@LoaiChi,@TienChi,@NgayChi, getdate())";
+                    string cmdText = "INSERT INTO [CF_TongChi] ([LoaiChi],[TienChi],[NgayChi], [NgayCapNhat],[IDChiNhanh]) VALUES (@LoaiChi,@TienChi,@NgayChi, getdate(),@IDChiNhanh)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.Parameters.AddWithValue("@LoaiChi", LoaiChi);
                         myCommand.Parameters.AddWithValue("@TienChi", TienChi);
                         myCommand.Parameters.AddWithValue("@NgayChi", NgayChi);
@@ -53,12 +54,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable DanhSach()
+        public DataTable DanhSach(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = " SELECT * FROM [CF_TongChi] WHERE DaXoa = 0 ORDER BY ID DESC";
+                string cmdText = " SELECT * FROM [CF_TongChi] WHERE DaXoa = 0 AND [IDChiNhanh] = '" + IDChiNhanh + "' ORDER BY ID DESC";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

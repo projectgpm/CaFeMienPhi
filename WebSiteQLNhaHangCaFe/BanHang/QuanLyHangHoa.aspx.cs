@@ -47,89 +47,89 @@ namespace BanHang
 
         protected void gridBarCode_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
         {
-            data = new dtHangHoa();
-            ASPxGridView gridBarCode = sender as ASPxGridView;
-            object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
-            string IDNguyenLieu = e.NewValues["IDNguyenLieu"].ToString();
-            string TrongLuong = e.NewValues["TrongLuong"].ToString();
-            string MaNguyenLieu = dtThemHangHoa.LayMaNguyenLieu(IDNguyenLieu);
-            string NhaCungCap = dtThemHangHoa.LayNhaCungCap(IDNguyenLieu);
-            string IDDonViTinh = dtThemHangHoa.LayIDDonViTinh(IDNguyenLieu);
-            DataTable dt = data.KT_NguyenLieu(IDHangHoa, IDNguyenLieu);
-            if (dt.Rows.Count == 0)
-            {
-                data.ThemNguyenLieu(IDHangHoa, IDNguyenLieu, TrongLuong, MaNguyenLieu, NhaCungCap, IDDonViTinh);
-            }
-            else
-            {
-                throw new Exception("Lỗi: Nguyên liệu chế biến đã tồn tại?");
-            }
-            e.Cancel = true;
-            gridBarCode.CancelEdit();
-            gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
-            gridBarCode.DataBind();
+            //data = new dtHangHoa();
+            //ASPxGridView gridBarCode = sender as ASPxGridView;
+            //object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
+            //string IDNguyenLieu = e.NewValues["IDNguyenLieu"].ToString();
+            //string TrongLuong = e.NewValues["TrongLuong"].ToString();
+            //string MaNguyenLieu = dtThemHangHoa.LayMaNguyenLieu(IDNguyenLieu);
+            //string NhaCungCap = dtThemHangHoa.LayNhaCungCap(IDNguyenLieu);
+            //string IDDonViTinh = dtThemHangHoa.LayIDDonViTinh(IDNguyenLieu);
+            //DataTable dt = data.KT_NguyenLieu(IDHangHoa, IDNguyenLieu);
+            //if (dt.Rows.Count == 0)
+            //{
+            //    data.ThemNguyenLieu(IDHangHoa, IDNguyenLieu, TrongLuong, MaNguyenLieu, NhaCungCap, IDDonViTinh);
+            //}
+            //else
+            //{
+            //    throw new Exception("Lỗi: Nguyên liệu chế biến đã tồn tại?");
+            //}
+            //e.Cancel = true;
+            //gridBarCode.CancelEdit();
+            //gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
+            //gridBarCode.DataBind();
 
-            dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Thêm nguyên liệu: " + IDNguyenLieu);
+            //dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Thêm nguyên liệu: " + IDNguyenLieu);
         }
 
         protected void gridBarCode_RowDeleting(object sender, DevExpress.Web.Data.ASPxDataDeletingEventArgs e)
         {
-            data = new dtHangHoa();
-            int ID = Int32.Parse(e.Keys["ID"].ToString());
-            data.XoaNguyenLieu(ID);
-            e.Cancel = true;
-            ASPxGridView gridBarCode = sender as ASPxGridView;
-            object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
-            gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
-            gridBarCode.DataBind();
+            //data = new dtHangHoa();
+            //int ID = Int32.Parse(e.Keys["ID"].ToString());
+            //data.XoaNguyenLieu(ID);
+            //e.Cancel = true;
+            //ASPxGridView gridBarCode = sender as ASPxGridView;
+            //object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
+            //gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
+            //gridBarCode.DataBind();
 
-            dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Xóa nguyên liệu: " + ID);
+            //dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Xóa nguyên liệu: " + ID);
         }
         protected void gridBarCode_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
-            data = new dtHangHoa();
-            ASPxGridView gridBarCode = sender as ASPxGridView;
-            int ID = Int32.Parse(e.Keys["ID"].ToString());
-            object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
-            string IDNguyenLieu = e.NewValues["IDNguyenLieu"].ToString();
-            string TrongLuong = e.NewValues["TrongLuong"].ToString();
-            string MaNguyenLieu = dtThemHangHoa.LayMaNguyenLieu(IDNguyenLieu);
-            string NhaCungCap = dtThemHangHoa.LayNhaCungCap(IDNguyenLieu);
-            string IDDonViTinh = dtThemHangHoa.LayIDDonViTinh(IDNguyenLieu);
-            if (dtHangHoa.KiemTraNguyenLieu_ID(IDNguyenLieu, ID.ToString()) == true)
-            {
-                data.CapNhatNguyenLieu(ID, IDHangHoa, IDNguyenLieu, TrongLuong, MaNguyenLieu, NhaCungCap, IDDonViTinh);
-                e.Cancel = true;
-                gridBarCode.CancelEdit();
-                gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
-                gridBarCode.DataBind();
-            }
-            else
-            {
-                DataTable dt = data.KT_NguyenLieu(IDHangHoa, IDNguyenLieu);
-                if (dt.Rows.Count == 0)
-                {
-                    data.CapNhatNguyenLieu(ID, IDHangHoa, IDNguyenLieu, TrongLuong, MaNguyenLieu, NhaCungCap, IDDonViTinh);
-                    e.Cancel = true;
-                    gridBarCode.CancelEdit();
-                    gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
-                    gridBarCode.DataBind();
-                }
-                else
-                {
-                    throw new Exception("Lỗi: Nguyên liệu chế biến đã tồn tại?");
-                }
-            }
+            //data = new dtHangHoa();
+            //ASPxGridView gridBarCode = sender as ASPxGridView;
+            //int ID = Int32.Parse(e.Keys["ID"].ToString());
+            //object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
+            //string IDNguyenLieu = e.NewValues["IDNguyenLieu"].ToString();
+            //string TrongLuong = e.NewValues["TrongLuong"].ToString();
+            //string MaNguyenLieu = dtThemHangHoa.LayMaNguyenLieu(IDNguyenLieu);
+            //string NhaCungCap = dtThemHangHoa.LayNhaCungCap(IDNguyenLieu);
+            //string IDDonViTinh = dtThemHangHoa.LayIDDonViTinh(IDNguyenLieu);
+            //if (dtHangHoa.KiemTraNguyenLieu_ID(IDNguyenLieu, ID.ToString()) == true)
+            //{
+            //    data.CapNhatNguyenLieu(ID, IDHangHoa, IDNguyenLieu, TrongLuong, MaNguyenLieu, NhaCungCap, IDDonViTinh);
+            //    e.Cancel = true;
+            //    gridBarCode.CancelEdit();
+            //    gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
+            //    gridBarCode.DataBind();
+            //}
+            //else
+            //{
+            //    DataTable dt = data.KT_NguyenLieu(IDHangHoa, IDNguyenLieu);
+            //    if (dt.Rows.Count == 0)
+            //    {
+            //        data.CapNhatNguyenLieu(ID, IDHangHoa, IDNguyenLieu, TrongLuong, MaNguyenLieu, NhaCungCap, IDDonViTinh);
+            //        e.Cancel = true;
+            //        gridBarCode.CancelEdit();
+            //        gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
+            //        gridBarCode.DataBind();
+            //    }
+            //    else
+            //    {
+            //        throw new Exception("Lỗi: Nguyên liệu chế biến đã tồn tại?");
+            //    }
+            //}
 
-            dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Cập nhật nguyên liệu: " + IDNguyenLieu);
+            //dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Cập nhật nguyên liệu: " + IDNguyenLieu);
         }
         protected void gridBarCode_Init(object sender, EventArgs e)
         {
-            data = new dtHangHoa();
-            ASPxGridView gridBarCode = sender as ASPxGridView;
-            object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
-            gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
-            gridBarCode.DataBind();
+            //data = new dtHangHoa();
+            //ASPxGridView gridBarCode = sender as ASPxGridView;
+            //object IDHangHoa = gridBarCode.GetMasterRowKeyValue();
+            //gridBarCode.DataSource = data.GetListBarCode(IDHangHoa);
+            //gridBarCode.DataBind();
         }
         protected void gridHangHoa_RowDeleting(object sender, DevExpress.Web.Data.ASPxDataDeletingEventArgs e)
         {
@@ -139,7 +139,6 @@ namespace BanHang
             e.Cancel = true;
             gridHangHoa.CancelEdit();
             LoadGrid();
-
             dtLichSuTruyCap.ThemLichSu(Session["IDChiNhanh"].ToString(), Session["IDNhom"].ToString(), Session["IDNhanVien"].ToString(), "Quản lý hàng hóa", "Xóa hàng hóa: " + ID);
         }
 
@@ -152,12 +151,13 @@ namespace BanHang
             string IDDonViTinh = e.NewValues["IDDonViTinh"].ToString();
             string IDNhomHang = e.NewValues["IDNhomHang"].ToString();
             string GhiChu = e.NewValues["GhiChu"] == null ? "" : e.NewValues["GhiChu"].ToString();
-            object ID  =  data.ThemHangHoa(MaHangHoa, TenHangHoa, GiaBan, IDDonViTinh, IDNhomHang, GhiChu);
+            string IDChiNhanh = Session["IDChiNhanh"].ToString();
+            object ID = data.ThemHangHoa(MaHangHoa, TenHangHoa, GiaBan, IDDonViTinh, IDNhomHang, GhiChu, IDChiNhanh);
             if (ID != null)
             {
                 //thêm vào all bảng giá
                 dtBangGia bg = new dtBangGia();
-                DataTable dbt = bg.DanhSach(Session["IDChiNhanh"].ToString());
+                DataTable dbt = bg.DanhSach(IDChiNhanh);
                 foreach (DataRow dr in dbt.Rows)
                 {
                     string IDBangGia = dr["ID"].ToString();

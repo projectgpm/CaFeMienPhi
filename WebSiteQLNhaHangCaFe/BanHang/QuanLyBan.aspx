@@ -31,11 +31,11 @@
                                             <Image IconID="actions_add_16x16" ToolTip="Thêm">
                                             </Image>
                                         </NewButton>
-                                        <UpdateButton ButtonType="Image" RenderMode="Image">
+                                        <UpdateButton Text="Lưu">
                                             <Image IconID="save_save_32x32office2013" ToolTip="Lưu">
                                             </Image>
                                         </UpdateButton>
-                                        <CancelButton ButtonType="Image" RenderMode="Image">
+                                        <CancelButton Text="Hủy">
                                             <Image IconID="actions_close_32x32" ToolTip="Hủy thao tác">
                                             </Image>
                                         </CancelButton>
@@ -106,9 +106,10 @@
             </dx:LayoutGroup>
         </Items>
     </dx:ASPxFormLayout>
-       <asp:SqlDataSource ID="SqlKhuVuc" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenKhuVuc] FROM [CF_KhuVuc] WHERE ([DaXoa] = @DaXoa)">
+       <asp:SqlDataSource ID="SqlKhuVuc" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenKhuVuc], [IDChiNhanh] FROM [CF_KhuVuc] WHERE (([DaXoa] = @DaXoa) AND ([IDChiNhanh] = @IDChiNhanh))">
            <SelectParameters>
                <asp:Parameter DefaultValue="0" Name="DaXoa" Type="Int32" />
+               <asp:SessionParameter Name="IDChiNhanh" SessionField="IDChiNhanh" Type="Int32" />
            </SelectParameters>
        </asp:SqlDataSource>
        <dx:ASPxPopupControl ID="popup" runat="server" AllowDragging="True" AllowResize="True" 
