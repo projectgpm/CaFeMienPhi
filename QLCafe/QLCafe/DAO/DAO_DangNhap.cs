@@ -55,5 +55,12 @@ namespace QLCafe.DAO
             string sTruyVan = string.Format(@"UPDATE Setting SET [TestDuLieu] = N'{0}' WHERE ID = 1", Key);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
+        public static DataTable QuanLy(string TenDangNhap, string MatKhau)
+        {
+            string sTryVan = string.Format(@"SELECT * FROM [CF_NguoiDung] WHERE [TenDangNhap] = N'{0}' AND [DAXOA] = 0 AND [MatKhau] =N'{1}' AND IDNhomNguoiDung = 1", TenDangNhap, MatKhau);
+            DataTable data = new DataTable();
+            data = DataProvider.TruyVanLayDuLieu(sTryVan);
+            return data;
+        }
     }
 }

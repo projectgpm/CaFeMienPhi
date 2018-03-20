@@ -134,6 +134,7 @@
     <Compile Include="DTO\DTO_KhuVuc.cs" />
     <Compile Include="DTO\DTO_NguyenLieu.cs" />
     <Compile Include="DTO\DTO_NhomHangHoa.cs" />
+    <Compile Include="DTO\DTO_QuanLy.cs" />
     <Compile Include="DTO\DTO_WriteDataConnect.cs" />
     <Compile Include="frmBanHang.cs">
       <SubType>Form</SubType>
@@ -170,6 +171,12 @@
     </Compile>
     <Compile Include="frmDangNhap.Designer.cs">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDangNhapThongTin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDangNhapThongTin.Designer.cs">
+      <DependentUpon>frmDangNhapThongTin.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDatBan.cs">
       <SubType>Form</SubType>
@@ -212,12 +219,6 @@
     </Compile>
     <Compile Include="frmKiemTraTachBan.Designer.cs">
       <DependentUpon>frmKiemTraTachBan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmSaoLuuDuLieu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSaoLuuDuLieu.Designer.cs">
-      <DependentUpon>frmSaoLuuDuLieu.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTachBan.cs">
       <SubType>Form</SubType>
@@ -283,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDangNhapThongTin.resx">
+      <DependentUpon>frmDangNhapThongTin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDatBan.resx">
       <DependentUpon>frmDatBan.cs</DependentUpon>

@@ -264,3 +264,4 @@ D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.csproj.GenerateResource.Ca
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.exe.licenses
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.frmBanHang2.resources
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.frmCaiDatThongTin.resources
+D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Debug\QLCafe.frmDangNhapThongTin.resources
