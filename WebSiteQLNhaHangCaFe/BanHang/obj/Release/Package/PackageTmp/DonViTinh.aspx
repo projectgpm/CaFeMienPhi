@@ -45,8 +45,6 @@
                                     <SettingsText CommandDelete="Xóa" CommandEdit="Sửa" CommandNew="Thêm" ConfirmDelete="Bạn có chắc chắn muốn xóa không?" PopupEditFormCaption="Thông tin đơn vị tính" Title="DANH SÁCH ĐƠN VỊ TÍNH" EmptyDataRow="Danh sách trống." SearchPanelEditorNullText="Nhập thông tin cần tìm..." />
                                     <EditFormLayoutProperties>
                                         <Items>
-                                            <dx:GridViewColumnLayoutItem ColumnName="Mã ĐVT">
-                                            </dx:GridViewColumnLayoutItem>
                                             <dx:GridViewColumnLayoutItem ColumnName="Tên Đơn Vị Tính" Name="TenDonViTinh">
                                             </dx:GridViewColumnLayoutItem>
                                             <dx:EditModeCommandLayoutItem HorizontalAlign="Right">
@@ -56,14 +54,6 @@
                                     <Columns>
                                         <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="6" Name="iconaction">
                                         </dx:GridViewCommandColumn>
-                                        <dx:GridViewDataTextColumn Caption="Mã ĐVT" FieldName="MaDVT" VisibleIndex="0" ReadOnly="True">
-                                            <PropertiesTextEdit>
-                                                <ValidationSettings>
-                                                    <RequiredField IsRequired="True" />
-                                                </ValidationSettings>
-                                            </PropertiesTextEdit>
-                                            <Settings AutoFilterCondition="Contains" />
-                                        </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn Caption="Tên Đơn Vị Tính" FieldName="TenDonViTinh" VisibleIndex="1">
                                             <PropertiesTextEdit>
                     

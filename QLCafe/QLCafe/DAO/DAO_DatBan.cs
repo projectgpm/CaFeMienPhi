@@ -30,9 +30,9 @@ namespace QLCafe.DAO
             }
             return tblDanhSach;
         }
-        public static bool XoaKhachDat(int IDBan)
+        public static bool XoaKhachDat(int IDBan, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"DELETE FROM [CF_DatBan] WHERE IDBan = {0} ", IDBan);
+            string sTruyVan = string.Format(@"DELETE FROM [CF_DatBan] WHERE IDBan = {0} AND [IDChiNhanh] = '" + IDChiNhanh + "'", IDBan);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
 

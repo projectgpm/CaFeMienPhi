@@ -30,12 +30,12 @@ namespace BanHang.Data
             }
         }
 
-        public static int SoLuongBan()
+        public static int SoLuongBan(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT COUNT(ID) as Tong FROM CF_Ban WHERE TrangThai > 0";
+                string cmdText = "SELECT COUNT(ID) as Tong FROM CF_Ban WHERE TrangThai > 0 AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -52,12 +52,12 @@ namespace BanHang.Data
             }
         }
 
-        public static DataTable TongTienHienTai(string GioBD, string GioKT)
+        public static DataTable TongTienHienTai(string GioBD, string GioKT, string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT SUM(TongTien) as TongTien, SUM(TienGiamGia) as GiamGia FROM CF_HoaDon WHERE GioVao >= '" + GioBD + "' AND GioVao <= '" + GioKT + "' AND TrangThai =1";
+                string cmdText = "SELECT SUM(TongTien) as TongTien, SUM(TienGiamGia) as GiamGia FROM CF_HoaDon WHERE GioVao >= '" + GioBD + "' AND GioVao <= '" + GioKT + "' AND TrangThai =1 AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

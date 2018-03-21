@@ -30,9 +30,9 @@ namespace QLCafe.DAO
         /// Thông tin của hàng
         /// </summary>
         /// <returns></returns>
-        public static DataTable ThongTinCuaHang()
+        public static DataTable ThongTinCuaHang(string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT * FROM [Setting] WHERE ID = 1");
+            string sTruyVan = string.Format(@"SELECT * FROM [CF_ChiNhanh] WHERE ID = '" + IDChiNhanh + "'");
             DataTable data = new DataTable();
             return data = DataProvider.TruyVanLayDuLieu(sTruyVan);
         }
@@ -57,9 +57,9 @@ namespace QLCafe.DAO
         /// lấy giao diện nào để hiển thị
         /// </summary>
         /// <returns></returns>
-        public static int KiemtraGiaDien()
+        public static int KiemtraGiaDien(string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT GiaoDienApDung FROM [Setting] Where ID = 1");
+            string sTruyVan = string.Format(@"SELECT GiaoDienApDung FROM [CF_ChiNhanh] Where ID = '" + IDChiNhanh + "'");
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -316,9 +316,9 @@ namespace QLCafe.DAO
             else
                 return "";
         }
-        public static string LayTenMayInBill()
+        public static string LayTenMayInBill(string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT MayIn FROM [Setting] ");
+            string sTruyVan = string.Format(@"SELECT MayIn FROM [CF_ChiNhanh] WHERE [ID] = '" + IDChiNhanh + "'");
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -330,9 +330,9 @@ namespace QLCafe.DAO
                 return "";
         }
 
-        public static bool CapNhatMayInBill(string TenMayIn, string KhoGiay, string CongTy, string DiaChi, string SDT, string GiaoDienApDung)
+        public static bool CapNhatMayInBill(string TenMayIn, string KhoGiay, string CongTy, string DiaChi, string SDT, string GiaoDienApDung,string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"UPDATE [Setting] SET [MayIn] = '{0}',[ReportBill] = '{1}',[CongTy] = N'{2}',[DiaChi] = N'{3}',[SDT] = '{4}',[GiaoDienApDung] = '{5}' WHERE ID = 1", TenMayIn, KhoGiay, CongTy, DiaChi, SDT, GiaoDienApDung);
+            string sTruyVan = string.Format(@"UPDATE [CF_ChiNhanh] SET [MayIn] = '{0}',[ReportBill] = '{1}',[TenChiNhanh] = N'{2}',[DiaChi] = N'{3}',[DienThoai] = '{4}',[GiaoDienApDung] = '{5}' WHERE ID = '" + IDChiNhanh + "'", TenMayIn, KhoGiay, CongTy, DiaChi, SDT, GiaoDienApDung);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
 
@@ -355,9 +355,9 @@ namespace QLCafe.DAO
             else
                 return "";
         }
-        public static int ReportBill()
+        public static int ReportBill(string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT ReportBill FROM [Setting] ");
+            string sTruyVan = string.Format(@"SELECT ReportBill FROM [CF_ChiNhanh]  WHERE [ID] = '" + IDChiNhanh + "'");
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)

@@ -73,7 +73,7 @@ namespace QLCafe.DTO
         }
         public DTO_BAN(DataRow dr)
         {
-            this.Id = (int)dr["ID"];
+            this.Id = Int32.Parse(dr["ID"].ToString());
             this.Maban = dr["MaBan"].ToString();
             this.Tenban = dr["TenBan"].ToString();
             this.Idkhuvuc = Int32.Parse(dr["IDKhuVuc"].ToString());

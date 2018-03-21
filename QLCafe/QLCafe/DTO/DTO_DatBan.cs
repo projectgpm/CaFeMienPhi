@@ -54,11 +54,11 @@ namespace QLCafe.DTO
         }
         public DTO_DatBan(DataRow dr)
         {
-            this.ID = (int)dr["ID"];
+            this.ID = Int32.Parse(dr["ID"].ToString());
             this.TenKhachHang = dr["TenKhachHang"].ToString();
             this.DienThoai = dr["DienThoai"].ToString();
             this.GioDat = DateTime.Parse(dr["GioDat"].ToString());
-            this.IDBan = (int)dr["IDBan"];
+            this.IDBan = Int32.Parse(dr["IDBan"].ToString());
         }
     }
 }

@@ -80,12 +80,12 @@ namespace BanHang.Data
                 }
             }
         }
-        public DataTable LayDanhSachNguoiDung_BK()
+        public DataTable LayDanhSachNguoiDung_BK(string IDChiNhanh)
         {
             using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
             {
                 con.Open();
-                string cmdText = "SELECT ID,TenNguoiDung  FROM [CF_NguoiDung] WHERE DAXOA = 0 AND ID != 1 AND IDNhomNguoiDung = 2";
+                string cmdText = "SELECT ID,TenNguoiDung  FROM [CF_NguoiDung] WHERE DAXOA = 0 AND ID != 1 AND IDNhomNguoiDung = 2 AND [IDChiNhanh] = '" + IDChiNhanh + "'";
                 using (SqlCommand command = new SqlCommand(cmdText, con))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -165,14 +165,14 @@ namespace BanHang.Data
                 }
             }
         }
-        public void SuaNguoiDung(int ID, string TenNguoiDung, string TenDangNhap, int IDNhomNguoiDung, string SDT, string MatKhau, string Email, string IDChiNhanh)
+        public void SuaNguoiDung_Admin(int ID, string TenNguoiDung, string TenDangNhap, int IDNhomNguoiDung, string SDT, string Email, string IDChiNhanh,string MatKhau)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string strSQL = "UPDATE [CF_NguoiDung] SET [IDChiNhanh] = @IDChiNhanh,[IDNhomNguoiDung] = @IDNhomNguoiDung,[TenDangNhap] = @TenDangNhap,[TenNguoiDung] = @TenNguoiDung,[SDT] = @SDT, [NgayCapNhat] = getdate(), [MatKhau] = @MatKhau,[Email] = @Email WHERE [ID] = @ID";
+                    string strSQL = "UPDATE [CF_NguoiDung] SET [IDChiNhanh] = @IDChiNhanh,[IDNhomNguoiDung] = @IDNhomNguoiDung,[TenDangNhap] = @TenDangNhap,[MatKhau] = @MatKhau,[TenNguoiDung] = @TenNguoiDung,[SDT] = @SDT, [NgayCapNhat] = getdate(),[Email] = @Email WHERE [ID] = @ID";
                     using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
                     {
                         myCommand.Parameters.AddWithValue("@ID", ID);
@@ -183,6 +183,33 @@ namespace BanHang.Data
                         myCommand.Parameters.AddWithValue("@SDT", SDT);
                         myCommand.Parameters.AddWithValue("@Email", Email);
                         myCommand.Parameters.AddWithValue("@MatKhau", MatKhau);
+                        myCommand.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Lỗi: Quá trình cập nhật dữ liệu gặp lỗi, hãy tải lại trang");
+                }
+            }
+        }
+        public void SuaNguoiDung(int ID, string TenNguoiDung, string TenDangNhap, int IDNhomNguoiDung, string SDT, string Email, string IDChiNhanh)
+        {
+            using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
+            {
+                try
+                {
+                    myConnection.Open();
+                    string strSQL = "UPDATE [CF_NguoiDung] SET [IDChiNhanh] = @IDChiNhanh,[IDNhomNguoiDung] = @IDNhomNguoiDung,[TenDangNhap] = @TenDangNhap,[TenNguoiDung] = @TenNguoiDung,[SDT] = @SDT, [NgayCapNhat] = getdate(),[Email] = @Email WHERE [ID] = @ID";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@ID", ID);
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.Parameters.AddWithValue("@IDNhomNguoiDung", IDNhomNguoiDung);
+                        myCommand.Parameters.AddWithValue("@TenDangNhap", TenDangNhap);
+                        myCommand.Parameters.AddWithValue("@TenNguoiDung", TenNguoiDung);
+                        myCommand.Parameters.AddWithValue("@SDT", SDT);
+                        myCommand.Parameters.AddWithValue("@Email", Email);
+                       
                         myCommand.ExecuteNonQuery();
                     }
                 }

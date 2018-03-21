@@ -107,7 +107,14 @@ namespace QLCafe.DTO
             get { return tienGio; }
             set { tienGio = value; }
         }
-        public DTO_HoaDon(int getid, DateTime? getgiovao, DateTime? getgiora, int getidban, int gettrangthai, float getTienGio, string getmahoadon, int getidnhanvien, float gettongtien, float getgiamgia, float getkhachcantra, float getkhachthanhtoan, float gettienthua)
+        private string iDChiNhanh;
+
+        public string IDChiNhanh
+        {
+            get { return iDChiNhanh; }
+            set { iDChiNhanh = value; }
+        }
+        public DTO_HoaDon(int getid, DateTime? getgiovao, DateTime? getgiora, int getidban, int gettrangthai, float getTienGio, string getmahoadon, int getidnhanvien, float gettongtien, float getgiamgia, float getkhachcantra, float getkhachthanhtoan, float gettienthua, string getIDChiNhanh)
         {
             this.ID = getid;
             this.GioRa = getgiora;
@@ -122,29 +129,31 @@ namespace QLCafe.DTO
             this.KhachCanTra = getkhachcantra;
             this.KhachThanhToan = getkhachthanhtoan;
             this.TienThua = gettienthua;
+            this.IDChiNhanh = getIDChiNhanh;
         }
         public DTO_HoaDon(DataRow dr)
         {
-            this.ID = (int)dr["ID"];
+            this.ID = Int32.Parse(dr["ID"].ToString());
 
             var KT = dr["GioRa"];
             if(KT.ToString() != "")
                 this.GioRa = (DateTime?)KT;
             this.GioVao = (DateTime?)dr["GioVao"];
-            this.IDBan = (int)dr["IDBan"];
-            this.TrangThai = (int)dr["TrangThai"];
+            this.IDBan =Int32.Parse(dr["IDBan"].ToString());
+            this.TrangThai = Int32.Parse(dr["TrangThai"].ToString());
             var MaHD = dr["MaHoaDon"];
             if(MaHD.ToString() !="")
                 this.MaHoaDon = MaHD.ToString();
             var IDNV = dr["IDNhanVien"];
             if(IDNV.ToString() !="")
-                this.IDNhanVien = (int)IDNV;
+                this.IDNhanVien = Int32.Parse(IDNV.ToString());
             this.TongTien = float.Parse(dr["TongTien"].ToString());
             this.GiamGia = float.Parse(dr["GiamGia"].ToString());
             this.KhachCanTra = float.Parse(dr["KhachCanTra"].ToString());
             this.KhachThanhToan = float.Parse(dr["KhachThanhToan"].ToString());
             this.TienThua = float.Parse(dr["TienThua"].ToString());
             this.TienGio = float.Parse(dr["TienGio"].ToString());
+            this.IDChiNhanh = dr["IDChiNhanh"].ToString();
         }
     }
 }

@@ -97,7 +97,7 @@ namespace QLCafe.DTO
         }
         public DTO_ChiTietHoaDon(DataRow dr)
         {
-            this.ID = (int)dr["ID"];
+            this.ID = Int32.Parse(dr["ID"].ToString());
             this.IDHoaDon = Int32.Parse(dr["IDHoaDon"].ToString()) ;
             this.IDHangHoa = Int32.Parse(dr["IDHangHoa"].ToString());
             this.SoLuong = Int32.Parse(dr["SoLuong"].ToString());

@@ -14,13 +14,13 @@ namespace QLCafe.BUS
         {
             return DAO_HangHoa.DanhSachHangHoa(IDNhom);
         }
-        public static DataTable DSHangHoa_Full()
+        public static DataTable DSHangHoa_Full(string IDChiNhanh)
         {
-            return DAO_HangHoa.DanhSachHangHoa_Full();
+            return DAO_HangHoa.DanhSachHangHoa_Full(IDChiNhanh);
         }
-        public static DataTable DSHangHoaTimKiem(string TenHangHoa)
+        public static DataTable DSHangHoaTimKiem(string TenHangHoa, string IDChiNhanh)
         {
-            return DAO_HangHoa.DanhSachHangHoaTimKiem(TenHangHoa);
+            return DAO_HangHoa.DanhSachHangHoaTimKiem(TenHangHoa, IDChiNhanh);
         }
     }
 }

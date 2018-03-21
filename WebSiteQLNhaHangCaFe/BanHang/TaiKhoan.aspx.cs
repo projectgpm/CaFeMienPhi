@@ -88,13 +88,13 @@ namespace BanHang
                 }
                 else
                 {
-                    data.SuaNguoiDung(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, MatKhau, Email, IDChiNhanh);
+                    data.SuaNguoiDung_Admin(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, MatKhau, Email, IDChiNhanh);
 
                 }
             }
             else
             {
-                data.SuaNguoiDung(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, MatKhau, Email, IDChiNhanh);
+                data.SuaNguoiDung_Admin(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, MatKhau, Email, IDChiNhanh);
 
             }
             e.Cancel = true;

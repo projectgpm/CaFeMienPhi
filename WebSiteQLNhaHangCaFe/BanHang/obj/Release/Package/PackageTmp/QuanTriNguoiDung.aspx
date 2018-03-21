@@ -14,7 +14,7 @@
                 <Image IconID="actions_add_16x16" ToolTip="Thêm mới">
                 </Image>
             </NewButton>
-            <UpdateButton>
+            <UpdateButton Text="Lưu">
                 <Image IconID="save_save_32x32office2013">
                 </Image>
             </UpdateButton>

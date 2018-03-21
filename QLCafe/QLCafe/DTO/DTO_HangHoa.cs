@@ -63,12 +63,12 @@ namespace QLCafe.DTO
         }
         public DTO_HangHoa(DataRow dr)
         {
-            this.ID = (int)dr["ID"];
+            this.ID = Int32.Parse(dr["ID"].ToString());
             this.MaHangHoa = dr["MaHangHoa"].ToString();
             this.TenHangHoa = dr["TenHangHoa"].ToString();
             this.GiaBan = float.Parse(dr["GiaBan"].ToString());
-            this.IDDonViTinh = (int)dr["IDDonViTinh"];
-            this.IDNhomHang = (int)dr["IDNhomHang"];
+            this.IDDonViTinh = Int32.Parse(dr["IDDonViTinh"].ToString());
+            this.IDNhomHang = Int32.Parse(dr["IDNhomHang"].ToString());
         }
     }
 }

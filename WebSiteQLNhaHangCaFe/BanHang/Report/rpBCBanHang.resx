@@ -146,33 +146,11 @@
        on ("CF_DonViTinh"."ID" = "CF_HangHoa"."IDDonViTinh"))
  where (("CF_HoaDon"."GioVao" &gt;= @NgayBD)
        and ("CF_HoaDon"."GioVao" &lt;= @NgayKT)
-       and ("CF_ChiTietHoaDon"."TrongLuong" = @p2))
+       and ("CF_ChiTietHoaDon"."TrongLuong" = @p2) and ("CF_ChiTietHoaDon"."IDChiNhanh" = @IDChiNhanh))
 group by "CF_ChiTietHoaDon"."DonGia","CF_HangHoa"."MaHangHoa",
        "CF_HangHoa"."TenHangHoa", "CF_DonViTinh"."TenDonViTinh","CF_ChiTietHoaDon"."TrongLuong"</value>
   </data>
-  <data name="customSqlQuery4.Sql" xml:space="preserve">
-    <value>select SUM("CF_ChiTietHoaDon"."SoLuong") as SoLuong,
-       "CF_ChiTietHoaDon"."DonGia",
-       SUM("CF_ChiTietHoaDon"."ThanhTien") as ThanhTien,
-       "CF_NguyenLieu"."MaNguyenLieu",
-       "CF_NguyenLieu"."TenNguyenLieu",
-       "CF_DonViTinh"."TenDonViTinh",
-	 "CF_ChiTietHoaDon"."TrongLuong"
-  from ((("dbo"."CF_HoaDon" "CF_HoaDon"
-  inner join "dbo"."CF_ChiTietHoaDon"
-       "CF_ChiTietHoaDon"
-       on ("CF_ChiTietHoaDon"."IDHoaDon" = "CF_HoaDon"."ID"))
-  inner join "dbo"."CF_NguyenLieu" "CF_NguyenLieu"
-       on ("CF_NguyenLieu"."ID" = "CF_ChiTietHoaDon"."IDHangHoa"))
-  inner join "dbo"."CF_DonViTinh" "CF_DonViTinh"
-       on ("CF_DonViTinh"."ID" = "CF_NguyenLieu"."IDDonViTinh"))
- where (("CF_HoaDon"."GioVao" &gt;= @NgayBD)
-       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT)
-       and ("CF_ChiTietHoaDon"."TrongLuong" &gt; @p2))
-group by "CF_ChiTietHoaDon"."DonGia","CF_NguyenLieu"."MaNguyenLieu",
-       "CF_NguyenLieu"."TenNguyenLieu", "CF_DonViTinh"."TenDonViTinh", "CF_ChiTietHoaDon"."TrongLuong"</value>
-  </data>
   <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
-    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IkNGX0NoaU5oYW5oIj48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNYUNoaU5oYW5oIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbkNoaU5oYW5oIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRpZW5UaG9haSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEaWFDaGkiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTmdheU1vIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iTmdheUNhcE5oYXQiIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJEYVhvYSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlJlcG9ydEJpbGwiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNYXlJbiIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48VmlldyBOYW1lPSJDRl9Ib2FEb24iPjxGaWVsZCBOYW1lPSJUb25nVGllbiIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJUb25nVGllbkdpYW1HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG9uZ0xvaU5odWFuIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjxWaWV3IE5hbWU9IkNGX0hvYURvbl9DaGlUaWV0SGFuZ0hvYSI+PEZpZWxkIE5hbWU9IlNvTHVvbmciIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJEb25HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVGhhbmhUaWVuIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9Ik1hSGFuZ0hvYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUZW5IYW5nSG9hIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbkRvblZpVGluaCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUcm9uZ0x1b25nIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjxWaWV3IE5hbWU9IkNGX0hvYURvbl9DaGlUaWV0Tmd1eWVuTGlldSI+PEZpZWxkIE5hbWU9IlNvTHVvbmciIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJEb25HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVGhhbmhUaWVuIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9Ik1hTmd1eWVuTGlldSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUZW5OZ3V5ZW5MaWV1IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbkRvblZpVGluaCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUcm9uZ0x1b25nIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>
+    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IkNGX0NoaU5oYW5oIj48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNYUNoaU5oYW5oIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbkNoaU5oYW5oIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRpZW5UaG9haSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEaWFDaGkiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTmdheU1vIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iTmdheUNhcE5oYXQiIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJEYVhvYSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlJlcG9ydEJpbGwiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNYXlJbiIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48VmlldyBOYW1lPSJDRl9Ib2FEb24iPjxGaWVsZCBOYW1lPSJUb25nVGllbiIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJUb25nVGllbkdpYW1HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG9uZ0xvaU5odWFuIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjxWaWV3IE5hbWU9IkNGX0hvYURvbl9DaGlUaWV0SGFuZ0hvYSI+PEZpZWxkIE5hbWU9IlNvTHVvbmciIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJEb25HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVGhhbmhUaWVuIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9Ik1hSGFuZ0hvYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUZW5IYW5nSG9hIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbkRvblZpVGluaCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUcm9uZ0x1b25nIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>
   </data>
 </root>

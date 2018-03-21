@@ -61,8 +61,8 @@
                     <dx:LayoutItem Caption="">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer ID="LayoutItemNestedControlContainer8" runat="server">
-                                <dx:ASPxButton ID="btnXemBaoCao" runat="server" Text="In" Width="100%" OnClick="btnXemBaoCao_Click">
-                                    <Image IconID="print_printarea_16x16">
+                                <dx:ASPxButton ID="btnXemBaoCao" runat="server" Text="Xem bảng kê" Width="100%" OnClick="btnXemBaoCao_Click">
+                                    <Image IconID="format_listbullets_16x16office2013">
                                     </Image>
                                 </dx:ASPxButton>
                             </dx:LayoutItemNestedControlContainer>

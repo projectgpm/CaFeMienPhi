@@ -14,11 +14,11 @@
                                             <Image IconID="actions_add_16x16" ToolTip="Thêm">
                                             </Image>
                                         </NewButton>
-                                        <UpdateButton ButtonType="Image" RenderMode="Image">
+                                        <UpdateButton Text="Lưu">
                                             <Image IconID="save_save_32x32office2013" ToolTip="Lưu">
                                             </Image>
                                         </UpdateButton>
-                                        <CancelButton ButtonType="Image" RenderMode="Image">
+                                        <CancelButton Text="Hủy">
                                             <Image IconID="actions_close_32x32" ToolTip="Hủy thao tác">
                                             </Image>
                                         </CancelButton>

@@ -83,7 +83,7 @@ namespace QLCafe
                             DAO_Setting.ThemLichSuTruyCap(frmDangNhap.NguoiDung.Id, frmDangNhap.NguoiDung.IDNhomNguoiDung, frmDangNhap.NguoiDung.Idchinhanh, "Đăng Nhập", "Đăng Nhập Bán Hàng");
 
 
-                            if (DAO_Setting.KiemtraGiaDien() == 0)
+                            if (DAO_Setting.KiemtraGiaDien(dr["IDChiNhanh"].ToString()) == 0)
                             {
                                 frmBanHang fr = new frmBanHang();
                                 txtMatKhau.Text = "";
@@ -201,7 +201,7 @@ namespace QLCafe
 
         private void linkThongTin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmCaiDatThongTin fr = new frmCaiDatThongTin();
+            frmDangNhapThongTin fr = new frmDangNhapThongTin();
             this.Hide();
             fr.ShowDialog();
             this.Show();

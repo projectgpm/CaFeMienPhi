@@ -25,10 +25,10 @@ namespace QLCafe.DAO
             private set { DAO_NhomHang.instance = value; }
         }
         public DAO_NhomHang() { }
-        public List<DTO_NhomHangHoa> DanhSanhNhomHangFull()
+        public List<DTO_NhomHangHoa> DanhSanhNhomHangFull(string IDChiNhanh)
         {
             List<DTO_NhomHangHoa> tablelist = new List<DTO_NhomHangHoa>();
-            string sTruyVan = string.Format(@"SELECT * FROM [CF_NhomHangHoa]");
+            string sTruyVan = string.Format(@"SELECT * FROM [CF_NhomHangHoa] WHERE IDChiNhanh = '" + IDChiNhanh + "'");
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             foreach (DataRow item in data.Rows)

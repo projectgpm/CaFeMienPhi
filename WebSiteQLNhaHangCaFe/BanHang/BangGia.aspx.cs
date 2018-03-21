@@ -61,7 +61,7 @@ namespace BanHang
                     string IDHangHoa = dr["ID"].ToString();
                     string GiaCu = dr["GiaBan"].ToString();
                     data = new dtBangGia();
-                    data.ThemIDHangHoaVaoChiTietGia(IDHangHoa, ID, GiaCu);
+                    data.ThemIDHangHoaVaoChiTietGia(IDHangHoa, ID, GiaCu, IDChiNhanh);
                 }
             }
             e.Cancel = true;

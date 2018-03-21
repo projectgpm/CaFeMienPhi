@@ -180,11 +180,11 @@
                                                     <Image IconID="actions_add_16x16" ToolTip="Thêm mới">
                                                     </Image>
                                                 </NewButton>
-                                                <UpdateButton ButtonType="Image" RenderMode="Image">
+                                                <UpdateButton Text="Lưu">
                                                     <Image IconID="save_save_32x32office2013" ToolTip="Lưu">
                                                     </Image>
                                                 </UpdateButton>
-                                                <CancelButton ButtonType="Image" RenderMode="Image">
+                                                <CancelButton Text="Hủy">
                                                     <Image IconID="actions_close_32x32" ToolTip="Hủy thao tác">
                                                     </Image>
                                                 </CancelButton>
@@ -283,19 +283,16 @@
                 </Items>
             </dx:ASPxFormLayout>
             
-            <asp:SqlDataSource ID="SqlNhomHang" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenNhom] FROM [CF_NhomHangHoa] WHERE ([DaXoa] = @DaXoa)">
+            <asp:SqlDataSource ID="SqlNhomHang" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenNhom], [DaXoa], [IDChiNhanh] FROM [CF_NhomHangHoa] WHERE (([DaXoa] = @DaXoa) AND ([IDChiNhanh] = @IDChiNhanh))">
                 <SelectParameters>
                     <asp:Parameter DefaultValue="0" Name="DaXoa" Type="Int32" />
+                    <asp:SessionParameter Name="IDChiNhanh" SessionField="IDChiNhanh" Type="Int32" />
                 </SelectParameters>
             </asp:SqlDataSource>
-             <asp:SqlDataSource ID="sqlNguyenLieu" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT * FROM [CF_NguyenLieu] WHERE ([DaXoa] = @DaXoa)">
+             <asp:SqlDataSource ID="SqlDVT" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenDonViTinh], [IDChiNhanh] FROM [CF_DonViTinh] WHERE (([DaXoa] = @DaXoa) AND ([IDChiNhanh] = @IDChiNhanh))">
                 <SelectParameters>
                     <asp:Parameter DefaultValue="0" Name="DaXoa" Type="Int32" />
-                </SelectParameters>
-            </asp:SqlDataSource>
-            <asp:SqlDataSource ID="SqlDVT" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenDonViTinh] FROM [CF_DonViTinh] WHERE ([DaXoa] = @DaXoa)">
-                <SelectParameters>
-                    <asp:Parameter DefaultValue="0" Name="DaXoa" Type="Int32" />
+                    <asp:SessionParameter Name="IDChiNhanh" SessionField="IDChiNhanh" Type="Int32" />
                 </SelectParameters>
             </asp:SqlDataSource>
         </dx:PanelContent>

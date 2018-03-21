@@ -39,7 +39,7 @@ namespace BanHang.Data
                 {
                     DataTable tb = new DataTable();
                     tb.Load(reader);
-                    if (tb.Rows.Count > 100)
+                    if (tb.Rows.Count > 99)
                     {
                         return true;
                     }

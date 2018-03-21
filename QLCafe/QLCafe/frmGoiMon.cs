@@ -37,12 +37,12 @@ namespace QLCafe
         }
         private void frmGoiMon_Load(object sender, EventArgs e)
         {
-            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
-            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             DanhSachMonAnBanChay();
             listChiTietHoaDon.Clear();
             lblTenBan.Text = DAO_GoiMon.TenBan(IDBan);
-            DataTable danhsachtuchon = DAO_HangHoa.DanhSachTuChon();
+          //  DataTable danhsachtuchon = DAO_HangHoa.DanhSachTuChon();
            
         }
         public void DanhSachMonAnBanChay()
@@ -50,7 +50,7 @@ namespace QLCafe
             tblTableMonAn.Controls.Clear();
             if (txtTimKiem.Text == "")
             {
-                DataTable db = BUS_HangHoa.DSHangHoa_Full();
+                DataTable db = BUS_HangHoa.DSHangHoa_Full(frmDangNhap.NguoiDung.Idchinhanh);
                 if (db.Rows.Count > 0)
                 {
                     foreach (DataRow dr in db.Rows)
@@ -73,7 +73,7 @@ namespace QLCafe
             }
             else
             {
-                DataTable db = BUS_HangHoa.DSHangHoaTimKiem(txtTimKiem.Text.ToString());
+                DataTable db = BUS_HangHoa.DSHangHoaTimKiem(txtTimKiem.Text.ToString(), frmDangNhap.NguoiDung.Idchinhanh);
                 if (db.Rows.Count > 0)
                 {
                     foreach (DataRow dr in db.Rows)
@@ -111,8 +111,8 @@ namespace QLCafe
         }
         public void ThemMonAn(DataTable tbThongTin, float TrongLuong)
         {
-            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
-            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             int IDBangGia = DAO_GoiMon.LayIDBanGia(IDBan);
             int IDHangHoa = Int32.Parse(tbThongTin.Rows[0]["ID"].ToString());
             string MaHangHoa = tbThongTin.Rows[0]["MaHangHoa"].ToString();
@@ -181,14 +181,14 @@ namespace QLCafe
         }
         public void GoiMon()
         {
-            int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
-            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
+            int IDHoaDon = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+            int IDBan = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
             if (listChiTietHoaDon.Count > 0)
             {
                 if (IDHoaDon == 0)
                 {
                     int IDNhanVien = frmDangNhap.NguoiDung.Id;
-                    object ID = DAO_GoiMon.ThemHoaDon(IDBan, IDNhanVien);
+                    object ID = DAO_GoiMon.ThemHoaDon(IDBan, IDNhanVien,frmDangNhap.NguoiDung.Idchinhanh);
                     IDHoaDon = Int32.Parse(ID.ToString());
                     if (ID != null)
                     {
@@ -202,7 +202,7 @@ namespace QLCafe
                             string MaHangHoa = item.MaHangHoa;
                             int IDDonViTinh = item.IDDonViTinh;
                             float TrongLuong = item.TrongLuong;
-                            DAO_GoiMon.ThemChiTietHoaDon(ID, IDHangHoa, SL, DonGia, ThanhTien, IDBan, MaHangHoa, IDDonViTinh, TrongLuong);
+                            DAO_GoiMon.ThemChiTietHoaDon(ID, IDHangHoa, SL, DonGia, ThanhTien, IDBan, MaHangHoa, IDDonViTinh, TrongLuong, frmDangNhap.NguoiDung.Idchinhanh);
                         }
                         DAO_BAN.DoiTrangThaiBanCoNguoi(IDBan);
                     }
@@ -219,13 +219,13 @@ namespace QLCafe
                         string MaHangHoa = item.MaHangHoa;
                         int IDDonViTinh = item.IDDonViTinh;
                         float TrongLuong = item.TrongLuong;
-                        if (DAO_ChiTietHoaDon.KiemTraHangHoa(IDHoaDon, IDHangHoa, IDBan, TrongLuong) == false)
+                        if (DAO_ChiTietHoaDon.KiemTraHangHoa(IDHoaDon, IDHangHoa, IDBan, TrongLuong,frmDangNhap.NguoiDung.Idchinhanh) == false)
                         {
-                            DAO_GoiMon.ThemChiTietHoaDon(IDHoaDon, IDHangHoa, SL, DonGia, ThanhTien, IDBan, MaHangHoa, IDDonViTinh, TrongLuong);
+                            DAO_GoiMon.ThemChiTietHoaDon(IDHoaDon, IDHangHoa, SL, DonGia, ThanhTien, IDBan, MaHangHoa, IDDonViTinh, TrongLuong, frmDangNhap.NguoiDung.Idchinhanh);
                         }
                         else
                         {
-                            DAO_GoiMon.CapNhatChiTietHoaDon(IDHoaDon, SL, ThanhTien, IDHangHoa, IdBan);
+                            DAO_GoiMon.CapNhatChiTietHoaDon(IDHoaDon, SL, ThanhTien, IDHangHoa, IdBan,frmDangNhap.NguoiDung.Idchinhanh);
                         }
                     }
                 }

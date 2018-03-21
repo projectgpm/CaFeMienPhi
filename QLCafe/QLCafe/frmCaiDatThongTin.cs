@@ -40,7 +40,14 @@ namespace QLCafe
 
         private void btnLuuLai_Click(object sender, EventArgs e)
         {
-            bool KT = DAO_Setting.CapNhatMayInBill(cmbMayIn.Text.ToString(), cmbKhoGiay.Text.ToString(), txtCuaHang.Text.ToString(), txtDiaChi.Text.ToString(), txtSoDienThoai.Text.ToString(), cmbGiaoDien.SelectedIndex.ToString());
+            string IDChiNhanh = frmDangNhapThongTin.QuanLy.Idchinhanh;
+            string MayIn = cmbMayIn.Text.ToString();
+            string KhoGiay  =cmbKhoGiay.Text.ToString();
+            string TenCuaHang = txtCuaHang.Text.ToString();
+            string DiaChi = txtDiaChi.Text.ToString();
+            string DienThoai = txtSoDienThoai.Text.ToString();
+            string GiaoDien = cmbGiaoDien.SelectedIndex.ToString();
+            bool KT = DAO_Setting.CapNhatMayInBill(MayIn, KhoGiay, TenCuaHang, DiaChi, DienThoai, GiaoDien, IDChiNhanh);
             if (KT == true)
             {
                 MessageBox.Show("Cập nhật thông tin thành công.", "Thông báo");
@@ -51,10 +58,10 @@ namespace QLCafe
 
         public void ThongTinCuaHang()
         {
-            DataTable thongtin = DAO_Setting.ThongTinCuaHang();
+            DataTable thongtin = DAO_Setting.ThongTinCuaHang(frmDangNhapThongTin.QuanLy.Idchinhanh);
             DataRow dr = thongtin.Rows[0];
-            txtCuaHang.Text = dr["CongTy"].ToString();
-            txtSoDienThoai.Text = dr["SDT"].ToString();
+            txtCuaHang.Text = dr["TenChiNhanh"].ToString();
+            txtSoDienThoai.Text = dr["DienThoai"].ToString();
             txtDiaChi.Text = dr["DiaChi"].ToString();
             int GiaoDienApDung = Int32.Parse(dr["GiaoDienApDung"].ToString());
             switch (GiaoDienApDung)

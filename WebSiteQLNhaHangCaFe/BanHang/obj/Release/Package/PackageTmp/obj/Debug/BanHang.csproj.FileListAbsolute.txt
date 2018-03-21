@@ -392,7 +392,6 @@ D:\GPMSoffware\CaFeNow_ThotNot\WebSiteQLNhaHangCaFe\BanHang\obj\Debug\BanHang.Re
 D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\bin\BanHang.dll
 D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\bin\BanHang.pdb
 D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\obj\Debug\BanHang.csprojResolveAssemblyReference.cache
-D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\obj\Debug\BanHang.Report.rpBaoCaoLoiNhuan.resources
 D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\obj\Debug\BanHang.Report.rpBaoCaoTongHop.resources
 D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\obj\Debug\BanHang.Report.rpBCBanHang.resources
 D:\GPM2018\CaFeMienPhi\WebSiteQLNhaHangCaFe\BanHang\obj\Debug\BanHang.Report.rpBCBanHang_W_In.resources

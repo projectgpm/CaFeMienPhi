@@ -178,3 +178,4 @@ D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.Report.rpHoaDonBanHang_5
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.Report.rpHoaDonBanHang_581_Temp.resources
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.csproj.GenerateResource.Cache
 D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.exe.licenses
+D:\GPM2018\CaFeMienPhi\QLCafe\QLCafe\obj\Release\QLCafe.frmDangNhapThongTin.resources

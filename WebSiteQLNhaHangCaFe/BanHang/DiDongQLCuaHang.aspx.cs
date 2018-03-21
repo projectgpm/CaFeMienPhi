@@ -29,8 +29,8 @@ namespace BanHang
                 ngayBD = ngayBD + "00:00:0.000";
                 ngayKT = ngayKT + "23:59:59.999";
 
-                int SoLuongBan = dtQuanLyCuaHang.SoLuongBan();
-                DataTable da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT);
+                int SoLuongBan = dtQuanLyCuaHang.SoLuongBan(Session["IDChiNhanh"].ToString());
+                DataTable da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT, Session["IDChiNhanh"].ToString());
                 float TongTien = 0;
                 float KhachCanTra = 0;
                 float TongGiaMua = 0;
@@ -61,7 +61,7 @@ namespace BanHang
                 //// Theo tuần...
                 ngayBD = DateTime.Parse(txtNgayBD.Value + "").AddDays(-7).ToString("yyyy-MM-dd ") + "00:00:0.000";
                 ngayKT = DateTime.Today.ToString("yyyy-MM-dd ") + "23:59:59.999";
-                da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT);
+                da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT, Session["IDChiNhanh"].ToString());
                 KhachCanTra = 0;
                 try
                 {
@@ -80,7 +80,7 @@ namespace BanHang
                 //// Theo tháng...
                 ngayBD = nam + "-" + thang + "-01 " + "00:00:0.000";
                 ngayKT = DateTime.Today.ToString("yyyy-MM-dd ") + "23:59:59.999";
-                da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT);
+                da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT,Session["IDChiNhanh"].ToString());
                 KhachCanTra = 0;
                 try
                 {
@@ -95,7 +95,7 @@ namespace BanHang
                 //// Theo năm...
                 ngayBD = nam + "-" + "01" + "-01 " + "00:00:0.000";
                 ngayKT = DateTime.Today.ToString("yyyy-MM-dd ") + "23:59:59.999";
-                da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT);
+                da = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT,Session["IDChiNhanh"].ToString());
                 KhachCanTra = 0;
                 try
                 {
@@ -128,7 +128,7 @@ namespace BanHang
                 ngayKT = DateTime.Parse(txtNgayBD.Value + "").AddDays(i).ToString("yyyy-MM-dd ");
                 ngayBD = ngayBD + "00:00:0.000";
                 ngayKT = ngayKT + "23:59:59.999";
-                DataTable daTienGio = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT);
+                DataTable daTienGio = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT, Session["IDChiNhanh"].ToString());
                 float KhachCanTra = 0;
                 try
                 {

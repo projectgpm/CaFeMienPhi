@@ -112,10 +112,10 @@ namespace QLCafe.DAO
         /// <param name="IDBan"></param>
         /// <param name="GioVao"></param>
         /// <returns></returns>
-        public static object ThemHoaDon(int IDBan, int NhanVien)
+        public static object ThemHoaDon(int IDBan, int NhanVien, string IDChiNhanh)
         {
             object ID = null;
-            string sTruyVan = string.Format(@"INSERT INTO CF_HoaDon(IDBan,GioVao,IDNhanVien,NgayBan) OUTPUT INSERTED.ID VALUES ('{0}',getdate(),{1},getdate())", IDBan, NhanVien);
+            string sTruyVan = string.Format(@"INSERT INTO CF_HoaDon(IDBan,GioVao,IDNhanVien,NgayBan,IDChiNhanh) OUTPUT INSERTED.ID VALUES ('{0}',getdate(),{1},getdate(),'{2}')", IDBan, NhanVien, IDChiNhanh);
             SqlConnection conn = new SqlConnection();
             DAO_ConnectSQL connect = new DAO_ConnectSQL();
             conn = connect.Connect();
@@ -125,14 +125,14 @@ namespace QLCafe.DAO
         }
 
 
-        public static bool ThemChiTietHoaDon(object IDHoaDon, int IDHangHoa, int SL, float DonGia, float ThanhTien, int IDBan, string MaHangHoa, int IDDonViTinh, float TrongLuong)
+        public static bool ThemChiTietHoaDon(object IDHoaDon, int IDHangHoa, int SL, float DonGia, float ThanhTien, int IDBan, string MaHangHoa, int IDDonViTinh, float TrongLuong, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"INSERT INTO CF_ChiTietHoaDon_Temp(IDHoaDon,IDHangHoa,SoLuong,DonGia,ThanhTien,IDBan,MaHangHoa,IDDonViTinh,TrongLuong) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", IDHoaDon, IDHangHoa, SL, DonGia, ThanhTien, IDBan, MaHangHoa, IDDonViTinh, TrongLuong);
+            string sTruyVan = string.Format(@"INSERT INTO CF_ChiTietHoaDon_Temp(IDHoaDon,IDHangHoa,SoLuong,DonGia,ThanhTien,IDBan,MaHangHoa,IDDonViTinh,TrongLuong,IDChiNhanh) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", IDHoaDon, IDHangHoa, SL, DonGia, ThanhTien, IDBan, MaHangHoa, IDDonViTinh, TrongLuong, IDChiNhanh);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
-        public static bool CapNhatChiTietHoaDon(int IDHoaDon, int SL, float ThanhTien, int IDHangHoa, int IDBan)
+        public static bool CapNhatChiTietHoaDon(int IDHoaDon, int SL, float ThanhTien, int IDHangHoa, int IDBan, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"UPDATE CF_ChiTietHoaDon_Temp SET [SoLuong] =  SoLuong + {0}, [ThanhTien] = [ThanhTien] + {1} WHERE [IDHoaDon] = {2} AND [IDHangHoa] = {3} AND [IDBan] = {4}", SL, ThanhTien, IDHoaDon, IDHangHoa, IDBan);
+            string sTruyVan = string.Format(@"UPDATE CF_ChiTietHoaDon_Temp SET [SoLuong] =  SoLuong + {0}, [ThanhTien] = [ThanhTien] + {1} WHERE [IDHoaDon] = {2} AND [IDHangHoa] = {3} AND [IDBan] = {4} AND [IDChiNhanh] = '" + IDChiNhanh + "'", SL, ThanhTien, IDHoaDon, IDHangHoa, IDBan);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
 

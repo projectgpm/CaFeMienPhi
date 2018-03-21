@@ -31,11 +31,11 @@
                                             <Image IconID="actions_add_16x16" ToolTip="Thêm">
                                             </Image>
                                         </NewButton>
-                                        <UpdateButton ButtonType="Image" RenderMode="Image">
+                                        <UpdateButton Text="Lưu">
                                             <Image IconID="save_save_32x32office2013" ToolTip="Lưu">
                                             </Image>
                                         </UpdateButton>
-                                        <CancelButton ButtonType="Image" RenderMode="Image">
+                                        <CancelButton Text="Hủy">
                                             <Image IconID="actions_close_32x32" ToolTip="Hủy thao tác">
                                             </Image>
                                         </CancelButton>
@@ -57,8 +57,6 @@
                                         <Items>
                                             <dx:GridViewColumnLayoutItem ColumnName="Tên Bàn" Name="TenDonViTinh">
                                             </dx:GridViewColumnLayoutItem>
-                                            <dx:GridViewColumnLayoutItem ColumnName="Khu Vực">
-                                            </dx:GridViewColumnLayoutItem>
                                             <dx:EditModeCommandLayoutItem HorizontalAlign="Right">
                                             </dx:EditModeCommandLayoutItem>
                                         </Items>
@@ -66,14 +64,6 @@
                                     <Columns>
                                         <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" VisibleIndex="6" Name="iconaction">
                                         </dx:GridViewCommandColumn>
-                                        <dx:GridViewDataTextColumn Caption="Mã Bàn" FieldName="MaBan" VisibleIndex="0" ReadOnly="True">
-                                            <PropertiesTextEdit>
-                                                <ValidationSettings>
-                                                    <RequiredField IsRequired="True" />
-                                                </ValidationSettings>
-                                            </PropertiesTextEdit>
-                                            <Settings AutoFilterCondition="Contains" />
-                                        </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn Caption="Tên Bàn" FieldName="TenBan" VisibleIndex="1">
                                             <PropertiesTextEdit>
                                                 <ValidationSettings SetFocusOnError="True">
@@ -93,6 +83,10 @@
                                                 </ValidationSettings>
                                             </PropertiesComboBox>
                                         </dx:GridViewDataComboBoxColumn>
+                                        <dx:GridViewDataComboBoxColumn Caption="Chi Nhánh" FieldName="IDChiNhanh" Name="ChiNhanh" ShowInCustomizationForm="True" VisibleIndex="0">
+                                            <PropertiesComboBox DataSourceID="SqlChiNhanh" TextField="TenChiNhanh" ValueField="ID">
+                                            </PropertiesComboBox>
+                                        </dx:GridViewDataComboBoxColumn>
                                     </Columns>
                                     <Styles>
                                         <Header Font-Bold="True" HorizontalAlign="Center">
@@ -103,6 +97,7 @@
                                         </TitlePanel>
                                     </Styles>
                                 </dx:ASPxGridView>
+                                <asp:SqlDataSource ID="SqlChiNhanh" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenChiNhanh] FROM [CF_ChiNhanh]"></asp:SqlDataSource>
                                 <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản dùng thử cho phép tạo tối đa 100 bàn." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
@@ -111,9 +106,10 @@
             </dx:LayoutGroup>
         </Items>
     </dx:ASPxFormLayout>
-       <asp:SqlDataSource ID="SqlKhuVuc" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenKhuVuc] FROM [CF_KhuVuc] WHERE ([DaXoa] = @DaXoa)">
+       <asp:SqlDataSource ID="SqlKhuVuc" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenKhuVuc], [IDChiNhanh] FROM [CF_KhuVuc] WHERE (([DaXoa] = @DaXoa) AND ([IDChiNhanh] = @IDChiNhanh))">
            <SelectParameters>
                <asp:Parameter DefaultValue="0" Name="DaXoa" Type="Int32" />
+               <asp:SessionParameter Name="IDChiNhanh" SessionField="IDChiNhanh" Type="Int32" />
            </SelectParameters>
        </asp:SqlDataSource>
        <dx:ASPxPopupControl ID="popup" runat="server" AllowDragging="True" AllowResize="True" 

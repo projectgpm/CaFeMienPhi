@@ -13,7 +13,15 @@ namespace BanHang
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadGrid();
+            if (Session["KTDangNhap"] != "GPM@2017")
+            {
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+
+                LoadGrid();
+            }
         }
         private void LoadGrid()
         {
@@ -30,8 +38,8 @@ namespace BanHang
             ngayBD = ngayBD + "00:00:0.000";
             ngayKT = ngayKT + "23:59:59.999";
 
-            int SoLuongBan = dtQuanLyCuaHang.SoLuongBan();
-            DataTable data = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT);
+            int SoLuongBan = dtQuanLyCuaHang.SoLuongBan(Session["IDChiNhanh"].ToString());
+            DataTable data = dtQuanLyCuaHang.TongTienHienTai(ngayBD, ngayKT, Session["IDChiNhanh"].ToString());
             float TongTien = 0;
             float GiamGia = 0;
             float LoiNhuan = 0;

@@ -38,7 +38,7 @@ namespace QLCafe.DTO
         }
         public DTO_NhomHangHoa(DataRow dr)
         {
-            this.ID = (int)dr["ID"];
+            this.ID = Int32.Parse(dr["ID"].ToString());
             this.MaNhom = dr["MaNhom"].ToString();
             this.TenNhom = dr["TenNhom"].ToString();
         }

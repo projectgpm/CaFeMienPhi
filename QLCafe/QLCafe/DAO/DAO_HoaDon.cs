@@ -39,9 +39,9 @@ namespace QLCafe.DAO
             return -1;
         }
 
-        public static float TongTienHoaDon(int IDHoaDon)
+        public static float TongTienHoaDon(int IDHoaDon, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT TongTien FROM [CF_HoaDon] WHERE ID = {0} ", IDHoaDon);
+            string sTruyVan = string.Format(@"SELECT TongTien FROM [CF_HoaDon] WHERE ID = {0} AND [IDChiNhanh] = '" + IDChiNhanh + "'", IDHoaDon);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -51,9 +51,9 @@ namespace QLCafe.DAO
             }
             return 0;
         }
-        public static float TienGiamGia(int IDHoaDon)
+        public static float TienGiamGia(int IDHoaDon,string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT TienGiamGia FROM [CF_HoaDon] WHERE ID = {0} ", IDHoaDon);
+            string sTruyVan = string.Format(@"SELECT TienGiamGia FROM [CF_HoaDon] WHERE ID = {0} AND [IDChiNhanh] = '" + IDChiNhanh + "' ", IDHoaDon);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -63,9 +63,9 @@ namespace QLCafe.DAO
             }
             return 0;
         }
-        public static float GiamGia(int IDHoaDon)
+        public static float GiamGia(int IDHoaDon, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT TyLeGiamGia FROM [CF_HoaDon] WHERE ID = {0} ", IDHoaDon);
+            string sTruyVan = string.Format(@"SELECT TyLeGiamGia FROM [CF_HoaDon] WHERE ID = {0} AND [IDChiNhanh] = '" + IDChiNhanh + "'", IDHoaDon);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -75,9 +75,9 @@ namespace QLCafe.DAO
             }
             return 0;
         }
-        public static string HinhThucGiamGia(int IDHoaDon)
+        public static string HinhThucGiamGia(int IDHoaDon,string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT HinhThucGiamGia FROM [CF_HoaDon] WHERE ID = {0} ", IDHoaDon);
+            string sTruyVan = string.Format(@"SELECT HinhThucGiamGia FROM [CF_HoaDon] WHERE ID = {0} AND [IDChiNhanh] = '{1}' ", IDHoaDon, IDChiNhanh);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -99,9 +99,9 @@ namespace QLCafe.DAO
             }
             return 0;
         }
-        public static float KhachCanTra(int IDHoaDon)
+        public static float KhachCanTra(int IDHoaDon, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT KhachCanTra FROM [CF_HoaDon] WHERE ID = {0} ", IDHoaDon);
+            string sTruyVan = string.Format(@"SELECT KhachCanTra FROM [CF_HoaDon] WHERE ID = {0} AND [IDChiNhanh] = '" + IDChiNhanh + "'", IDHoaDon);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -112,23 +112,23 @@ namespace QLCafe.DAO
             return 0;
         }
 
-        public static void XoaDatBan(int IDBan)
+        public static void XoaDatBan(int IDBan, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT * FROM [CF_HoaDon] WHERE IDBan = {0} AND [TrangThai] = 0", IDBan);
+            string sTruyVan = string.Format(@"SELECT * FROM [CF_HoaDon] WHERE IDBan = {0} AND [TrangThai] = 0 AND [IDChiNhanh] = '{1}'", IDBan, IDChiNhanh);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
             {
                 DTO_HoaDon hd = new DTO_HoaDon(data.Rows[0]);
 
-                sTruyVan = string.Format(@"DELETE FROM [CF_ChiTietHoaDon_Temp] WHERE IDHoaDon = {0}", hd.ID);
-                DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
-                
-                sTruyVan = string.Format(@"DELETE FROM [CF_HoaDon] WHERE ID = {0}   AND [TrangThai] = 0", hd.ID);
+                sTruyVan = string.Format(@"DELETE FROM [CF_ChiTietHoaDon_Temp] WHERE IDHoaDon = {0} AND IDChiNhanh = '{1}'", hd.ID, hd.IDChiNhanh);
                 DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
 
-                sTruyVan = string.Format(@"DELETE FROM [CF_ChiTietGio] WHERE IDHoaDon = {0} AND [ThanhToan] = 0", hd.ID);
+                sTruyVan = string.Format(@"DELETE FROM [CF_HoaDon] WHERE ID = {0}   AND [TrangThai] = 0 AND IDChiNhanh = '{1}'", hd.ID, hd.IDChiNhanh); 
                 DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
+
+                //sTruyVan = string.Format(@"DELETE FROM [CF_ChiTietGio] WHERE IDHoaDon = {0} AND [ThanhToan] = 0", hd.ID);
+                //DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
                
             }
         }

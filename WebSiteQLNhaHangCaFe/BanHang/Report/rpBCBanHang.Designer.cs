@@ -44,10 +44,7 @@
             DevExpress.DataAccess.Sql.QueryParameter queryParameter5 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter6 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter7 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery4 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter8 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.QueryParameter queryParameter9 = new DevExpress.DataAccess.Sql.QueryParameter();
-            DevExpress.DataAccess.Sql.QueryParameter queryParameter10 = new DevExpress.DataAccess.Sql.QueryParameter();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.xrTable1 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
@@ -639,29 +636,18 @@
             queryParameter7.Name = "p2";
             queryParameter7.Type = typeof(string);
             queryParameter7.ValueInfo = "0";
+            queryParameter8.Name = "IDChiNhanh";
+            queryParameter8.Type = typeof(DevExpress.DataAccess.Expression);
+            queryParameter8.Value = new DevExpress.DataAccess.Expression("[Parameters.IDChiNhanh]", typeof(string));
             customSqlQuery3.Parameters.Add(queryParameter5);
             customSqlQuery3.Parameters.Add(queryParameter6);
             customSqlQuery3.Parameters.Add(queryParameter7);
+            customSqlQuery3.Parameters.Add(queryParameter8);
             customSqlQuery3.Sql = resources.GetString("customSqlQuery3.Sql");
-            customSqlQuery4.Name = "CF_HoaDon_ChiTietNguyenLieu";
-            queryParameter8.Name = "NgayBD";
-            queryParameter8.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter8.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayBD]", typeof(string));
-            queryParameter9.Name = "NgayKT";
-            queryParameter9.Type = typeof(DevExpress.DataAccess.Expression);
-            queryParameter9.Value = new DevExpress.DataAccess.Expression("[Parameters.NgayKT]", typeof(string));
-            queryParameter10.Name = "p2";
-            queryParameter10.Type = typeof(string);
-            queryParameter10.ValueInfo = "0";
-            customSqlQuery4.Parameters.Add(queryParameter8);
-            customSqlQuery4.Parameters.Add(queryParameter9);
-            customSqlQuery4.Parameters.Add(queryParameter10);
-            customSqlQuery4.Sql = resources.GetString("customSqlQuery4.Sql");
             this.sqlDataSource1.Queries.AddRange(new DevExpress.DataAccess.Sql.SqlQuery[] {
             customSqlQuery1,
             customSqlQuery2,
-            customSqlQuery3,
-            customSqlQuery4});
+            customSqlQuery3});
             this.sqlDataSource1.ResultSchemaSerializable = resources.GetString("sqlDataSource1.ResultSchemaSerializable");
             // 
             // DetailReport

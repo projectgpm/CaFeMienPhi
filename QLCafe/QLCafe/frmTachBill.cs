@@ -37,7 +37,7 @@ namespace QLCafe
             gridViewB.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
             //gridViewC.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
 
-            lblTenBan.Text = DAO_GoiMon.TenBan(DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan);
+            lblTenBan.Text = DAO_GoiMon.TenBan(DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan);
             DanhSachHangHoaA();
            
         }
@@ -55,9 +55,9 @@ namespace QLCafe
         {
             listChiTietMonAn.Clear();
             // lấy món ăn theo IDBan
-            int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
-            List<DTO_DanhSachMenu> MonAnThuong = DAO_DanhSachMonAn.Instance.GetMonAnThuong(DAO_BanHang.IDHoaDon(IDBan));
-            List<DTO_DanhSachMenu> MonAnTuChon = DAO_DanhSachMonAn.Instance.GetMonAnTuChon(DAO_BanHang.IDHoaDon(IDBan));
+            int IDBan = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
+            List<DTO_DanhSachMenu> MonAnThuong = DAO_DanhSachMonAn.Instance.GetMonAnThuong(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh);
+            //List<DTO_DanhSachMenu> MonAnTuChon = DAO_DanhSachMonAn.Instance.GetMonAnTuChon(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh);
             foreach (DTO_DanhSachMenu item in MonAnThuong)
             {
                 listChiTietMonAn.Add(new ChiTietHoaDonA1
@@ -71,19 +71,19 @@ namespace QLCafe
                     SoLuong = item.SoLuong,
                 });
             }
-            foreach (DTO_DanhSachMenu item in MonAnTuChon)
-            {
-                listChiTietMonAn.Add(new ChiTietHoaDonA1
-                {
-                    MaHangHoa = item.MaHangHoa,
-                    TenHangHoa = item.TenHangHoa,
-                    DonViTinh = item.DonViTinh,
-                    DonGia = item.DonGia,
-                    ThanhTien = item.ThanhTien,
-                    TrongLuong = item.TrongLuong,
-                    SoLuong = item.SoLuong,
-                });
-            }
+            //foreach (DTO_DanhSachMenu item in MonAnTuChon)
+            //{
+            //    listChiTietMonAn.Add(new ChiTietHoaDonA1
+            //    {
+            //        MaHangHoa = item.MaHangHoa,
+            //        TenHangHoa = item.TenHangHoa,
+            //        DonViTinh = item.DonViTinh,
+            //        DonGia = item.DonGia,
+            //        ThanhTien = item.ThanhTien,
+            //        TrongLuong = item.TrongLuong,
+            //        SoLuong = item.SoLuong,
+            //    });
+            //}
 
             gridControlA.DataSource = null;
             gridControlA.Refresh();
@@ -309,11 +309,11 @@ namespace QLCafe
                 if (listChiTietMonAnThanhToan.Count > 0)
                 {
                     bool KT = true;
-                    int IDHoaDon = DAO_Setting.KiemtraGiaDien() == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
-                    int IDBan = DAO_Setting.KiemtraGiaDien() == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
+                    int IDHoaDon = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? DAO_BanHang.IDHoaDon(frmBanHang.IDBan) : DAO_BanHang.IDHoaDon(frmBanHang2.IDBan);
+                    int IDBan = DAO_Setting.KiemtraGiaDien(frmDangNhap.NguoiDung.Idchinhanh) == 0 ? frmBanHang.IDBan : frmBanHang2.IDBan;
                     int IDNhanVien = frmDangNhap.NguoiDung.Id;
                     DateTime GioVao = DAO_ChiTietHoaDonChinh.LayGioVao(IDHoaDon);
-                    object ID = DAO_ChiTietHoaDonChinh.ThemMoiHoaDon(IDBan, IDNhanVien, GioVao);
+                    object ID = DAO_ChiTietHoaDonChinh.ThemMoiHoaDon(IDBan, IDNhanVien, GioVao,frmDangNhap.NguoiDung.Idchinhanh);
                     if (listChiTietMonAnThanhToan.Count > 0 && KT == true && ID != null)// thanh toán món ăn
                     {
                         double TongTien = 0;
@@ -330,31 +330,31 @@ namespace QLCafe
 
                             //thêm vào chi tiết hóa đơn chính, cập nhật chi tiết hóa đơn củ, if  Sl = nhau xóa hóa đơn củ
                             // kiểm tra thêm chi tiết
-                            if (DAO_ChiTietHoaDonChinh.KiemTraHangHoa(Int32.Parse(ID.ToString()), IDHangHoa, IDBan, float.Parse(TrongLuong.ToString())) == false)
+                            if (DAO_ChiTietHoaDonChinh.KiemTraHangHoa(Int32.Parse(ID.ToString()), IDHangHoa, IDBan, float.Parse(TrongLuong.ToString()),frmDangNhap.NguoiDung.Idchinhanh) == false)
                             {
-                                DAO_ChiTietHoaDonChinh.ThemChiTietHoaDonChinh(Int32.Parse(ID.ToString()), IDHangHoa, SoLuong, DonGia, ThanhTien, IDBan, MaHang, IDDonViTinh, float.Parse(TrongLuong.ToString()));
+                                DAO_ChiTietHoaDonChinh.ThemChiTietHoaDonChinh(Int32.Parse(ID.ToString()), IDHangHoa, SoLuong, DonGia, ThanhTien, IDBan, MaHang, IDDonViTinh, float.Parse(TrongLuong.ToString()),frmDangNhap.NguoiDung.Idchinhanh);
                             }
                             else
                             {
-                                DAO_ChiTietHoaDonChinh.CapNhatChiTietHoaDon(Int32.Parse(ID.ToString()), SoLuong, ThanhTien, IDHangHoa, IDBan);
+                                DAO_ChiTietHoaDonChinh.CapNhatChiTietHoaDon(Int32.Parse(ID.ToString()), SoLuong, ThanhTien, IDHangHoa, IDBan,frmDangNhap.NguoiDung.Idchinhanh);
                             }
-                            if (TrongLuong == 0)
-                            {
-                                List<DTO_NguyenLieu> ListNguyenLieu = DAO_NguyenLieu.Instance.LoadNguyenLieu(IDHangHoa);// trừ nguyên liệu tồn kho
-                                if (ListNguyenLieu.Count > 0)
-                                {
-                                    foreach (DTO_NguyenLieu itemNL in ListNguyenLieu)
-                                    {
-                                        double SLTru = (itemNL.TrongLuong * SoLuong);
-                                        DAO_Setting.TruTonKho(itemNL.IDNguyenLieu, frmDangNhap.NguoiDung.Idchinhanh, SLTru);
-                                        // trừ tồn kho
-                                    }
-                                }
-                            }
-                            else if (TrongLuong > 0)
-                            {
-                                DAO_Setting.TruTonKho(IDHangHoa, frmDangNhap.NguoiDung.Idchinhanh, SoLuong * TrongLuong);
-                            }
+                            //if (TrongLuong == 0)
+                            //{
+                            //    List<DTO_NguyenLieu> ListNguyenLieu = DAO_NguyenLieu.Instance.LoadNguyenLieu(IDHangHoa);// trừ nguyên liệu tồn kho
+                            //    if (ListNguyenLieu.Count > 0)
+                            //    {
+                            //        foreach (DTO_NguyenLieu itemNL in ListNguyenLieu)
+                            //        {
+                            //            double SLTru = (itemNL.TrongLuong * SoLuong);
+                            //            DAO_Setting.TruTonKho(itemNL.IDNguyenLieu, frmDangNhap.NguoiDung.Idchinhanh, SLTru);
+                            //            // trừ tồn kho
+                            //        }
+                            //    }
+                            //}
+                            //else if (TrongLuong > 0)
+                            //{
+                            //    DAO_Setting.TruTonKho(IDHangHoa, frmDangNhap.NguoiDung.Idchinhanh, SoLuong * TrongLuong);
+                            //}
                         }
                         if (ID != null)
                         {
@@ -368,10 +368,10 @@ namespace QLCafe
                                 float ThanhTien = TrongLuong > 0 ? (SoLuong * (TrongLuong * DonGia)) : (SoLuong * DonGia);
                                 int IDHangHoa = TrongLuong > 0 ? DAO_Setting.LayIDHangHoaTuChon(MaHang) : DAO_Setting.LayIDHangHoa(MaHang);
                                 int IDDonViTinh = TrongLuong > 0 ? DAO_Setting.LayIDDonViTinhTuChon(MaHang) : DAO_Setting.LayIDDonViTinh(MaHang);
-                                DAO_GoiMon.ThemChiTietHoaDon(IDHoaDon, IDHangHoa, SoLuong, DonGia, ThanhTien, IDBan, MaHang, IDDonViTinh, TrongLuong);
+                                DAO_GoiMon.ThemChiTietHoaDon(IDHoaDon, IDHangHoa, SoLuong, DonGia, ThanhTien, IDBan, MaHang, IDDonViTinh, TrongLuong, frmDangNhap.NguoiDung.Idchinhanh);
                             }
 
-                            DAO_ChiTietHoaDonChinh.CapNhatTongTienHoaDonChinh(Int32.Parse(ID.ToString()), IDBan, TongTien);
+                            DAO_ChiTietHoaDonChinh.CapNhatTongTienHoaDonChinh(Int32.Parse(ID.ToString()), IDBan, TongTien,frmDangNhap.NguoiDung.Idchinhanh);
                         }
 
                     }
@@ -390,10 +390,10 @@ namespace QLCafe
                             DAO_ConnectSQL connect = new DAO_ConnectSQL();
 
                             // Tên máy in
-                            string NamePrinter = DAO_Setting.LayTenMayInBill();
+                            string NamePrinter = DAO_Setting.LayTenMayInBill(frmDangNhap.NguoiDung.Idchinhanh);
 
                             // Lấy máy in bill..
-                            int IDBill = DAO_Setting.ReportBill();
+                            int IDBill = DAO_Setting.ReportBill(frmDangNhap.NguoiDung.Idchinhanh);
                             if (IDBill == 58)
                             {
                                 rpHoaDonBanHang_581 rp = new rpHoaDonBanHang_581();
@@ -402,6 +402,8 @@ namespace QLCafe
 
                                 rp.Parameters["ID"].Value = ID;
                                 rp.Parameters["ID"].Visible = false;
+                                rp.Parameters["IDChiNhanh"].Value = frmDangNhap.NguoiDung.Idchinhanh;
+                                rp.Parameters["IDChiNhanh"].Visible = false;
                                 //rp.ShowPreviewDialog();
                                 rp.Print(NamePrinter);
                             }
@@ -413,6 +415,8 @@ namespace QLCafe
 
                                 rp.Parameters["ID"].Value = ID;
                                 rp.Parameters["ID"].Visible = false;
+                                rp.Parameters["IDChiNhanh"].Value = frmDangNhap.NguoiDung.Idchinhanh;
+                                rp.Parameters["IDChiNhanh"].Visible = false;
                                 //rp.ShowPreviewDialog();
                                 rp.Print(NamePrinter);
                             }

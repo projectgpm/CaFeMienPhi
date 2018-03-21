@@ -13,16 +13,23 @@ namespace BanHang
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["KTDangNhap"] != "GPM@2017")
             {
-                dtQuanTriNguoiDung dt = new dtQuanTriNguoiDung();
-                DataTable da = dt.LayDanhSachNguoiDung_BK();
-                da.Rows.Add(-1,"Tất cả nhân viên");
-                cmbNhanVien.DataSource = da;
-                cmbNhanVien.TextField = "TenNguoiDung";
-                cmbNhanVien.ValueField = "ID";
-                cmbNhanVien.DataBind();
-                cmbNhanVien.SelectedIndex = da.Rows.Count;
+                Response.Redirect("DangNhap.aspx");
+            }
+            else
+            {
+                if (!IsPostBack)
+                {
+                    dtQuanTriNguoiDung dt = new dtQuanTriNguoiDung();
+                    DataTable da = dt.LayDanhSachNguoiDung_BK(Session["IDChiNhanh"].ToString());
+                    da.Rows.Add(-1, "Tất cả nhân viên");
+                    cmbNhanVien.DataSource = da;
+                    cmbNhanVien.TextField = "TenNguoiDung";
+                    cmbNhanVien.ValueField = "ID";
+                    cmbNhanVien.DataBind();
+                    cmbNhanVien.SelectedIndex = da.Rows.Count;
+                }
             }
         }
 

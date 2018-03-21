@@ -18,10 +18,10 @@ namespace QLCafe.DAO
             private set { DAO_ChiTietHoaDon.instance = value; }
         }
         private DAO_ChiTietHoaDon() { }
-        public List<DTO_ChiTietHoaDon> ChiTietHoaDon(int id)
+        public List<DTO_ChiTietHoaDon> ChiTietHoaDon(int id, string IDChiNhanh)
         {
             List<DTO_ChiTietHoaDon> list = new List<DTO_ChiTietHoaDon>();
-            string sTruyVan = string.Format(@"SELECT * FROM [CF_ChiTietHoaDon_Temp] WHERE IDHoaDon = {0} ", id);
+            string sTruyVan = string.Format(@"SELECT * FROM [CF_ChiTietHoaDon_Temp] WHERE IDHoaDon = {0} AND [IDChiNhanh] = '" + IDChiNhanh + "' ", id);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             foreach (DataRow item in data.Rows)
@@ -32,9 +32,9 @@ namespace QLCafe.DAO
             return list;
         }
 
-        public static bool KiemTraHangHoa(int IDHoaDon, int IDHangHoa, int IDBan, float TrongLuong)
+        public static bool KiemTraHangHoa(int IDHoaDon, int IDHangHoa, int IDBan, float TrongLuong, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"SELECT * FROM [CF_ChiTietHoaDon_Temp] WHERE IDBan = {0} AND  IDHangHoa = {1} AND [IDHoaDon] = {2} AND TrongLuong = {3}", IDBan, IDHangHoa, IDHoaDon, TrongLuong);
+            string sTruyVan = string.Format(@"SELECT * FROM [CF_ChiTietHoaDon_Temp] WHERE IDBan = {0} AND  IDHangHoa = {1} AND [IDHoaDon] = {2} AND TrongLuong = {3} AND [IDChiNhanh] = '" + IDChiNhanh + "'", IDBan, IDHangHoa, IDHoaDon, TrongLuong);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -43,9 +43,9 @@ namespace QLCafe.DAO
             }
             return false;
         }
-        public static bool CapNhatSoLuong(string ThanhTien, string SL, string ID)
+        public static bool CapNhatSoLuong(string ThanhTien, string SL, string ID, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"UPDATE CF_ChiTietHoaDon_Temp SET [ThanhTien] = {0}, [SoLuong] =  {1} WHERE  [ID] = '{2}' ", ThanhTien, SL, ID);
+            string sTruyVan = string.Format(@"UPDATE CF_ChiTietHoaDon_Temp SET [ThanhTien] = {0}, [SoLuong] =  {1} WHERE  [ID] = '{2}' AND [IDChiNhanh] = '" + IDChiNhanh + "' ", ThanhTien, SL, ID);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
     }

@@ -21,11 +21,11 @@
                                             <Image IconID="actions_add_16x16" ToolTip="Thêm">
                                             </Image>
                                         </NewButton>
-                                        <UpdateButton ButtonType="Image" RenderMode="Image">
+                                        <UpdateButton Text="Lưu">
                                             <Image IconID="save_save_32x32office2013" ToolTip="Lưu">
                                             </Image>
                                         </UpdateButton>
-                                        <CancelButton ButtonType="Image" RenderMode="Image">
+                                        <CancelButton Text="Hủy">
                                             <Image IconID="actions_close_32x32" ToolTip="Hủy thao tác">
                                             </Image>
                                         </CancelButton>
@@ -45,6 +45,8 @@
                                     <SettingsText CommandDelete="Xóa" CommandEdit="Sửa" CommandNew="Thêm" ConfirmDelete="Bạn có chắc chắn muốn xóa không?" PopupEditFormCaption="Thông Tin Khu Vực" Title="DANH SÁCH KHU VỰC" EmptyDataRow="Danh sách trống." SearchPanelEditorNullText="Nhập thông tin cần tìm..." />
                                     <EditFormLayoutProperties>
                                         <Items>
+                                            <dx:GridViewColumnLayoutItem ColumnName="Chi Nhánh">
+                                            </dx:GridViewColumnLayoutItem>
                                             <dx:GridViewColumnLayoutItem ColumnName="Tên Khu Vực" Name="TenDonViTinh">
                                             </dx:GridViewColumnLayoutItem>
                                             <dx:GridViewColumnLayoutItem ColumnName="Ký Hiệu" Name="KyHieu">
@@ -60,15 +62,7 @@
                                     <Columns>
                                         <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="7" Name="chucnang">
                                         </dx:GridViewCommandColumn>
-                                        <dx:GridViewDataTextColumn Caption="Mã Khu Vực" FieldName="MaKhuVuc" VisibleIndex="0" ReadOnly="True">
-                                            <PropertiesTextEdit>
-                                                <ValidationSettings SetFocusOnError="True">
-                                                    <RequiredField IsRequired="True" />
-                                                </ValidationSettings>
-                                            </PropertiesTextEdit>
-                                            <Settings AutoFilterCondition="Contains" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Caption="Tên Khu Vực" FieldName="TenKhuVuc" VisibleIndex="1">
+                                        <dx:GridViewDataTextColumn Caption="Tên Khu Vực" FieldName="TenKhuVuc" VisibleIndex="2">
                                             <PropertiesTextEdit>
                     
                                                 <ValidationSettings SetFocusOnError="True">
@@ -84,17 +78,24 @@
                                             <propertiesdateedit displayformatstring="dd/MM/yyyy"></propertiesdateedit>
                                             <settings autofiltercondition="Contains" />
                                         </dx:GridViewDataDateColumn>
-                                        <dx:GridViewDataTextColumn Caption="Ghi Chú" FieldName="GhiChu" VisibleIndex="4">
+                                        <dx:GridViewDataTextColumn Caption="Ghi Chú" FieldName="GhiChu" VisibleIndex="5">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Caption="Ký Hiệu" FieldName="KyHieu" VisibleIndex="2">
+                                        <dx:GridViewDataTextColumn Caption="Ký Hiệu" FieldName="KyHieu" VisibleIndex="3">
                                             <PropertiesTextEdit>
                                                 <ValidationSettings SetFocusOnError="True">
                                                     <RequiredField IsRequired="True" />
                                                 </ValidationSettings>
                                             </PropertiesTextEdit>
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataComboBoxColumn Caption="Bảng Giá Đang Áp Dụng" FieldName="IDBangGia" ShowInCustomizationForm="True" VisibleIndex="3">
+                                        <dx:GridViewDataComboBoxColumn Caption="Bảng Giá Đang Áp Dụng" FieldName="IDBangGia" ShowInCustomizationForm="True" VisibleIndex="4">
                                             <PropertiesComboBox DataSourceID="SqlBangGia" TextField="TenBangGia" ValueField="ID">
+                                                <ValidationSettings SetFocusOnError="True">
+                                                    <RequiredField IsRequired="True" />
+                                                </ValidationSettings>
+                                            </PropertiesComboBox>
+                                        </dx:GridViewDataComboBoxColumn>
+                                        <dx:GridViewDataComboBoxColumn Caption="Chi Nhánh" FieldName="IDChiNhanh" Name="chucnangChiNhanh" ShowInCustomizationForm="True" VisibleIndex="0">
+                                            <PropertiesComboBox DataSourceID="SqlChiNhanh" TextField="TenChiNhanh" ValueField="ID">
                                                 <ValidationSettings SetFocusOnError="True">
                                                     <RequiredField IsRequired="True" />
                                                 </ValidationSettings>

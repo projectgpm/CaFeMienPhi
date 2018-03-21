@@ -80,9 +80,9 @@ namespace QLCafe.DAO
                 return 0;
         }
 
-        public static double TongTienHienTai(int IDNhanVien)
+        public static double TongTienHienTai(int IDNhanVien, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@" SELECT (SUM(TongTien)) AS TongTien FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0", IDNhanVien);
+            string sTruyVan = string.Format(@" SELECT (SUM(TongTien)) AS TongTien FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0 AND [IDChiNhanh] = '{1}'", IDNhanVien, IDChiNhanh);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -96,9 +96,9 @@ namespace QLCafe.DAO
             else
                 return 0;
         }
-        public static double TongTienGiamGiaHienTai(int IDNhanVien)
+        public static double TongTienGiamGiaHienTai(int IDNhanVien, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@" SELECT (SUM(TongTien - KhachCanTra)) AS TongTienGiamGia FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0", IDNhanVien);
+            string sTruyVan = string.Format(@" SELECT (SUM(TongTien - KhachCanTra)) AS TongTienGiamGia FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0 AND [IDChiNhanh] = '{1}'", IDNhanVien, IDChiNhanh);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)

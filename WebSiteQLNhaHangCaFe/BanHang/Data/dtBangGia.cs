@@ -47,16 +47,17 @@ namespace BanHang.Data
                 }
             }
         }
-        public void ThemIDHangHoaVaoChiTietGia(string IDHangHoa, object IDBangGia, string GiaCu)
+        public void ThemIDHangHoaVaoChiTietGia(string IDHangHoa, object IDBangGia, string GiaCu, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_ChiTietBangGia] ([IDBangGia],[IDHangHoa],[GiaCu],[GiaMoi]) VALUES (@IDBangGia,@IDHangHoa,@GiaCu,@GiaCu)";
+                    string cmdText = "INSERT INTO [CF_ChiTietBangGia] ([IDBangGia],[IDHangHoa],[GiaCu],[GiaMoi],[IDChiNhanh]) VALUES (@IDBangGia,@IDHangHoa,@GiaCu,@GiaCu,@IDChiNhanh)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.Parameters.AddWithValue("@IDBangGia", IDBangGia);
                         myCommand.Parameters.AddWithValue("@IDHangHoa", IDHangHoa);
                         myCommand.Parameters.AddWithValue("@GiaCu", GiaCu);

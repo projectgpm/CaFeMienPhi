@@ -78,9 +78,7 @@ namespace BanHang
             int IDNhomNguoiDung = Int32.Parse(e.NewValues["IDNhomNguoiDung"].ToString());
             string IDChiNhanh = Session["IDChiNhanh"].ToString();
             string SDT = e.NewValues["SDT"].ToString();
-            string MatKhau = e.NewValues["MatKhau"].ToString();
             string Email = "";
-            MatKhau = dtSetting.GetSHA1HashData(MatKhau);
             string TenDangNhap = e.NewValues["TenDangNhap"].ToString().ToUpper();
             if (dtQuanTriNguoiDung.KT_Tendangnhap_CapNhat(TenDangNhap.Trim(), ID) == -1)
             {
@@ -90,13 +88,13 @@ namespace BanHang
                 }
                 else
                 {
-                    data.SuaNguoiDung(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, MatKhau, Email, IDChiNhanh);
+                    data.SuaNguoiDung(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, Email, IDChiNhanh);
                   
                 }
             }
             else
             {
-                data.SuaNguoiDung(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, MatKhau, Email, IDChiNhanh);
+                data.SuaNguoiDung(Int32.Parse(ID), TenNguoiDung, TenDangNhap, IDNhomNguoiDung, SDT, Email, IDChiNhanh);
                
             }
             e.Cancel = true;

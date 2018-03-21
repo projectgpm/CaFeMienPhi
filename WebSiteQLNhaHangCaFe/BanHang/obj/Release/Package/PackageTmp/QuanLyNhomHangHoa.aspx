@@ -21,11 +21,11 @@
                                             <Image IconID="actions_add_16x16" ToolTip="Thêm">
                                             </Image>
                                         </NewButton>
-                                        <UpdateButton ButtonType="Image" RenderMode="Image">
+                                        <UpdateButton Text="Lưu">
                                             <Image IconID="save_save_32x32office2013" ToolTip="Lưu">
                                             </Image>
                                         </UpdateButton>
-                                        <CancelButton ButtonType="Image" RenderMode="Image">
+                                        <CancelButton Text="Hủy">
                                             <Image IconID="actions_close_32x32" ToolTip="Hủy thao tác">
                                             </Image>
                                         </CancelButton>
@@ -45,8 +45,6 @@
                                     <SettingsText CommandDelete="Xóa" CommandEdit="Sửa" CommandNew="Thêm" ConfirmDelete="Bạn có chắc chắn muốn xóa không?" PopupEditFormCaption="Thông tin nhóm hàng hóa" Title="DANH SÁCH NHÓM HÀNG HÓA" EmptyDataRow="Danh sách trống." SearchPanelEditorNullText="Nhập thông tin cần tìm..." />
                                     <EditFormLayoutProperties>
                                         <Items>
-                                            <dx:GridViewColumnLayoutItem ColumnName="Mã Nhóm">
-                                            </dx:GridViewColumnLayoutItem>
                                             <dx:GridViewColumnLayoutItem ColumnName="Tên Nhóm" Name="TenDonViTinh">
                                             </dx:GridViewColumnLayoutItem>
                                             <dx:GridViewColumnLayoutItem ColumnName="Ghi Chú">
@@ -58,14 +56,6 @@
                                     <Columns>
                                         <dx:GridViewCommandColumn ShowClearFilterButton="True" ShowDeleteButton="True" ShowEditButton="True" ShowNewButtonInHeader="True" VisibleIndex="6" Name="iconaction">
                                         </dx:GridViewCommandColumn>
-                                        <dx:GridViewDataTextColumn Caption="Mã Nhóm" FieldName="MaNhom" VisibleIndex="0" ReadOnly="True">
-                                            <PropertiesTextEdit>
-                                                <ValidationSettings SetFocusOnError="True">
-                                                    <RequiredField IsRequired="True" />
-                                                </ValidationSettings>
-                                            </PropertiesTextEdit>
-                                            <Settings AutoFilterCondition="Contains" />
-                                        </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn Caption="Tên Nhóm" FieldName="TenNhom" VisibleIndex="1">
                                             <PropertiesTextEdit>
                     

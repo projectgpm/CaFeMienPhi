@@ -133,7 +133,7 @@
   inner join "dbo"."CF_KhuVuc" "CF_KhuVuc"
        on ("CF_KhuVuc"."ID" = "CF_Ban"."IDKhuVuc"))
  where (("CF_HoaDon"."GioVao" &gt;= @NgayBD) 
-       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT) and ("CF_HoaDon"."IDChiNhanh" &gt;= @IDChiNhanh) and ("CF_HoaDon"."TrangThai" = 1))</value>
+       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT) and ("CF_HoaDon"."IDChiNhanh" = @IDChiNhanh) and ("CF_HoaDon"."TrangThai" = 1))</value>
   </data>
   <data name="customSqlQuery3.Sql" xml:space="preserve">
     <value>select SUM("CF_HoaDon"."TongTien") as TongTien,
@@ -141,7 +141,7 @@
 	(SUM("CF_HoaDon"."TongTien") - SUM("CF_HoaDon"."TienGiamGia")) as TongLoiNhuan
   from "dbo"."CF_HoaDon" "CF_HoaDon"
  where (("CF_HoaDon"."GioVao" &gt;= @NgayBD)
-       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT) and ("CF_HoaDon"."TrangThai" = 1))</value>
+       and ("CF_HoaDon"."GioVao" &lt;= @NgayKT) and ("CF_HoaDon"."TrangThai" = 1) and ("CF_HoaDon"."IDChiNhanh" = @IDChiNhanh))</value>
   </data>
   <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
     <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IkNGX0NoaU5oYW5oIj48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNYUNoaU5oYW5oIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbkNoaU5oYW5oIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRpZW5UaG9haSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEaWFDaGkiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTmdheU1vIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iTmdheUNhcE5oYXQiIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJEYVhvYSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlJlcG9ydEJpbGwiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNYXlJbiIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48VmlldyBOYW1lPSJDRl9DaGlUaWV0SG9hRG9uX0hhbmdIb2EiPjxGaWVsZCBOYW1lPSJTb0x1b25nIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRG9uR2lhIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlRoYW5oVGllbiIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJNYUhhbmdIb2EiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iVGVuSGFuZ0hvYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJREhvYURvbiIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlRyb25nTHVvbmciIFR5cGU9IkRvdWJsZSIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iQ0ZfSG9hRG9uIj48RmllbGQgTmFtZT0iTWFIb2FEb24iIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iR2lvVmFvIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iVGllbkdpYW1HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG9uZ1RpZW4iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVGVuQmFuIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRlbktodVZ1YyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJRCIgVHlwZT0iSW50NjQiIC8+PC9WaWV3PjxWaWV3IE5hbWU9IlRvbmciPjxGaWVsZCBOYW1lPSJUb25nVGllbiIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJUb25nVGllbkdpYW1HaWEiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG9uZ0xvaU5odWFuIiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjxSZWxhdGlvbiBNYXN0ZXI9IkNGX0hvYURvbiIgRGV0YWlsPSJDRl9DaGlUaWV0SG9hRG9uX0hhbmdIb2EiPjxLZXlDb2x1bW4gTWFzdGVyPSJJRCIgRGV0YWlsPSJJREhvYURvbiIgLz48L1JlbGF0aW9uPjwvRGF0YVNldD4=</value>

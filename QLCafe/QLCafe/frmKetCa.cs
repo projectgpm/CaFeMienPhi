@@ -30,8 +30,9 @@ namespace QLCafe
             gridViewKetCa.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu.
             List<DTO_KetCa> listKetCa = DAO_KetCa.Instance.DanhSachCaBan(DateTime.Now,frmDangNhap.NguoiDung.Idchinhanh);
             gridKetCa.DataSource = listKetCa;
-            txtTongTienHienTai.Text = DAO_KetCa.TongTienHienTai(frmDangNhap.NguoiDung.Id) + "";
-            txtTienKhuyenMai.Text = DAO_KetCa.TongTienGiamGiaHienTai(frmDangNhap.NguoiDung.Id) + "";
+            int IDNhanVien = frmDangNhap.NguoiDung.Id;
+            txtTongTienHienTai.Text = DAO_KetCa.TongTienHienTai(IDNhanVien, frmDangNhap.NguoiDung.Idchinhanh) + "";
+            txtTienKhuyenMai.Text = DAO_KetCa.TongTienGiamGiaHienTai(IDNhanVien, frmDangNhap.NguoiDung.Idchinhanh) + "";
         }
         private void btnThoat_Click(object sender, EventArgs e)
         {
@@ -43,8 +44,8 @@ namespace QLCafe
             if (MessageBox.Show("Bạn muốn kết ca", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
             {
                 int IDNhanVien = frmDangNhap.NguoiDung.Id;
-                double TongTien = DAO_KetCa.TongTienHienTai(IDNhanVien);
-                double GiamGia = DAO_KetCa.TongTienGiamGiaHienTai(IDNhanVien);
+                double TongTien = DAO_KetCa.TongTienHienTai(IDNhanVien,frmDangNhap.NguoiDung.Idchinhanh);
+                double GiamGia = DAO_KetCa.TongTienGiamGiaHienTai(IDNhanVien,frmDangNhap.NguoiDung.Idchinhanh);
                 double ThanhTien = TongTien - GiamGia; 
                 string GioVaoCa = DAO_KetCa.GioVaoCa(IDNhanVien, DateTime.Now);
                 string GioRaCa = DAO_KetCa.GioRaCa(IDNhanVien, DateTime.Now);

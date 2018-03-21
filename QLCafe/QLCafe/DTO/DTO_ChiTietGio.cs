@@ -95,7 +95,7 @@ namespace QLCafe.DTO
         }
         public DTO_ChiTietGio(DataRow dr)
         {
-            this.ID = (int)dr["ID"];
+            this.ID = Int32.Parse(dr["ID"].ToString());
             this.GioBatDau = DateTime.Parse(dr["GioBatDau"].ToString());
             this.GioKetThuc = DateTime.Parse(dr["GioKetThuc"].ToString());
             this.TongGioChoi = dr["TongGioChoi"].ToString();

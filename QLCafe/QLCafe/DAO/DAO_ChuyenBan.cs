@@ -107,9 +107,9 @@ namespace QLCafe.DAO
         /// </summary>
         /// <param name="idban"></param>
         /// <returns></returns>
-        public static bool CapNhatIDBanMoi(int IDBanMoi, int ID)
+        public static bool CapNhatIDBanMoi(int IDBanMoi, int ID, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"UPDATE [CF_ChiTietHoaDon_Temp] SET [IDBan] = '{0}' WHERE ID = {1} ", IDBanMoi, ID);
+            string sTruyVan = string.Format(@"UPDATE [CF_ChiTietHoaDon_Temp] SET [IDBan] = '{0}' WHERE ID = {1} AND [IDChiNhanh] = '{2}'", IDBanMoi, ID, IDChiNhanh);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
     }

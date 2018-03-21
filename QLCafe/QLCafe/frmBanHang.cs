@@ -42,14 +42,18 @@ namespace QLCafe
             DanhSachBan();
             // WindowState = FormWindowState.Maximized;
             lblNgay.Text = "Ngày hôm nay: " + DateTime.Now.ToString("dd/MM/yyyy");
-           
             txtTongTien.ReadOnly = true;
             txtKhachCanTra.ReadOnly = true;
             txtTienThoi.ReadOnly = true;
-            txtKhachThanhToan.ReadOnly = true;
             txtTenDangNhap.Text = "Nhân viên: " + frmDangNhap.NguoiDung.Tennguoidung;
             
         }
+        /// <summary>
+        /// add tab khu vực done
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ID"></param>
+        /// <param name="layout"></param>
         public void AddTabControl(string name, string ID, FlowLayoutPanel layout)
         {
             //kiểm tra tabtrung
@@ -74,11 +78,13 @@ namespace QLCafe
         {
             xtraTabControlDanhSach.TabPages.Clear();
         }
+        /// <summary>
+        /// danh sách bàn theo IDChiNhanh done
+        /// </summary>
         public void DanhSachBan()
         {
             ClearTabControl();
-            string IDChiNhanh = frmDangNhap.NguoiDung.Idchinhanh;
-            DataTable dt = BUS_KhuVuc.DanhSachBanTheoKhuVuc(IDChiNhanh);
+            DataTable dt = BUS_KhuVuc.DanhSachBanTheoKhuVuc(frmDangNhap.NguoiDung.Idchinhanh);
             if (dt.Rows.Count > 0)
             {
                 ThongKe(dt);
@@ -99,6 +105,10 @@ namespace QLCafe
             }
             xtraTabControlDanhSach.SelectedTabPageIndex = TabActive;
         }
+        /// <summary>
+        /// thống kê theo IDChiNhanh done
+        /// </summary>
+        /// <param name="tblThongTin"></param>
         public void ThongKe(DataTable tblThongTin)
         {
             DataRow dr11 = tblThongTin.Rows[0];
@@ -118,9 +128,16 @@ namespace QLCafe
             float TyLePhucVu = SLPhucVu / (float)TongSLBan;
             txtTyLyPhucVu.Text = "Tỷ lệ phục vụ: " + Math.Round(TyLePhucVu, 2) * 100 + "%";
         }
+
+
+        /// <summary>
+        /// bàn theo IDKhuVuc, IDChiNhanh done
+        /// </summary>
+        /// <param name="IDKhuVuc"></param>
+        /// <param name="layout"></param>
         public void BanKhuVuc(string IDKhuVuc, FlowLayoutPanel layout)
         {
-            List<DTO_BAN> tablelist = DAO_BAN.Instance.LoadTableList(IDKhuVuc);
+            List<DTO_BAN> tablelist = DAO_BAN.Instance.LoadTableList(IDKhuVuc,frmDangNhap.NguoiDung.Idchinhanh);
             foreach (DTO_BAN item in tablelist)
             {
                 int TrangThai = item.Trangthai;
@@ -132,6 +149,9 @@ namespace QLCafe
                 btn.Click += btn_Click;
                 btn.DoubleClick +=btn_DoubleClick;
                 btn.MouseDown += btn_MouseDown;
+
+          
+
                 btn.KeyDown +=btn_KeyDown;
                 btn.Appearance.Font = new Font("Tahoma", 13, FontStyle.Regular);
                 btn.Tag = item;
@@ -140,6 +160,12 @@ namespace QLCafe
                     case 0:
                         layout.Controls.Add(btn);
                         btn.ToolTip = "Bàn trống";
+                        btn.AllowFocus = false;
+                        //btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        //btn.Appearance.BackColor = Color.Transparent;
+                        btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+                        btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        btn.Image = System.Drawing.Image.FromFile("cafe2.png");
                         break;
                     case 1:
                         btn.ForeColor = Color.OrangeRed;
@@ -150,7 +176,10 @@ namespace QLCafe
                         {
                             btn.ToolTip = dr1.TenKhachHang + Environment.NewLine + dr1.DienThoai + Environment.NewLine + dr1.GioDat;
                         }
-                       btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+                        //btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        //btn.Appearance.BackColor = Color.Transparent;
+                        btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
                         btn.Image = System.Drawing.Image.FromFile("cafe4.png");
                         layout.Controls.Add(btn);
                         break;
@@ -159,7 +188,10 @@ namespace QLCafe
                         btn.StyleController = null;
                         btn.LookAndFeel.UseDefaultLookAndFeel = false;
                         btn.ToolTip = "Bàn có người";
-                         btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+                        btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        //btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        //btn.Appearance.BackColor = Color.Transparent;
                         btn.Image = System.Drawing.Image.FromFile("cafe3.png");
                         layout.Controls.Add(btn);
                         break;
@@ -207,12 +239,15 @@ namespace QLCafe
             }
         }
        
+        /// <summary>
+        /// HienThiHoaDon theo IDBan, IDChiNhanh done
+        /// </summary>
+        /// <param name="IDBan"></param>
         public void HienThiHoaDon(int IDBan)
         {
             gridView1.ViewCaption = "DANH SÁCH MÓN ĂN BÀN " + DAO_BAN.LenTenBan(IDBan);
-            List<DTO_DanhSachMenu> MonAnThuong = DAO_DanhSachMonAn.Instance.GetMonAnThuong(DAO_BanHang.IDHoaDon(IDBan));
-            List<DTO_DanhSachMenu> MonAnTuChon = DAO_DanhSachMonAn.Instance.GetMonAnTuChon(DAO_BanHang.IDHoaDon(IDBan));
-
+            List<DTO_DanhSachMenu> MonAnThuong = DAO_DanhSachMonAn.Instance.GetMonAnThuong(DAO_BanHang.IDHoaDon(IDBan),frmDangNhap.NguoiDung.Idchinhanh);
+          //  List<DTO_DanhSachMenu> MonAnTuChon = DAO_DanhSachMonAn.Instance.GetMonAnTuChon(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh);
             DataTable db = new DataTable();
             db.Columns.Add("MaHangHoa", typeof(string));
             db.Columns.Add("TenHangHoa", typeof(string));
@@ -237,21 +272,21 @@ namespace QLCafe
                             );
                
             }
-            foreach (DTO_DanhSachMenu item in MonAnTuChon)
-            {
-                db.Rows.Add(
+            //foreach (DTO_DanhSachMenu item in MonAnTuChon)
+            //{
+            //    db.Rows.Add(
 
-                                 item.MaHangHoa,
-                                 item.TenHangHoa,
-                                 item.DonViTinh,
-                                 item.TrongLuong,
-                                 item.SoLuong,
-                                 item.DonGia,
-                                 item.ThanhTien,
-                                 item.ID
-                            );
+            //                     item.MaHangHoa,
+            //                     item.TenHangHoa,
+            //                     item.DonViTinh,
+            //                     item.TrongLuong,
+            //                     item.SoLuong,
+            //                     item.DonGia,
+            //                     item.ThanhTien,
+            //                     item.ID
+            //                );
 
-            }
+            //}
             gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;// Ẩn dòng đầu...
             gridControlCTHD.DataSource = null;
             //gridControlCTHD.Refresh();
@@ -259,20 +294,23 @@ namespace QLCafe
             lblTenBan.Text = "Tên bàn: " + DAO_BAN.LenTenBan(IDBan);
             LoadTongTien();
         }
+        /// <summary>
+        /// load theo IDHoaDon + IDChiNhanh done
+        /// </summary>
         public void LoadTongTien()
         {
-            cmbHinhThucGiamGia.Text = DAO_HoaDon.HinhThucGiamGia(DAO_BanHang.IDHoaDon(IDBan)).ToString();
-            txtGiamGia.Text = DAO_HoaDon.GiamGia(DAO_BanHang.IDHoaDon(IDBan)).ToString();
-            txtTienSauGiamGia.Text = DAO_HoaDon.TienGiamGia(DAO_BanHang.IDHoaDon(IDBan)).ToString();
-            txtTongTien.Text = DAO_HoaDon.TongTienHoaDon(DAO_BanHang.IDHoaDon(IDBan)).ToString();
-            txtKhachCanTra.Text = (DAO_HoaDon.KhachCanTra(DAO_BanHang.IDHoaDon(IDBan))).ToString();
-            txtKhachThanhToan.Text = (DAO_HoaDon.KhachCanTra(DAO_BanHang.IDHoaDon(IDBan))).ToString();
+            cmbHinhThucGiamGia.Text = DAO_HoaDon.HinhThucGiamGia(DAO_BanHang.IDHoaDon(IDBan),frmDangNhap.NguoiDung.Idchinhanh).ToString();
+            txtGiamGia.Text = DAO_HoaDon.GiamGia(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh).ToString();
+            txtTienSauGiamGia.Text = DAO_HoaDon.TienGiamGia(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh).ToString();
+            txtTongTien.Text = DAO_HoaDon.TongTienHoaDon(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh).ToString();
+            txtKhachCanTra.Text = DAO_HoaDon.KhachCanTra(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh).ToString();
+            txtKhachThanhToan.Text = DAO_HoaDon.KhachCanTra(DAO_BanHang.IDHoaDon(IDBan), frmDangNhap.NguoiDung.Idchinhanh).ToString();
         }
         private void btn_Click(object sender, EventArgs e)
         {
             IDBan = ((sender as SimpleButton).Tag as DTO_BAN).Id;
             HienThiHoaDon(IDBan);
-            txtKhachThanhToan.ReadOnly = false;
+           // txtKhachThanhToan.ReadOnly = false;
         }
        
         
@@ -283,6 +321,11 @@ namespace QLCafe
                 e.Cancel = true;
             }
         }
+        /// <summary>
+        /// đã kiểm tra IDCHiNhanh
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void barButtonDatBan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (DAO_BAN.TrangThaiBan(IDBan) == 0)
@@ -306,7 +349,7 @@ namespace QLCafe
             string TenKhachHang = str1;
             string DienThoai = str2;
             DateTime GioDat = a;
-            bool KT = DAO_BAN.ThemKhachDatBan(TenKhachHang, DienThoai, GioDat, IDBan);
+            bool KT = DAO_BAN.ThemKhachDatBan(TenKhachHang, DienThoai, GioDat, IDBan, frmDangNhap.NguoiDung.Idchinhanh);
             if (KT == true)
             {
                 DAO_BAN.DoiTrangThaiDatBan(IDBan);
@@ -319,15 +362,20 @@ namespace QLCafe
                 MessageBox.Show("Đặt bàn Thất Bại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// đã kiêm tra idchinhanh
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void barButtonXoaBan_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (MessageBox.Show("Chuyển trạng thái bàn về mặc định? Dữ liệu trước sẽ không được lưu lại.", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
             {
-                bool KT = DAO_BAN.XoaBanVeMatDinh(IDBan);
+                bool KT = DAO_BAN.XoaBanVeMatDinh(IDBan, frmDangNhap.NguoiDung.Idchinhanh);
                 if (KT == true)
                 {
-                    DAO_HoaDon.XoaDatBan(IDBan);
-                    DAO_DatBan.XoaKhachDat(IDBan);
+                    DAO_HoaDon.XoaDatBan(IDBan, frmDangNhap.NguoiDung.Idchinhanh);
+                    DAO_DatBan.XoaKhachDat(IDBan, frmDangNhap.NguoiDung.Idchinhanh);
                     DanhSachBan();
                     HienThiHoaDon(IDBan);
                 }
@@ -364,6 +412,7 @@ namespace QLCafe
         {
             if (KT == 1)
             {
+
                 TinhTongTien(IDHoaDon);
                 HienThiHoaDon(IDBanNhan);
                 DanhSachBan();
@@ -473,11 +522,16 @@ namespace QLCafe
             lblTime.Text = "Giờ hiện tại: " + DateTime.Now.ToLongTimeString();
         }
 
+        /// <summary>
+        /// xóa món trong bàn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gridControlCTHD_ProcessGridKey(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete && gridView1.State != DevExpress.XtraGrid.Views.Grid.GridState.Editing)
             {
-                if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
                 {
                     int IDban = IDBan;
                     string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
@@ -499,19 +553,23 @@ namespace QLCafe
             }
         }
 
+        /// <summary>
+        /// TinhTongTien theo IDHoaDon, IDChiNhanh
+        /// </summary>
+        /// <param name="IDHoaDon"></param>
         public static void TinhTongTien(int IDHoaDon)
         {
-            List<DTO_ChiTietHoaDon> danhsach = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDon);
+            List<DTO_ChiTietHoaDon> danhsach = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDon,frmDangNhap.NguoiDung.Idchinhanh);
             double TongTien = 0,TienGio = 0;
             foreach (DTO_ChiTietHoaDon item in danhsach)
             {
                 TongTien = TongTien + item.ThanhTien;
             }
-            List<DTO_ChiTietGio> DanhSachGio = DAO_DanhSachGioChuaThanhToan.Instance.GetDanhSachGio(IDHoaDon, IDBan);
-            foreach (DTO_ChiTietGio item in DanhSachGio)
-            {
-                TienGio = TienGio + item.ThanhTien;
-            }
+            //List<DTO_ChiTietGio> DanhSachGio = DAO_DanhSachGioChuaThanhToan.Instance.GetDanhSachGio(IDHoaDon, IDBan);
+            //foreach (DTO_ChiTietGio item in DanhSachGio)
+            //{
+            //    TienGio = TienGio + item.ThanhTien;
+            //}
             DAO_HoaDon.CapNhatTongTien(IDHoaDon, TongTien.ToString(), TongTien.ToString(), TienGio.ToString());
            
         }
@@ -535,26 +593,26 @@ namespace QLCafe
                 int IDHoaDon = DAO_BanHang.IDHoaDon(IDban);
                 int SLMoi = Int32.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[3]).ToString());
                 float DonGia = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[5]).ToString());
-                float TrongLuong = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[4]).ToString());
-                if (TrongLuong != 0)
-                {
-                    //tự chọn
-                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * (TrongLuong *DonGia)).ToString(), SLMoi.ToString(), ID) == true)
-                    {
-                        TinhTongTien(IDHoaDon);
-                        HienThiHoaDon(IDban);
-                    }
-                    else
-                    {
-                        HienThiHoaDon(IDban);
-                        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                //float TrongLuong = float.Parse(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[4]).ToString());
+                //if (TrongLuong != 0)
+                //{
+                //    //tự chọn
+                //    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * (TrongLuong *DonGia)).ToString(), SLMoi.ToString(), ID,frmDangNhap.NguoiDung.Idchinhanh) == true)
+                //    {
+                //        TinhTongTien(IDHoaDon);
+                //        HienThiHoaDon(IDban);
+                //    }
+                //    else
+                //    {
+                //        HienThiHoaDon(IDban);
+                //        MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    }
 
-                }
-                else
-                { 
+                //}
+                //else
+                //{ 
                     //bình thường
-                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * DonGia).ToString(), SLMoi.ToString(), ID) == true)
+                    if (DAO_ChiTietHoaDon.CapNhatSoLuong((SLMoi * DonGia).ToString(), SLMoi.ToString(), ID, frmDangNhap.NguoiDung.Idchinhanh) == true)
                     {
                         TinhTongTien(IDHoaDon);
                         HienThiHoaDon(IDban);
@@ -565,7 +623,7 @@ namespace QLCafe
                         HienThiHoaDon(IDban);
                         MessageBox.Show("Cập nhật số lượng không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
+                //}
                 
             }
             else
@@ -606,7 +664,7 @@ namespace QLCafe
                 {
 
                 bool insert = true;
-                List<DTO_ChiTietHoaDon> DanhSachHoaDon = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDonHT);
+                List<DTO_ChiTietHoaDon> DanhSachHoaDon = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDonHT, frmDangNhap.NguoiDung.Idchinhanh);
                 // đổi trạng thái hóa đơn + thêm vào CTHD chính, xóa tạm + Chi tiết giờ
                 foreach (DTO_ChiTietHoaDon item in DanhSachHoaDon)
                 {
@@ -619,37 +677,37 @@ namespace QLCafe
                     int IDDonViTinh = item.IDDonViTinh;
                     float TrongLuong = item.TrongLuong;
                     //thêm chi tiết hóa đơn chính, - nguyên liệu hàng hóa
-                    if (DAO_ChiTietHoaDonChinh.ThemChiTietHoaDonChinh(IDHoaDonHT, IDHangHoa, SoLuong, DonGia, ThanhTien, IDBanHT, MaHangHoa, IDDonViTinh, TrongLuong) == false)
+                    if (DAO_ChiTietHoaDonChinh.ThemChiTietHoaDonChinh(IDHoaDonHT, IDHangHoa, SoLuong, DonGia, ThanhTien, IDBanHT, MaHangHoa, IDDonViTinh, TrongLuong, frmDangNhap.NguoiDung.Idchinhanh) == false)
                     {
                         insert = false;
                     }
-                    else
-                    {
-                        if (TrongLuong == 0)
-                        {
-                            // trừ tồn kho nguyên liệu chế biến
-                            List<DTO_NguyenLieu> ListNguyenLieu = DAO_NguyenLieu.Instance.LoadNguyenLieu(IDHangHoa);
-                            if (ListNguyenLieu.Count > 0)
-                            {
-                                foreach (DTO_NguyenLieu itemNL in ListNguyenLieu)
-                                {
-                                    double SLTru = (itemNL.TrongLuong * SoLuong);
-                                    DAO_Setting.TruTonKho(itemNL.IDNguyenLieu, frmDangNhap.NguoiDung.Idchinhanh, SLTru);
-                                    // trừ tồn kho
-                                }
-                            }
-                        }
-                        else if (TrongLuong > 0)
-                        {
-                            //trừ nguyên liệu tự chọn
-                            DAO_Setting.TruTonKho(IDHangHoa, frmDangNhap.NguoiDung.Idchinhanh, SoLuong * TrongLuong);
-                        }
-                    }
+                    //else
+                    //{
+                    //    //if (TrongLuong == 0)
+                    //    //{
+                    //    //    // trừ tồn kho nguyên liệu chế biến
+                    //    //    List<DTO_NguyenLieu> ListNguyenLieu = DAO_NguyenLieu.Instance.LoadNguyenLieu(IDHangHoa);
+                    //    //    if (ListNguyenLieu.Count > 0)
+                    //    //    {
+                    //    //        foreach (DTO_NguyenLieu itemNL in ListNguyenLieu)
+                    //    //        {
+                    //    //            double SLTru = (itemNL.TrongLuong * SoLuong);
+                    //    //            DAO_Setting.TruTonKho(itemNL.IDNguyenLieu, frmDangNhap.NguoiDung.Idchinhanh, SLTru);
+                    //    //            // trừ tồn kho
+                    //    //        }
+                    //    //    }
+                    //    //}
+                    //    //else if (TrongLuong > 0)
+                    //    //{
+                    //    //    //trừ nguyên liệu tự chọn
+                    //    //    DAO_Setting.TruTonKho(IDHangHoa, frmDangNhap.NguoiDung.Idchinhanh, SoLuong * TrongLuong);
+                    //    //}
+                    //}
                 }
                 if (insert == true)
                 {
-                    // xóa chi tiết hóa đơn temp, cập nhật chi tiết giờ thanh toán  = 1,
-                    if (DAO_ChiTietHoaDonChinh.XoaChiTietHoaDonTemp(IDHoaDonHT) == true && DAO_ChiTietHoaDonChinh.CapNhatChiTietGio(IDHoaDonHT, IDBanHT) == true)
+                    // xóa chi tiết hóa đơn temp,
+                    if (DAO_ChiTietHoaDonChinh.XoaChiTietHoaDonTemp(IDHoaDonHT, frmDangNhap.NguoiDung.Idchinhanh, IDBanHT) == true)
                     {
                         // cập nhật trạng thái hóa đơn đã thanh toán, đổi trạng thái bàn
                         int IDNhanVien = frmDangNhap.NguoiDung.Id;
@@ -660,7 +718,7 @@ namespace QLCafe
                         string HinhThucThanhToan = cmbHinhThucGiamGia.Text.ToString();
                         double TienGiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
                         double TyLeGiamGia = double.Parse(txtGiamGia.Text.ToString());
-                        if (DAO_ChiTietHoaDonChinh.CapNhatHoaDonChinh(IDHoaDonHT, IDBanHT, IDNhanVien, KhachThanhToan, TienThua, KhachCanTra, HinhThucThanhToan, GiamGia, TyLeGiamGia, TienGiamGia) == true && DAO.DAO_BAN.XoaBanVeMatDinh(IDBanHT) == true)// thành công
+                        if (DAO_ChiTietHoaDonChinh.CapNhatHoaDonChinh(IDHoaDonHT, IDBanHT, IDNhanVien, KhachThanhToan, TienThua, KhachCanTra, HinhThucThanhToan, GiamGia, TyLeGiamGia, TienGiamGia,frmDangNhap.NguoiDung.Idchinhanh) == true && DAO.DAO_BAN.XoaBanVeMatDinh(IDBanHT, frmDangNhap.NguoiDung.Idchinhanh) == true)// thành công
                         {
                             txtKhachThanhToan.Text = "0";
                             txtTienThoi.Text = "0";
@@ -675,9 +733,9 @@ namespace QLCafe
                                 // in hóa đớn, cập nhật hóa đơn
                                 DAO_ConnectSQL connect = new DAO_ConnectSQL();
                                 // Tên máy in
-                                string NamePrinter = DAO_Setting.LayTenMayInBill();
+                                string NamePrinter = DAO_Setting.LayTenMayInBill(frmDangNhap.NguoiDung.Idchinhanh);
                                 // Lấy máy in bill..
-                                int IDBill = DAO_Setting.ReportBill();
+                                int IDBill = DAO_Setting.ReportBill(frmDangNhap.NguoiDung.Idchinhanh);
                                 //for (int i = 1; i <= 2; i++)
                                 //{
                                     if (IDBill == 58)
@@ -685,9 +743,10 @@ namespace QLCafe
                                         rpHoaDonBanHang_581 rp = new rpHoaDonBanHang_581();
                                         SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
                                         sqlDataSource.Connection.ConnectionString += connect.ConnectString();
-
                                         rp.Parameters["ID"].Value = IDHoaDonHT;
                                         rp.Parameters["ID"].Visible = false;
+                                        rp.Parameters["IDChiNhanh"].Value = frmDangNhap.NguoiDung.Idchinhanh;
+                                        rp.Parameters["IDChiNhanh"].Visible = false;
                                         //rp.ShowPreviewDialog();
                                         rp.Print(NamePrinter);
                                     }
@@ -696,9 +755,10 @@ namespace QLCafe
                                         rpHoaDonBanHang1 rp = new rpHoaDonBanHang1();
                                         SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
                                         sqlDataSource.Connection.ConnectionString += connect.ConnectString();
-
                                         rp.Parameters["ID"].Value = IDHoaDonHT;
                                         rp.Parameters["ID"].Visible = false;
+                                        rp.Parameters["IDChiNhanh"].Value = frmDangNhap.NguoiDung.Idchinhanh;
+                                        rp.Parameters["IDChiNhanh"].Visible = false;
                                         //rp.ShowPreviewDialog();
                                         rp.Print(NamePrinter);
                                     }
@@ -758,7 +818,7 @@ namespace QLCafe
 
         private void btnXoaMonAn_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show("Bạn muốn xóa món này ra khỏi bàn?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
             {
                 int IDban = IDBan;
                 string ID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns[8]).ToString();
@@ -797,57 +857,62 @@ namespace QLCafe
             }
             else
             {
-                //if (MessageBox.Show("In tạm tính", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
-                //{
-                int KT = DAO_BanHang.KiemTraLayIDGioBatDau(IDHoaDonHT, IDBanHT);// kiểm tra xem có giờ kết thúc hay không
-                if (KT == 0)
+                if (MessageBox.Show("In tạm tính", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    int IDNhanVien = frmDangNhap.NguoiDung.Id;
-                    double KhachThanhToan = double.Parse(txtKhachThanhToan.Text.ToString());
-                    double TienThua = double.Parse(txtTienThoi.Text.ToString());
-                    double GiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
-                    double KhachCanTra = double.Parse(txtKhachCanTra.Text.ToString());
-                    double TienGiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
-                    double TyLeGiamGia = double.Parse(txtGiamGia.Text.ToString());
-                    string HinhThucThanhToan = cmbHinhThucGiamGia.Text.ToString();
-                    DAO_ChiTietHoaDonChinh.CapNhatHoaDonChinh2(IDHoaDonHT, IDBanHT, IDNhanVien, KhachThanhToan, TienThua, KhachCanTra, HinhThucThanhToan, GiamGia, TienGiamGia, TyLeGiamGia);
-                    //List<DTO_ChiTietHoaDon> DanhSachHoaDon = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDonHT);
-                    // in hóa đớn, cập nhật hóa đơn
-                    DAO_ConnectSQL connect = new DAO_ConnectSQL();
-                    // Tên máy in
-                    string NamePrinter = DAO_Setting.LayTenMayInBill();
-                    DAO_Setting.CapNhatBillInTemp(IDHoaDonHT + "");
+                    //int KT = DAO_BanHang.KiemTraLayIDGioBatDau(IDHoaDonHT, IDBanHT);// kiểm tra xem có giờ kết thúc hay không
+                    //if (KT == 0)
+                    //{
+                        int IDNhanVien = frmDangNhap.NguoiDung.Id;
+                        double KhachThanhToan = double.Parse(txtKhachThanhToan.Text.ToString());
+                        double TienThua = double.Parse(txtTienThoi.Text.ToString());
+                        double GiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
+                        double KhachCanTra = double.Parse(txtKhachCanTra.Text.ToString());
+                        double TienGiamGia = double.Parse(txtTienSauGiamGia.Text.ToString());
+                        double TyLeGiamGia = double.Parse(txtGiamGia.Text.ToString());
+                        string HinhThucThanhToan = cmbHinhThucGiamGia.Text.ToString();
+                        DAO_ChiTietHoaDonChinh.CapNhatHoaDonChinh2(IDHoaDonHT, IDBanHT, IDNhanVien, KhachThanhToan, TienThua, KhachCanTra, HinhThucThanhToan, GiamGia, TienGiamGia, TyLeGiamGia,frmDangNhap.NguoiDung.Idchinhanh);
+                        //List<DTO_ChiTietHoaDon> DanhSachHoaDon = DAO_ChiTietHoaDon.Instance.ChiTietHoaDon(IDHoaDonHT);
+                        // in hóa đớn, cập nhật hóa đơn
+                        DAO_ConnectSQL connect = new DAO_ConnectSQL();
+                        // Tên máy in
+                        string NamePrinter = DAO_Setting.LayTenMayInBill(frmDangNhap.NguoiDung.Idchinhanh);
+                        DAO_Setting.CapNhatBillInTemp(IDHoaDonHT + "");
 
-                    // Lấy máy in bill..
-                    int IDBill = DAO_Setting.ReportBill();
-                    if (IDBill == 58)
-                    {
-                        rpHoaDonBanHang_581_Temp rp = new rpHoaDonBanHang_581_Temp();
-                        SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
-                        sqlDataSource.Connection.ConnectionString += connect.ConnectString();
+                        // Lấy máy in bill..
+                        int IDBill = DAO_Setting.ReportBill(frmDangNhap.NguoiDung.Idchinhanh);
+                        if (IDBill == 58)
+                        {
+                            rpHoaDonBanHang_581_Temp rp = new rpHoaDonBanHang_581_Temp();
+                            SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
+                            sqlDataSource.Connection.ConnectionString += connect.ConnectString();
 
-                        rp.Parameters["ID"].Value = IDHoaDonHT;
-                        rp.Parameters["ID"].Visible = false;
-                        //rp.ShowPreviewDialog();
-                        rp.Print(NamePrinter);
-                    }
-                    else
-                    {
-                        rpHoaDonBanHang1_Temp rp = new rpHoaDonBanHang1_Temp();
-                        SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
-                        sqlDataSource.Connection.ConnectionString += connect.ConnectString();
+                            rp.Parameters["ID"].Value = IDHoaDonHT;
+                            rp.Parameters["ID"].Visible = false;
 
-                        rp.Parameters["ID"].Value = IDHoaDonHT;
-                        rp.Parameters["ID"].Visible = false;
-                        //rp.ShowPreviewDialog();
-                        rp.Print(NamePrinter);
-                    }
+                            rp.Parameters["IDChiNhanh"].Value = frmDangNhap.NguoiDung.Idchinhanh;
+                            rp.Parameters["IDChiNhanh"].Visible = false;
+                            //rp.ShowPreviewDialog();
+                            rp.Print(NamePrinter);
+                        }
+                        else
+                        {
+                            rpHoaDonBanHang1_Temp rp = new rpHoaDonBanHang1_Temp();
+                            SqlDataSource sqlDataSource = rp.DataSource as SqlDataSource;
+                            sqlDataSource.Connection.ConnectionString += connect.ConnectString();
+
+                            rp.Parameters["ID"].Value = IDHoaDonHT;
+                            rp.Parameters["ID"].Visible = false;
+                            rp.Parameters["IDChiNhanh"].Value = frmDangNhap.NguoiDung.Idchinhanh;
+                            rp.Parameters["IDChiNhanh"].Visible = false;
+                            //rp.ShowPreviewDialog();
+                            rp.Print(NamePrinter);
+                        }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Bàn chưa có giờ kết thúc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
                 }
-                else
-                {
-                    MessageBox.Show("Bàn chưa có giờ kết thúc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                //}
             }
         }
         private void txtGiamGia_EditValueChanged(object sender, EventArgs e)

@@ -10,10 +10,10 @@ namespace QLCafe.DAO
 {
     public class DAO_BAN
     {
-        public List<DTO_BAN> LoadTableList(string IDKhuVuc)
+        public List<DTO_BAN> LoadTableList(string IDKhuVuc, string IDChiNhanh)
         {
             List<DTO_BAN> tablelist = new List<DTO_BAN>();
-            string sTruyVan = string.Format(@"SELECT * FROM [CF_Ban] WHERE IDKhuVuc = {0} ", IDKhuVuc);
+            string sTruyVan = string.Format(@"SELECT * FROM [CF_Ban] WHERE IDKhuVuc = {0} AND [IDChiNhanh] = '{1}' ", IDKhuVuc, IDChiNhanh);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             foreach (DataRow item in data.Rows)
@@ -56,14 +56,14 @@ namespace QLCafe.DAO
             string sTruyVan = string.Format(@"UPDATE [CF_Ban] SET [TrangThai] = 2 WHERE ID = {0}", idban);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
-        public static bool XoaBanVeMatDinh(int idban)
+        public static bool XoaBanVeMatDinh(int idban, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"UPDATE [CF_Ban] SET [TrangThai] = 0 WHERE ID = {0}", idban);
+            string sTruyVan = string.Format(@"UPDATE [CF_Ban] SET [TrangThai] = 0 WHERE ID = {0} AND [IDChiNhanh] = '{1}'", idban, IDChiNhanh);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
-        public static bool ThemKhachDatBan(string TenKhachHang, string DienThoai,DateTime GioDat, int idban)
+        public static bool ThemKhachDatBan(string TenKhachHang, string DienThoai, DateTime GioDat, int idban, string IDChiNhanh)
         {
-            string sTruyVan = string.Format(@"INSERT INTO CF_DatBan(TenKhachHang,DienThoai,GioDat,IDBan) VALUES (N'{0}',N'{1}','{2}','{3}')", TenKhachHang, DienThoai, GioDat.ToString("yyyy-MM-dd hh:mm:ss tt"), idban);
+            string sTruyVan = string.Format(@"INSERT INTO CF_DatBan(TenKhachHang,DienThoai,GioDat,IDBan,IDChiNhanh) VALUES (N'{0}',N'{1}','{2}','{3}','{4}')", TenKhachHang, DienThoai, GioDat.ToString("yyyy-MM-dd hh:mm:ss tt"), idban, IDChiNhanh);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
         public static int TrangThaiBan(int IDBan)

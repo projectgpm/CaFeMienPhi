@@ -80,14 +80,15 @@ namespace BanHang.Data
                 }
             }
         }
-        public void Them(string MaKhuVuc, string TenKhuVuc, string GiaKhuVuc, string IDChiNhanh, string GhiChu, string KyHieu, string IDBangGia)
+        public object Them(string MaKhuVuc, string TenKhuVuc, string GiaKhuVuc, string IDChiNhanh, string GhiChu, string KyHieu, string IDBangGia)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_KhuVuc] ([MaKhuVuc],[TenKhuVuc],[GiaKhuVuc],[IDChiNhanh], [NgayCapNhat],[GhiChu],[KyHieu],[IDBangGia]) VALUES (@MaKhuVuc,@TenKhuVuc,@GiaKhuVuc,@IDChiNhanh, getdate(),@GhiChu,@KyHieu,@IDBangGia)";
+                    object ID = null;
+                    string cmdText = "INSERT INTO [CF_KhuVuc] ([MaKhuVuc],[TenKhuVuc],[GiaKhuVuc],[IDChiNhanh], [NgayCapNhat],[GhiChu],[KyHieu],[IDBangGia]) OUTPUT INSERTED.ID VALUES (@MaKhuVuc,@TenKhuVuc,@GiaKhuVuc,@IDChiNhanh, getdate(),@GhiChu,@KyHieu,@IDBangGia)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
                         myCommand.Parameters.AddWithValue("@GhiChu", GhiChu);
@@ -97,9 +98,10 @@ namespace BanHang.Data
                         myCommand.Parameters.AddWithValue("@GiaKhuVuc", GiaKhuVuc);
                         myCommand.Parameters.AddWithValue("@MaKhuVuc", MaKhuVuc);
                         myCommand.Parameters.AddWithValue("@TenKhuVuc", TenKhuVuc);
-                        myCommand.ExecuteNonQuery();
+                        ID = myCommand.ExecuteScalar();
                     }
                     myConnection.Close();
+                    return ID;
                 }
                 catch
                 {

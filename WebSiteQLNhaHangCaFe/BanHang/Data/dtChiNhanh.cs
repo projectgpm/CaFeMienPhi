@@ -9,6 +9,28 @@ namespace BanHang.Data
 {
     public class dtChiNhanh
     {
+        public void ThemKeyKichHoat(string TenKey, string IDChiNhanh)
+        {
+            using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
+            {
+                try
+                {
+                    myConnection.Open();
+                    string cmdText = "INSERT INTO [CF_KeyKichHoat] ([TenKey],[ThoiHanSuDung],[SoLanKichHoat],[IDChiNhanh]) VALUES (@TenKey,getdate(),1,@IDChiNhanh)";
+                    using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@TenKey", TenKey);
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    myConnection.Close();
+                }
+                catch
+                {
+                    throw new Exception("Lỗi: Quá trình thêm dữ liệu gặp lỗi");
+                }
+            }
+        }
         public void ThemNguyenLieuTonKho(string IDNguyenLieu, string IDChiNhanh, string MaNguyenLieu)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
@@ -48,16 +70,18 @@ namespace BanHang.Data
                 }
             }
         }
-        public void SuaChiNhanh(string ID, string MaChiNhanh, string TenChiNhanh, string DienThoai, string DiaChi, DateTime NgayMo)
+        public void SuaChiNhanh(string ID, string MaChiNhanh, string TenChiNhanh, string DienThoai, string DiaChi, DateTime NgayMo, string Email, string DuLieuMau)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string strSQL = "UPDATE [CF_ChiNhanh] SET [MaChiNhanh] = @MaChiNhanh,[TenChiNhanh] = @TenChiNhanh,[DienThoai] = @DienThoai,[DiaChi] = @DiaChi, [NgayCapNhat] = getdate(), [NgayMo] = @NgayMo WHERE [ID] = @ID";
+                    string strSQL = "UPDATE [CF_ChiNhanh] SET [Email] =@Email,[DuLieuMau] = @DuLieuMau,[MaChiNhanh] = @MaChiNhanh,[TenChiNhanh] = @TenChiNhanh,[DienThoai] = @DienThoai,[DiaChi] = @DiaChi, [NgayCapNhat] = getdate(), [NgayMo] = @NgayMo WHERE [ID] = @ID";
                     using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
                     {
+                        myCommand.Parameters.AddWithValue("@Email", Email);
+                        myCommand.Parameters.AddWithValue("@DuLieuMau", DuLieuMau);
                         myCommand.Parameters.AddWithValue("@ID", ID);
                         myCommand.Parameters.AddWithValue("@MaChiNhanh", MaChiNhanh);
                         myCommand.Parameters.AddWithValue("@TenChiNhanh", TenChiNhanh);
@@ -73,17 +97,113 @@ namespace BanHang.Data
                 }
             }
         }
-        public void XoaChiNhanh(string ID)
+        public void XoaChiNhanh(string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
                     myConnection.Open();
-                    string strSQL = "UPDATE [CF_ChiNhanh] SET [DaXoa] = 1 WHERE ID = @ID";
+                    string strSQL = "DELETE [CF_ChiNhanh] WHERE ID = @ID";
                     using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
                     {
-                        myCommand.Parameters.AddWithValue("@ID", ID);
+                        myCommand.Parameters.AddWithValue("@ID", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_Ban] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_BangGia] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_ChiTietBangGia] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_ChiTietHoaDon] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_ChiTietHoaDon_Temp] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_DatBan] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_DonViTinh] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_HangHoa] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_HoaDon] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_KetCa] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_KhuVuc] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_LichSuThayDoiGia] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_LichSuTruyCap] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_NguoiDung] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_NhomHangHoa] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
+                    strSQL = "DELETE [CF_TongChi] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.ExecuteNonQuery();
                     }
                 }
@@ -93,7 +213,7 @@ namespace BanHang.Data
                 }
             }
         }
-        public object ThemChiNhanh(string MaChiNhanh, string TenChiNhanh, string DienThoai, string DiaChi, DateTime NgayMo)
+        public object ThemChiNhanh(string MaChiNhanh, string TenChiNhanh, string DienThoai, string DiaChi, DateTime NgayMo, string DuLieuMau, string KeyCaiDat, string Email)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
@@ -101,9 +221,12 @@ namespace BanHang.Data
                 {
                     object ID = null;
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_ChiNhanh] ([MaChiNhanh],[TenChiNhanh], [DienThoai], [DiaChi], [NgayMo], [NgayCapNhat]) OUTPUT INSERTED.ID  VALUES (@MaChiNhanh,@TenChiNhanh, @DienThoai, @DiaChi, @NgayMo, getdate())";
+                    string cmdText = "INSERT INTO [CF_ChiNhanh] ([MaChiNhanh],[TenChiNhanh], [DienThoai], [DiaChi], [NgayMo], [NgayCapNhat],[DuLieuMau],[KeyCaiDat],[Email]) OUTPUT INSERTED.ID  VALUES (@MaChiNhanh,@TenChiNhanh, @DienThoai, @DiaChi, @NgayMo, getdate(),@DuLieuMau,@KeyCaiDat,@Email)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
+                        myCommand.Parameters.AddWithValue("@Email", Email);
+                        myCommand.Parameters.AddWithValue("@KeyCaiDat", KeyCaiDat);
+                        myCommand.Parameters.AddWithValue("@DuLieuMau", DuLieuMau);
                         myCommand.Parameters.AddWithValue("@MaChiNhanh", MaChiNhanh);
                         myCommand.Parameters.AddWithValue("@TenChiNhanh", TenChiNhanh);
                         myCommand.Parameters.AddWithValue("@DienThoai", DienThoai);
@@ -111,6 +234,7 @@ namespace BanHang.Data
                         myCommand.Parameters.AddWithValue("@NgayMo", NgayMo);
                         ID = myCommand.ExecuteScalar();
                     }
+
                     myConnection.Close();
                     return ID;
                 }

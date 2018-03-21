@@ -145,7 +145,7 @@ namespace BanHang
         protected void gridHangHoa_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
         {
             data = new dtHangHoa();
-            string MaHangHoa = e.NewValues["MaHangHoa"].ToString();
+            string MaHangHoa = dtHangHoa.Dem_Max();
             string TenHangHoa = e.NewValues["TenHangHoa"].ToString();
             string GiaBan = e.NewValues["GiaBan"].ToString();
             string IDDonViTinh = e.NewValues["IDDonViTinh"].ToString();
@@ -161,7 +161,7 @@ namespace BanHang
                 foreach (DataRow dr in dbt.Rows)
                 {
                     string IDBangGia = dr["ID"].ToString();
-                    bg.ThemIDHangHoaVaoChiTietGia(ID.ToString(), IDBangGia, GiaBan);
+                    bg.ThemIDHangHoaVaoChiTietGia(ID.ToString(), IDBangGia, GiaBan, IDChiNhanh);
                 }
             }
             e.Cancel = true;
