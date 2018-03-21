@@ -184,14 +184,17 @@ namespace QLCafe
                 switch (TrangThai)
                 {
                     case 0:
-                        layout.Controls.Add(btn);
+                        btn.ForeColor = Color.Black;
+                        btn.StyleController = null;
+                        btn.LookAndFeel.UseDefaultLookAndFeel = false;
                         btn.ToolTip = "Bàn trống";
-                        btn.AllowFocus = false;
-                        btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-                        btn.Appearance.BackColor = Color.Transparent;
                         btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
                         btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        btn.Appearance.BackColor = Color.Transparent;
                         btn.Image = System.Drawing.Image.FromFile("cafe2.png");
+                        layout.Controls.Add(btn);
+
                         break;
                     case 1:
                         btn.ForeColor = Color.OrangeRed;
