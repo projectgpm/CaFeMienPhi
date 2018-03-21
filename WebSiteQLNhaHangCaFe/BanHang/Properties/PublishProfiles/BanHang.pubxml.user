@@ -131,7 +131,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2018 13:36:43</publishTime>
     </File>
     <File Include="bin/BanHang.dll">
-      <publishTime>03/21/2018 14:41:06</publishTime>
+      <publishTime>03/21/2018 15:04:06</publishTime>
     </File>
     <File Include="bin/BanHang.dll.r16">
       <publishTime>02/21/2018 13:36:43</publishTime>
@@ -680,7 +680,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2017 09:58:52</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/21/2018 14:41:07</publishTime>
+      <publishTime>03/21/2018 15:04:07</publishTime>
     </File>
   </ItemGroup>
 </Project>
