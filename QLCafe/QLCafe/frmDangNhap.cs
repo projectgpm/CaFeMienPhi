@@ -111,7 +111,7 @@ namespace QLCafe
                 }
                 else
                 {
-                    linkCauHinh.Visible = true;
+                   // linkCauHinh.Visible = true;
                     if (MessageBox.Show("Phần mềm chưa được kích hoạt bản quyền.", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.OK)
                     {
                         frmKichHoat fr = new frmKichHoat();
@@ -144,24 +144,24 @@ namespace QLCafe
         private void frmDangNhap_Load(object sender, EventArgs e)
         {
             txtTenDangNhap.Select();
-            linkThongTin.Visible = false;
-            btnDangNhap.Enabled = false;
-             bool KT = BUS_TestKetNoiServer.DanhSachKetNoi();
-             if (KT == true)
-             {
-                 if (DAO_Setting.getKeyCode() != -1)
-                 {
-                     btnDangNhap.Enabled = true;
-                     linkThongTin.Visible = true;
-                     linkCauHinh.Visible = false;
-                 }
-                 else
-                 {
-                     btnDangNhap.Enabled = false;
-                     linkThongTin.Visible = false;
-                     linkCauHinh.Visible = true;
-                 }
-             }
+            //linkThongTin.Visible = false;
+            //btnDangNhap.Enabled = false;
+            // bool KT = BUS_TestKetNoiServer.DanhSachKetNoi();
+            // if (KT == true)
+            // {
+            //     if (DAO_Setting.getKeyCode() != -1)
+            //     {
+            //         btnDangNhap.Enabled = true;
+            //         linkThongTin.Visible = true;
+            //         linkCauHinh.Visible = false;
+            //     }
+            //     else
+            //     {
+            //         btnDangNhap.Enabled = false;
+            //         linkThongTin.Visible = false;
+            //         linkCauHinh.Visible = true;
+            //     }
+            // }
         }
 
         private void ckeHienMatKhau_CheckedChanged(object sender, EventArgs e)
@@ -209,25 +209,25 @@ namespace QLCafe
 
         private void label1_Click(object sender, EventArgs e)
         {
-            txtTenDangNhap.Select();
-            linkThongTin.Visible = false;
-            btnDangNhap.Enabled = false;
-            bool KT = BUS_TestKetNoiServer.DanhSachKetNoi();
-            if (KT == true)
-            {
-                if (DAO_Setting.getKeyCode() != -1)
-                {
-                    btnDangNhap.Enabled = true;
-                    linkThongTin.Visible = true;
-                    linkCauHinh.Visible = false;
-                }
-                else
-                {
-                    btnDangNhap.Enabled = false;
-                    linkThongTin.Visible = false;
-                    linkCauHinh.Visible = true;
-                }
-            }
+            //txtTenDangNhap.Select();
+            //linkThongTin.Visible = false;
+            //btnDangNhap.Enabled = false;
+            //bool KT = BUS_TestKetNoiServer.DanhSachKetNoi();
+            //if (KT == true)
+            //{
+            //    if (DAO_Setting.getKeyCode() != -1)
+            //    {
+            //        btnDangNhap.Enabled = true;
+            //        linkThongTin.Visible = true;
+            //        linkCauHinh.Visible = false;
+            //    }
+            //    else
+            //    {
+            //        btnDangNhap.Enabled = false;
+            //        linkThongTin.Visible = false;
+            //        linkCauHinh.Visible = true;
+            //    }
+            //}
         }
 
         private void labelCauHinhMayChu_Click(object sender, EventArgs e)

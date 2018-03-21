@@ -16,7 +16,7 @@ namespace QLCafe.DAO
         {
             try
             {
-                string sTryVan = string.Format(@"SELECT * FROM [CF_NguoiDung] WHERE [TenDangNhap] = N'{0}' AND [DAXOA] = 0 AND [MatKhau] =N'{1}' AND IDNhomNguoiDung = 2 ", TenDangNhap, MatKhau);
+                string sTryVan = string.Format(@"SELECT * FROM [CF_NguoiDung] WHERE [TenDangNhap] = N'{0}' AND [DAXOA] = 0 AND [MatKhau] =N'{1}' ", TenDangNhap, MatKhau);
                 DataTable data = new DataTable();
                 data = DataProvider.TruyVanLayDuLieu(sTryVan);
                 if (data.Rows.Count != 0)

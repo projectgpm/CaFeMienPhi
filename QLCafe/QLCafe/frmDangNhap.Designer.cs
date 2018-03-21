@@ -39,14 +39,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.linkCauHinh = new System.Windows.Forms.LinkLabel();
             this.linkLienHe = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.btnDangNhap = new DevExpress.XtraEditors.SimpleButton();
             this.btnThoat = new DevExpress.XtraEditors.SimpleButton();
             this.linkThongTin = new System.Windows.Forms.LinkLabel();
-            this.labelCauHinhMayChu = new DevExpress.XtraEditors.LabelControl();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ckeHienMatKhau.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenDangNhap.Properties)).BeginInit();
@@ -152,18 +150,6 @@
             this.label1.Text = "HỆ THỐNG QUẢN LÝ BÁN HÀNG";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // linkCauHinh
-            // 
-            this.linkCauHinh.AutoSize = true;
-            this.linkCauHinh.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkCauHinh.Location = new System.Drawing.Point(12, 181);
-            this.linkCauHinh.Name = "linkCauHinh";
-            this.linkCauHinh.Size = new System.Drawing.Size(174, 18);
-            this.linkCauHinh.TabIndex = 2;
-            this.linkCauHinh.TabStop = true;
-            this.linkCauHinh.Text = "Cấu hình kết nối máy chủ";
-            this.linkCauHinh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCauHinh_LinkClicked);
-            // 
             // linkLienHe
             // 
             this.linkLienHe.AutoSize = true;
@@ -227,27 +213,16 @@
             this.linkThongTin.Text = "Cấu hình thông tin";
             this.linkThongTin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkThongTin_LinkClicked);
             // 
-            // labelCauHinhMayChu
-            // 
-            this.labelCauHinhMayChu.Location = new System.Drawing.Point(2, 243);
-            this.labelCauHinhMayChu.Name = "labelCauHinhMayChu";
-            this.labelCauHinhMayChu.Size = new System.Drawing.Size(12, 13);
-            this.labelCauHinhMayChu.TabIndex = 7;
-            this.labelCauHinhMayChu.Text = "...";
-            this.labelCauHinhMayChu.Click += new System.EventHandler(this.labelCauHinhMayChu_Click);
-            // 
             // frmDangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 255);
-            this.Controls.Add(this.labelCauHinhMayChu);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.linkLienHe);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.linkThongTin);
-            this.Controls.Add(this.linkCauHinh);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
@@ -277,7 +252,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel linkDoiMatKhau;
-        private System.Windows.Forms.LinkLabel linkCauHinh;
         private System.Windows.Forms.LinkLabel linkLienHe;
         private System.Windows.Forms.Label label5;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
@@ -287,7 +261,6 @@
         private DevExpress.XtraEditors.TextEdit txtTenDangNhap;
         private DevExpress.XtraEditors.CheckEdit ckeHienMatKhau;
         private System.Windows.Forms.LinkLabel linkThongTin;
-        private DevExpress.XtraEditors.LabelControl labelCauHinhMayChu;
 
 
     }

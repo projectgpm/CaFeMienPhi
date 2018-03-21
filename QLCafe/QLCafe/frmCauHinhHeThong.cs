@@ -40,12 +40,12 @@ namespace QLCafe
             {
 
                 DTO_WriteDataConnect write = new DTO_WriteDataConnect(txtDataSource.Text, txtDatabase.Text, txtUserName.Text, txtPassword.Text);
-                if (BUS_WriteDataConnect.Write(write) == true)
-                {
-                    MessageBox.Show("Lưu lại cấu hình server thành công? Vui lòng kiểm tra kết nối.", "Thông báo");
-                    //this.Close();
-                }
-                else MessageBox.Show("Lỗi cập nhật địa chỉ server", "Thông báo");
+                //if (BUS_WriteDataConnect.Write(write) == true)
+                //{
+                //    MessageBox.Show("Lưu lại cấu hình server thành công? Vui lòng kiểm tra kết nối.", "Thông báo");
+                //    //this.Close();
+                //}
+               // else MessageBox.Show("Lỗi cập nhật địa chỉ server", "Thông báo");
             }
             else
             {

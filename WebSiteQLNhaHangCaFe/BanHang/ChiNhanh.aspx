@@ -101,13 +101,11 @@
                     </ValidationSettings>
                 </PropertiesTextEdit>
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataDateColumn Caption="Ngày Cập Nhật" FieldName="NgayCapNhat" VisibleIndex="9">
-                <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy">
-                </PropertiesDateEdit>
-            </dx:GridViewDataDateColumn>
             <dx:GridViewDataCheckColumn Caption="Dữ Liệu Mẫu" FieldName="DuLieuMau" VisibleIndex="5">
             </dx:GridViewDataCheckColumn>
             <dx:GridViewDataTextColumn Caption="E-Mail" FieldName="Email" VisibleIndex="2">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn Caption="Key Kích Hoạt" FieldName="KeyCaiDat" VisibleIndex="9">
             </dx:GridViewDataTextColumn>
         </Columns>
         <Styles>

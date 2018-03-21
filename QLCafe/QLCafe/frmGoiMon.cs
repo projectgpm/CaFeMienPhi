@@ -84,7 +84,9 @@ namespace QLCafe
                         btn.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
                         btn.Text = dr["TenHangHoa"].ToString();
                         btn.Click += btn_Click;
+                        btn.KeyDown += btn_KeyDown;
                         btn.Tag = dr["ID"].ToString();
+                        btn.Appearance.Font = new Font("Tahoma", 11);
                         btn.ForeColor = Color.Black;
                         btn.StyleController = null;
                         btn.LookAndFeel.UseDefaultLookAndFeel = false;

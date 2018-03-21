@@ -186,6 +186,12 @@ namespace QLCafe
                     case 0:
                         layout.Controls.Add(btn);
                         btn.ToolTip = "Bàn trống";
+                        btn.AllowFocus = false;
+                        btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        btn.Appearance.BackColor = Color.Transparent;
+                        btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+                        btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        btn.Image = System.Drawing.Image.FromFile("cafe2.png");
                         break;
                     case 1:
                         btn.ForeColor = Color.OrangeRed;
@@ -194,8 +200,11 @@ namespace QLCafe
                         List<DTO_DatBan> thongtinnguoidat = DAO_DatBan.Instance.LoadTableList(item.Id);
                         foreach (DTO_DatBan dr1 in thongtinnguoidat)
                         {
-                            btn.ToolTip = dr1.TenKhachHang + Environment.NewLine + dr1.DienThoai + Environment.NewLine + dr1.GioDat;
+                            btn.ToolTip = "Họ tên: " + dr1.TenKhachHang + Environment.NewLine + "ĐT: " + dr1.DienThoai + Environment.NewLine + "Giờ đặt: " + dr1.GioDat;
                         }
+                        btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+                        btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        btn.Appearance.BackColor = Color.Transparent;
                         btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
                         btn.Image = System.Drawing.Image.FromFile("cafe4.png");
                         layout.Controls.Add(btn);
@@ -205,7 +214,10 @@ namespace QLCafe
                         btn.StyleController = null;
                         btn.LookAndFeel.UseDefaultLookAndFeel = false;
                         btn.ToolTip = "Bàn có người";
+                        btn.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
                         btn.ImageToTextAlignment = ImageAlignToText.TopCenter;
+                        btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+                        btn.Appearance.BackColor = Color.Transparent;
                         btn.Image = System.Drawing.Image.FromFile("cafe3.png");
                         layout.Controls.Add(btn);
                         break;

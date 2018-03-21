@@ -47,8 +47,6 @@
                 </dx:GridViewColumnLayoutItem>
                 <dx:GridViewColumnLayoutItem ColumnName="Tên Đăng Nhập">
                 </dx:GridViewColumnLayoutItem>
-                <dx:GridViewColumnLayoutItem ColumnName="Mật khẩu" Name="MatKhau">
-                </dx:GridViewColumnLayoutItem>
                 <dx:EditModeCommandLayoutItem HorizontalAlign="Right">
                 </dx:EditModeCommandLayoutItem>
             </Items>
@@ -79,13 +77,6 @@
                     </ValidationSettings>
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
-            <dx:GridViewDataTextColumn Caption="Mật khẩu" FieldName="MatKhau" Visible="False" VisibleIndex="7">
-                <PropertiesTextEdit>
-                    <ValidationSettings SetFocusOnError="True">
-                        <RequiredField IsRequired="True" />
-                    </ValidationSettings>
-                </PropertiesTextEdit>
-            </dx:GridViewDataTextColumn>
             <dx:GridViewDataDateColumn Caption="Ngày cập nhật" FieldName="NgayCapNhat" VisibleIndex="6">
                 <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy">
                 </PropertiesDateEdit>
@@ -121,7 +112,7 @@
             </TitlePanel>
         </Styles>
     </dx:ASPxGridView>
-     <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản dùng thử chỉ cho phép tạo 1 tài khoản quản lý, 1 tài khoản thu ngân ." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
+     <dx:ASPxLabel ID="ASPxLabel1" runat="server"  Text="(*) Ghi chú: phiên bản miễn phí chỉ cho phép tạo 1 tài khoản quản lý, 1 tài khoản thu ngân ." Font-Italic="True" Font-Bold="True" ForeColor="#FF3300"></dx:ASPxLabel>
     <asp:SqlDataSource ID="SqlChiNhanh" runat="server" ConnectionString="<%$ ConnectionStrings:BanHangConnectionString %>" SelectCommand="SELECT [ID], [TenChiNhanh] FROM [CF_ChiNhanh] WHERE ([DaXoa] = @DaXoa)">
         <SelectParameters>
             <asp:Parameter DefaultValue="0" Name="DaXoa" Type="Int32" />

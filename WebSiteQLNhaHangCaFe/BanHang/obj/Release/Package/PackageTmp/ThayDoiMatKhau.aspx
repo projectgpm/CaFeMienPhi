@@ -18,7 +18,7 @@
         
           <div class="group">
             <input type="password" name ="txtMatKhau" id="txtMatKhauCu" runat="server"><span class="highlight"></span><span class="bar"></span>
-            <label>Nhập Mật Khẩu Củ</label>
+            <label>Nhập Mật Khẩu Cũ</label>
           </div>
         <div class="group">
             <input type="password" name ="txtMatKhau" id="txtMatKhauMoi1" runat="server"><span class="highlight"></span><span class="bar"></span>
