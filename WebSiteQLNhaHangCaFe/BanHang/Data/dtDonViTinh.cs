@@ -68,7 +68,39 @@ namespace BanHang.Data
             }
         }
 
-
+        public static string LayIDDVT_Moi(string IDDVTCu, string IDChiNhanhMoi)
+        {
+            using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
+            {
+                string ID = "1";
+                con.Open();
+                string cmdText = "SELECT * FROM [CF_DonViTinh] WHERE [ID] = N'" + IDDVTCu + "'";
+                using (SqlCommand command = new SqlCommand(cmdText, con))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    DataTable tb = new DataTable();
+                    tb.Load(reader);
+                    if (tb.Rows.Count > 0)
+                    {
+                        DataRow dr = tb.Rows[0];
+                        cmdText = "SELECT * FROM [CF_DonViTinh] WHERE [TenDonViTinh] = N'" + dr["TenDonViTinh"] + "' AND IDChiNhanh ='" + IDChiNhanhMoi + "'";
+                        using (SqlCommand command1 = new SqlCommand(cmdText, con))
+                        using (SqlDataReader reader1 = command1.ExecuteReader())
+                        {
+                            DataTable tb1 = new DataTable();
+                            tb1.Load(reader1);
+                            if (tb.Rows.Count > 0)
+                            {
+                                DataRow dr1 = tb1.Rows[0];
+                                ID = dr1["ID"].ToString();
+                            }
+                        }
+                        return ID;
+                    }
+                    else return ID;
+                }
+            }
+        }
         public void ThemDonViTinh(string TenDonViTinh, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))

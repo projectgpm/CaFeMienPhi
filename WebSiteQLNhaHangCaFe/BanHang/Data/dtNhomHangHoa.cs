@@ -74,23 +74,25 @@ namespace BanHang.Data
                 }
             }
         }
-        public void Them(string MaNhom, string TenNhom, string GhiChu, string IDChiNhanh)
+        public object Them(string MaNhom, string TenNhom, string GhiChu, string IDChiNhanh)
         {
             using (SqlConnection myConnection = new SqlConnection(StaticContext.ConnectionString))
             {
                 try
                 {
+                    object ID = null;
                     myConnection.Open();
-                    string cmdText = "INSERT INTO [CF_NhomHangHoa] ([MaNhom],[TenNhom],[GhiChu],[NgayCapNhat],[IDChiNhanh]) VALUES (@MaNhom,@TenNhom,@GhiChu,getdate(),@IDChiNhanh)";
+                    string cmdText = "INSERT INTO [CF_NhomHangHoa] ([MaNhom],[TenNhom],[GhiChu],[NgayCapNhat],[IDChiNhanh])  OUTPUT INSERTED.ID  VALUES (@MaNhom,@TenNhom,@GhiChu,getdate(),@IDChiNhanh)";
                     using (SqlCommand myCommand = new SqlCommand(cmdText, myConnection))
                     {
                         myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.Parameters.AddWithValue("@MaNhom", MaNhom);
                         myCommand.Parameters.AddWithValue("@TenNhom", TenNhom);
                         myCommand.Parameters.AddWithValue("@GhiChu", GhiChu);;
-                        myCommand.ExecuteNonQuery();
+                        ID = myCommand.ExecuteScalar();
                     }
                     myConnection.Close();
+                    return ID;
                 }
                 catch
                 {

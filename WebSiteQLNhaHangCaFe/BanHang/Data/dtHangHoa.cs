@@ -290,6 +290,21 @@ namespace BanHang.Data
                 }
             }
         }
+        public DataTable DanhSachHangHoa_IDnhomHang(string IDNhomHang,string IDChiNhanh)
+        {
+            using (SqlConnection con = new SqlConnection(StaticContext.ConnectionString))
+            {
+                con.Open();
+                string cmdText = "SELECT [CF_HangHoa].* FROM [CF_HangHoa] WHERE CF_HangHoa.[DAXOA] = 0 AND [MaHangHoa] is not null AND [TenHangHoa] is not null AND [IDChiNhanh] = '" + IDChiNhanh + "' AND IDNhomHang ='" + IDNhomHang + "' ";
+                using (SqlCommand command = new SqlCommand(cmdText, con))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    DataTable tb = new DataTable();
+                    tb.Load(reader);
+                    return tb;
+                }
+            }
+        }
 
         public DataTable LayDanhSachHangHoa_MaHang(string MaHang)
         {

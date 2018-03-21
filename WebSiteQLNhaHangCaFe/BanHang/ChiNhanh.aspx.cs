@@ -87,7 +87,7 @@ namespace BanHang
                 else
                 {
                     dtNguoiDung.ThemNguoiDung(dtQuanTriNguoiDung.Dem_Max(), "Quản trị", DienThoai, 1, DienThoai, dtSetting.GetSHA1HashData(DienThoai), Email, ID.ToString());
-                    dtNguoiDung.ThemNguoiDung(dtQuanTriNguoiDung.Dem_Max(), "Thu ngân", "TN." + DienThoai, 2, DienThoai, dtSetting.GetSHA1HashData(DienThoai), Email, ID.ToString());
+                    dtNguoiDung.ThemNguoiDung(dtQuanTriNguoiDung.Dem_Max(), "Thu ngân", "BH." + DienThoai, 2, DienThoai, dtSetting.GetSHA1HashData(DienThoai), Email, ID.ToString());
                 }
 
 
@@ -106,25 +106,23 @@ namespace BanHang
                     //Thêm nhóm hàng
                     dtNhomHangHoa dtNhomHang = new dtNhomHangHoa();
                     DataTable tbNhomHang = dtNhomHang.DanhSach("1");
-                    foreach (DataRow dr in tbNhomHang.Rows)
+                    foreach (DataRow dr1 in tbNhomHang.Rows)
                     {
-                        dtNhomHang.Them(dtNhomHangHoa.Dem_Max(), dr["TenNhom"].ToString(), "", ID.ToString());
-                        string IDNhomHang = dr["ID"].ToString();
-                        // lấy h
-                    }
-
-                    //Thêm hàng hóa
-                    dtHangHoa dtHH = new dtHangHoa();
-                    DataTable tbHH = dtHH.LayDanhSachHangHoa("1");
-                    foreach (DataRow dr in tbHH.Rows)
-                    {
-                        object IDHH = dtHH.ThemHangHoa(dtHangHoa.Dem_Max(), dr["TenHangHoa"].ToString(), dr["GiaBan"].ToString(), dr["IDDonViTinh"].ToString(), dr["IDNhomHang"].ToString(), dr["GhiChu"].ToString(), ID.ToString());
-                        if (IDHH != null)
+                        object IDNhomHangMoi = dtNhomHang.Them(dtNhomHangHoa.Dem_Max(), dr1["TenNhom"].ToString(), "", ID.ToString());
+                        //Thêm hàng hóa
+                        dtHangHoa dtHH = new dtHangHoa();
+                        DataTable tbHH = dtHH.DanhSachHangHoa_IDnhomHang(dr1["ID"].ToString(), "1");
+                        foreach (DataRow dr in tbHH.Rows)
                         {
-                            //thêm vào bảng giá
-                            dtBangGia bg = new dtBangGia();
-                            bg.ThemIDHangHoaVaoChiTietGia(IDHH.ToString(), IDBangGia, dr["GiaBan"].ToString(), ID.ToString());
+                            string IDDVTCU = dr["IDDonViTinh"].ToString();
                             
+                            object IDHH = dtHH.ThemHangHoa(dtHangHoa.Dem_Max(), dr["TenHangHoa"].ToString(), dr["GiaBan"].ToString(), dtDonViTinh.LayIDDVT_Moi(IDDVTCU,ID.ToString()), IDNhomHangMoi.ToString(), dr["GhiChu"].ToString(), ID.ToString());
+                            if (IDHH != null)
+                            {
+                                //thêm vào bảng giá
+                                dtBangGia bg = new dtBangGia();
+                                bg.ThemIDHangHoaVaoChiTietGia(IDHH.ToString(), IDBangGia, dr["GiaBan"].ToString(), ID.ToString());
+                            }
                         }
                     }
 

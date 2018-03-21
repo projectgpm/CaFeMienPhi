@@ -206,6 +206,12 @@ namespace BanHang.Data
                         myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
                         myCommand.ExecuteNonQuery();
                     }
+                    strSQL = "DELETE [CF_KeyKichHoat] WHERE IDChiNhanh = @IDChiNhanh";
+                    using (SqlCommand myCommand = new SqlCommand(strSQL, myConnection))
+                    {
+                        myCommand.Parameters.AddWithValue("@IDChiNhanh", IDChiNhanh);
+                        myCommand.ExecuteNonQuery();
+                    }
                 }
                 catch (Exception e)
                 {
