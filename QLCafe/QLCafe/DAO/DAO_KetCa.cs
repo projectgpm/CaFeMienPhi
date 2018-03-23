@@ -117,9 +117,9 @@ namespace QLCafe.DAO
             string sTruyVan = string.Format(@" UPDATE [CF_HoaDon] SET [TrangThaiKetCa] = 1 WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0", IDNhanVien);
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
-        public static string GioVaoCa(int IDNhanVien,DateTime NgayHomNay)
+        public static string GioVaoCa(int IDNhanVien)
         {
-            string sTruyVan = string.Format(@"SELECT GioRa FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0 AND FORMAT(GioVao,'yyyy-MM-dd') = '{1}' ORDER BY GioRa ASC", IDNhanVien, NgayHomNay.ToString("yyyy-MM-dd"));
+            string sTruyVan = string.Format(@"SELECT GioRa FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0 ORDER BY ID ASC", IDNhanVien);
             DataTable data = new DataTable();
             data = DataProvider.TruyVanLayDuLieu(sTruyVan);
             if (data.Rows.Count > 0)
@@ -130,22 +130,22 @@ namespace QLCafe.DAO
             else
                 return DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
         }
-        public static string GioRaCa(int IDNhanVien, DateTime NgayHomNay)
+        //public static string GioRaCa(int IDNhanVien)
+        //{
+        //    string sTruyVan = string.Format(@"SELECT GioRa FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0 AND FORMAT(GioVao,'yyyy-MM-dd') = '{1}' ORDER BY GioRa DESC", IDNhanVien, NgayHomNay.ToString("yyyy-MM-dd"));
+        //    DataTable data = new DataTable();
+        //    data = DataProvider.TruyVanLayDuLieu(sTruyVan);
+        //    if (data.Rows.Count > 0)
+        //    {
+        //        DataRow dr = data.Rows[0];
+        //        return dr["GioRa"].ToString();
+        //    }
+        //    else
+        //        return DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
+        //}
+        public static bool ThemKetCa(int IDNhanVien, string GioVao, double TongTienSauCa, string IDChiNhanh, double TongTien, double GiamGia)
         {
-            string sTruyVan = string.Format(@"SELECT GioRa FROM [CF_HoaDon] WHERE IDNhanVien = {0} AND TrangThai = 1 AND TrangThaiKetCa = 0 AND FORMAT(GioVao,'yyyy-MM-dd') = '{1}' ORDER BY GioRa DESC", IDNhanVien, NgayHomNay.ToString("yyyy-MM-dd"));
-            DataTable data = new DataTable();
-            data = DataProvider.TruyVanLayDuLieu(sTruyVan);
-            if (data.Rows.Count > 0)
-            {
-                DataRow dr = data.Rows[0];
-                return dr["GioRa"].ToString();
-            }
-            else
-                return DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
-        }
-        public static bool ThemKetCa(int IDNhanVien, string GioVao, string GioRa, double TongTienSauCa, string IDChiNhanh, double TongTien, double GiamGia)
-        {
-            string sTruyVan = string.Format(@"INSERT INTO CF_KetCa(ThoiGianBatDau,ThoiGianKetThuc,TongTienSauCa,IDNhanVien,IDChiNhanh,TongTien,GiamGia) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", DateTime.Parse(GioVao).ToString("yyyy-MM-dd hh:mm:ss tt"), DateTime.Parse(GioRa).ToString("yyyy-MM-dd hh:mm:ss tt"), TongTienSauCa, IDNhanVien, IDChiNhanh, TongTien, GiamGia);
+            string sTruyVan = string.Format(@"INSERT INTO CF_KetCa(ThoiGianBatDau,ThoiGianKetThuc,TongTienSauCa,IDNhanVien,IDChiNhanh,TongTien,GiamGia) VALUES ('{0}',getdate(),'{1}','{2}','{3}','{4}','{5}')", DateTime.Parse(GioVao).ToString("yyyy-MM-dd hh:mm:ss tt"), TongTienSauCa.ToString(), IDNhanVien, IDChiNhanh, TongTien.ToString(), GiamGia.ToString());
             return DataProvider.TruyVanKhongLayDuLieu(sTruyVan);
         }
     }

@@ -31,8 +31,8 @@ namespace QLCafe
             List<DTO_KetCa> listKetCa = DAO_KetCa.Instance.DanhSachCaBan(DateTime.Now,frmDangNhap.NguoiDung.Idchinhanh);
             gridKetCa.DataSource = listKetCa;
             int IDNhanVien = frmDangNhap.NguoiDung.Id;
-            txtTongTienHienTai.Text = DAO_KetCa.TongTienHienTai(IDNhanVien, frmDangNhap.NguoiDung.Idchinhanh) + "";
-            txtTienKhuyenMai.Text = DAO_KetCa.TongTienGiamGiaHienTai(IDNhanVien, frmDangNhap.NguoiDung.Idchinhanh) + "";
+            txtTongTienHienTai.Text = DAO_KetCa.TongTienHienTai(IDNhanVien, frmDangNhap.NguoiDung.Idchinhanh).ToString();
+            txtTienKhuyenMai.Text = DAO_KetCa.TongTienGiamGiaHienTai(IDNhanVien, frmDangNhap.NguoiDung.Idchinhanh).ToString();
         }
         private void btnThoat_Click(object sender, EventArgs e)
         {
@@ -47,9 +47,8 @@ namespace QLCafe
                 double TongTien = DAO_KetCa.TongTienHienTai(IDNhanVien,frmDangNhap.NguoiDung.Idchinhanh);
                 double GiamGia = DAO_KetCa.TongTienGiamGiaHienTai(IDNhanVien,frmDangNhap.NguoiDung.Idchinhanh);
                 double ThanhTien = TongTien - GiamGia; 
-                string GioVaoCa = DAO_KetCa.GioVaoCa(IDNhanVien, DateTime.Now);
-                string GioRaCa = DAO_KetCa.GioRaCa(IDNhanVien, DateTime.Now);
-                if (DAO_KetCa.ThemKetCa(IDNhanVien, GioVaoCa, GioRaCa, ThanhTien, frmDangNhap.NguoiDung.Idchinhanh, TongTien, GiamGia) == true)
+                string GioVaoCa = DAO_KetCa.GioVaoCa(IDNhanVien);
+                if (DAO_KetCa.ThemKetCa(IDNhanVien, GioVaoCa, ThanhTien, frmDangNhap.NguoiDung.Idchinhanh, TongTien, GiamGia) == true)
                 {
                     // đổi trạng thái hóa đơn kết ca  = 1
                     DAO_Setting.ThemLichSuTruyCap(frmDangNhap.NguoiDung.Id, frmDangNhap.NguoiDung.IDNhomNguoiDung, frmDangNhap.NguoiDung.Idchinhanh, "Kết Ca", "Nhân Viên Kết Ca Bán Hàng");
